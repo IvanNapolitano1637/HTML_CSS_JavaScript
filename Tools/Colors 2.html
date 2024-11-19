@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<HTML><!--Paloma-->
+	<HEAD>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<TITLE>Colors</TITLE>
+	</HEAD>
+	<BODY>
+		<DIV id="optionZone" style="background-color:#ffffff text-align:center">
+			Background page components color: <output id="valueHexCode"></output><br><br>
+			R:
+			<INPUT type="radio" id="R00" name="Red" value="00"/>00
+			<INPUT type="radio" id="R33" name="Red" value="33"/>33
+			<INPUT type="radio" id="R66" name="Red" value="66"/>66
+			<INPUT type="radio" id="R99" name="Red" value="99"/>99
+			<INPUT type="radio" id="RCC" name="Red" value="CC"/>CC
+			<INPUT type="radio" id="RFF" name="Red" value="FF" checked="yes"/>FF<BR>
+			G:
+			<INPUT type="radio" id="G00" name="Green" value="00"/>00
+			<INPUT type="radio" id="G33" name="Green" value="33"/>33
+			<INPUT type="radio" id="G66" name="Green" value="66"/>66
+			<INPUT type="radio" id="G99" name="Green" value="99"/>99
+			<INPUT type="radio" id="GCC" name="Green" value="CC"/>CC
+			<INPUT type="radio" id="GFF" name="Green" value="FF" checked="yes"/>FF<BR>
+			B:
+			<INPUT type="radio" id="B00" name="Blue" value="00"/>00
+			<INPUT type="radio" id="B33" name="Blue" value="33"/>33
+			<INPUT type="radio" id="B66" name="Blue" value="66"/>66
+			<INPUT type="radio" id="B99" name="Blue" value="99"/>99
+			<INPUT type="radio" id="BCC" name="Blue" value="CC"/>CC
+			<INPUT type="radio" id="BFF" name="Blue" value="FF" checked="yes"/>FF<BR>
+		</DIV>
+		<BR>
+		<BUTTON type="button" onclick="color(0,0,0)">Black</BUTTON>
+		<BUTTON type="button" onclick="color(5,5,5)">White</BUTTON>
+		<BR><BR>
+		<BUTTON type="button" onclick="color(5,0,0)">Red</BUTTON>
+		<BUTTON type="button" onclick="color(0,5,0)">Green</BUTTON>
+		<BUTTON type="button" onclick="color(0,0,5)">Blue</BUTTON>
+		<BR><BR>
+		<BUTTON type="button" onclick="color(0,5,5)">Cyan</BUTTON>
+		<BUTTON type="button" onclick="color(5,0,5)">Magenta</BUTTON>
+		<BUTTON type="button" onclick="color(5,5,0)">Yellow</BUTTON>
+		<BR><BR>
+		<BUTTON type="button" onclick="darker()">Darker</BUTTON>
+		<BUTTON type="button" onclick="lighter()">Lighter</BUTTON>
+	</BODY>
+	<SCRIPT>
+		const choice = !true;
+		const basicColors = ['Red', 'Green', 'Blue'];
+
+		function getColor(){
+			let backgroundColor = "#";
+			for(let i = 0; i < basicColors.length; i++){
+				let ele = document.getElementsByName(basicColors[i]);
+				for(let j = 0; j < ele.length; j++){
+					if(ele[j].checked){
+						backgroundColor += ele[j].value;
+					}
+				}
+			}
+			return backgroundColor;
+		}
+		function changeBackgroundColor(){
+			document.body.style.backgroundColor = getColor();
+		}
+		document.querySelectorAll('input[name=\'Red\']').forEach((radio) => {
+			radio.addEventListener('click', (event) => {
+				if (event.target.checked) {
+					changeBackgroundColor();
+				}
+			});
+		});
+		document.querySelectorAll('input[name=\'Green\']').forEach((radio) => {
+			radio.addEventListener('click', (event) => {
+				if (event.target.checked) {
+					changeBackgroundColor();
+				}
+			});
+		});
+		document.querySelectorAll('input[name=\'Blue\']').forEach((radio) => {
+			radio.addEventListener('click', (event) => {
+				if (event.target.checked) {
+					changeBackgroundColor();
+				}
+			});
+		});
+		function isWhite(){//NOT USED
+			if(document.getElementsByName('Red')[5].checked){
+				if(document.getElementsByName('Red')[5].checked){
+					if(document.getElementsByName('Red')[5].checked){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		function isBlack(){//NOT USED
+			if(document.getElementsByName('Red')[0].checked){
+				if(document.getElementsByName('Red')[0].checked){
+					if(document.getElementsByName('Red')[0].checked){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		function lighter(){
+			let flag = true;
+			for(let i = 0; i < basicColors.length; i++){
+				flag = flag && (document.getElementsByName(basicColors[i])[document.getElementsByName(basicColors[i]).length-1].checked == false);
+			}
+			if(choice){
+				flag = true;
+			}
+			if(flag){
+				for(let i = 0; i < basicColors.length; i++){
+					let ele = document.getElementsByName(basicColors[i]);
+					for(let j = ele.length - 2; j >= 0; j--){
+						if(ele[j].checked){
+							ele[j].checked = false;
+							ele[j+1].checked = true;
+						}
+					}
+				}
+				changeBackgroundColor();
+			}
+		}
+		function darker(){
+			let flag = true;
+			for(let i = 0; i < basicColors.length; i++){
+				flag = flag && (document.getElementsByName(basicColors[i])[0].checked == false);
+			}
+			if(choice){
+				flag = true;
+			}
+			if(flag){
+				for(let i = 0; i < basicColors.length; i++){
+					let ele = document.getElementsByName(basicColors[i]);
+					for(let j = 1; j < ele.length; j++){
+						if(ele[j].checked){
+							ele[j].checked = false;
+							ele[j-1].checked = true;
+						}
+					}
+				}
+				changeBackgroundColor();
+			}
+		}
+		function color(var1, var2, var3){
+			document.getElementsByName("Red")[var1].checked = true;
+			document.getElementsByName("Green")[var2].checked = true;
+			document.getElementsByName("Blue")[var3].checked = true;
+			changeBackgroundColor();
+		}
+	</SCRIPT>
+</HTML>

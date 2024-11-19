@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en"><!--Luca-->
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Tower of Hanoi</title>
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+
+		<canvas id="universe" onclick="select()">
+			Upgrade Browser
+		</canvas>
+		
+		<script>
+			//I'm not sure aboute step duration, "milliseconds" const value.
+			//I'd like to rotate the select option elements
+			window.onload = drawUniverse;
+			let version = 1, maximumNumberOfDisks, disksHeight, pink, gray, colors;
+			const desktop = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
+			const unit = desktop ? 9 : 5;
+			const hSpace = 8*unit;
+			const vSpace = hSpace;
+			const baseHeight = 2*unit;
+			const diskIncrease = 2*unit;
+			const diskBaseLength = 6*unit;
+			const lateralMargin = 2*unit;
+			const width = 32*unit;
+			const pegWidth = 4*unit;
+			const upperMargin = 4*unit;
+			const upperPegMargin = 2*unit;
+			const lowerMargin = 2*unit;
+			const pegLength = width - 2*lateralMargin;
+			const totalWidth = 2*(4*unit) + 2*hSpace + 3*width;
+			const brown = "#905000"
+			//const lightYellow = "#ffff88";
+			const orange = "#ffcc00";
+			const colors1 = ["#00ffff","#ff0000","#ff8000","#ffff00","#00ff00","#0000ff","#ff00ff"];
+			const colors2 = ["#ffffff","#00ffff","#ff0000","#ff8000","#ffff00","#00ff00","#0000ff","#ff00ff","#006400","#000000"];
+			const milliseconds = 250;
+			const defaultLevel = 4;
+			let numberOfDisks = defaultLevel;
+			let pegHeight, totalHeight, cursorX, cursorY, context, universe, activeTower, nIntervId, steps, step, wan, demo;
+			let selectedTower = [];
+			let towers = [];
+			let goOn = false;
+
+			function drawUniverse(){
+				maximumNumberOfDisks = (version == 1) ? 7 : 10;
+				disksHeight = (version == 1) ? 6*unit : 4*unit;
+				pink = (version == 1) ? "#ffcccc" : "#ff8888";
+				gray = (version == 1) ? "#444444" : "#888888";//"#cccccc"
+				colors = (version == 1) ? colors1 : colors2;
+				pegHeight = numberOfDisks*disksHeight + upperPegMargin
+				totalHeight = vSpace + upperMargin + pegHeight + baseHeight + lowerMargin;
+				document.body.style.background = pink;
+				document.onmousemove = function(e){
+					cursorX = desktop ? e.pageX : e.pageY;
+					cursorY = desktop ? e.pageY : e.pageX;
+				}
+				universe = document.getElementById("universe");
+				universe.width = getWidth();
+				universe.height = getHeight();
+				for(let i = 0; i < 3; i++){
+					selectedTower[i] = false;
+					towers[i] = [];
+				}
+				for(let i = 0; i < numberOfDisks; i++){
+					towers[desktop?0:2][i] = numberOfDisks - i - 1;
+					towers[1][i] = -1;
+					towers[desktop?2:0][i] = -1;
+				}
+				activeTower = -1;
+				if(universe && universe.getContext("2d")){
+					context = universe.getContext("2d");
+					colorAllTower();
+				}
+				if(!desktop){
+					document.getElementById("refresh").style.transform = "rotate(270deg)";
+					document.getElementById("disksNumber").style.transform = "rotate(270deg)";
+					document.getElementById("refreshWholePage").style.transform = "rotate(270deg)";
+					document.getElementById("demoSolution").style.transform = "rotate(270deg)";
+				}
+				document.getElementById("disksNumber").innerHTML = null;
+				for(let i = 0; i < maximumNumberOfDisks; i++){
+					if(desktop){
+						document.getElementById("disksNumber").innerHTML += ("<option id=\"d" + (i + 1) + "\" value=\"" + (i + 1) + "\" style=\"--rotation: 270deg;\" " + ((i + 1) == numberOfDisks ? "selected" : "") +"> Level " + (i + 1) + "</option>");
+					}else{
+						document.getElementById("disksNumber").innerHTML += ("<option id=\"d" + (i + 1) + "\" value=\"" + (i + 1) + "\" "+((i + 1) == numberOfDisks ? "selected" : "") + "> Level " + (i + 1) + "</option>");
+					}
+				}
+				steps = solution(numberOfDisks).replaceAll("(","").replaceAll(")","").replaceAll(",","");
+				steps = desktop ? steps : steps.replaceAll("1","A").replaceAll("3","1").replaceAll("A","3");
+				step = 0;
+				clearInterval(nIntervId);
+				goOn = false;
+				wan = false;
+				demo = false;
+			}
+			function selectTower(){
+				tower = -1;
+				if(cursorY >= vSpace && cursorY <= totalHeight){
+					if(cursorX >= hSpace && cursorX <= width + hSpace){
+						tower = 0;
+					}else if(cursorX >= width + 2*hSpace && cursorX <= 2*width + 2*hSpace){
+						tower = 1;
+					}else if(cursorX >= 2*width + 3*hSpace && cursorX <= 3*width + 3*hSpace){
+						tower = 2;
+					}
+				}
+				return tower;
+			}
+			function oldSelect(choice){
+				if(choice == null){
+					tower = selectTower();
+				}else{
+					tower = choice;
+				}
+				if(tower >= 0){
+					if(activeTower == -1){
+						activeTower = tower;
+						selectedTower[tower] = true;
+					}else if(activeTower == tower){
+						selectedTower[tower] = false;
+						activeTower = -1;
+					}else{
+						let t0 = getLast(activeTower);
+						if(t0 == -1){
+							selectedTower[activeTower] = false;
+							activeTower = -1;
+						}else{
+							let t1 = getLast(tower);
+							let v1 = towers[activeTower][t0];
+							if(t1 == -1 || towers[activeTower][t0] < towers[tower][t1]){
+								towers[activeTower][t0] = -1;
+								towers[tower][t1+1] = v1;
+								selectedTower[activeTower] = false;
+								activeTower = -1;
+							}else{
+								selectedTower[activeTower] = false;
+								activeTower = -1;
+							}
+						}
+					}
+					colorAllTower();
+				}
+				if(towers[1][numberOfDisks-1]!=-1 || towers[desktop?2:0][numberOfDisks-1]!=-1){
+					document.body.style.background = "#00FF00";
+					wan = true;
+					if(!demo){
+						setTimeout(function(){ alert("You win! :-D"); }, 100);
+					}
+				}
+			}
+			function select(choice){
+				if(!wan){
+					oldSelect(choice);
+				}
+			}
+			function colorTower(tower){
+				let x0, y0, w, h;
+
+				x0 = tower*width + (tower + 1)*hSpace;
+				y0 = vSpace;
+				w = width;
+				h = totalHeight;				
+				context.fillStyle = (selectedTower[tower] ? orange : gray);
+				context.fillRect(desktop ? x0 : y0, desktop ? y0 : x0, desktop ? w : h, desktop ? h : w);
+
+				context.fillStyle = brown;
+				x0 = tower*width + (tower + 1)*hSpace + ((width - pegWidth)/2);
+				y0 = vSpace + upperMargin;
+				context.fillRect(desktop ? x0 : y0, desktop ? y0 : x0, desktop ? pegWidth : pegHeight, desktop ? pegHeight : pegWidth);
+
+				//context.fillStyle = brown;//inherited
+				x0 = tower*width + (tower + 1)*hSpace + lateralMargin;
+				y0 = vSpace + upperMargin + pegHeight;
+				w = pegLength;
+				h = baseHeight;
+				context.fillRect(desktop ? x0 : y0, desktop ? y0 : x0, desktop ? w : h, desktop ? h : w);
+
+				for(let i = 0; i < numberOfDisks; i++){
+					if(towers[tower][i] >= 0){
+						drawDisk(tower,numberOfDisks - i - 1,towers[tower][i]);
+					}
+				}
+			}
+			function colorAllTower(){
+				for(let i = 0; i < 3; i++){
+					colorTower(i);
+				}
+			}
+			function drawDisk(tower, level, disk){
+				let x0, y0, w, h;
+				context.fillStyle = colors[disk];
+
+				x0 = lateralMargin + tower*width + (tower + 1)*hSpace + (pegLength - diskBaseLength - (disk*diskIncrease))/2 ;
+				y0 = vSpace + level*disksHeight + upperMargin + upperPegMargin;
+				w = diskBaseLength + disk*diskIncrease;
+				h = disksHeight;
+				context.fillRect(desktop ? x0 : y0, desktop ? y0 : x0, desktop ? w : h, desktop ? h : w);
+
+				context.beginPath();
+				//"x0" EREDITATO;
+				y0 = vSpace + (level + 1/2)*(disksHeight) + upperMargin + upperPegMargin;
+				context.ellipse(desktop ? x0 : y0, desktop ? y0 : x0, disksHeight/2, disksHeight/2, Math.PI*0, Math.PI*(desktop?1.5:0), Math.PI*(desktop?0.5:1), true);
+				context.fill();
+
+				context.beginPath();
+				x0 += diskBaseLength + disk*diskIncrease;
+				//"y0" EREDITATO;
+				context.ellipse(desktop ? x0 : y0, desktop ? y0 : x0, disksHeight/2, disksHeight/2, Math.PI*0, Math.PI*(desktop?1.5:2), Math.PI*(desktop?0.5:1), false);
+				context.fill();
+			}
+			function getLast(tower){
+				let index = numberOfDisks - 1;
+				while(index > -1 && towers[tower][index] == -1){
+					index--;
+				}
+				return index;
+			}
+			function getCurrency(){
+				selectElement = document.querySelector('#disksNumber');
+				numberOfDisks = selectElement.value;
+				goOn = false;
+				drawUniverse();
+			}
+			function refreshPage(versionToSet){
+				version = versionToSet;
+				numberOfDisks = defaultLevel;
+				let element = document.getElementById("disksNumber");
+				element.value = defaultLevel;
+				goOn = false;
+				drawUniverse();
+			}
+			function getWidth(){
+				return desktop?totalWidth:totalHeight;
+			}
+			function getHeight(){
+				return desktop?totalHeight:totalWidth;
+			}
+			function solutionHanoi(s, level){
+				let stringBefore;
+				let stringAfter;
+				if(level < 1){
+					return "#";
+				}else if(level == 1 && s.length == 0){
+					return "(1,2)";
+				}else{
+					stringBefore = s.replaceAll("2", "A").replaceAll("3", "2").replaceAll("A", "3");
+					stringAfter = s.replaceAll("1", "A").replaceAll("3", "1").replaceAll("A", "3");
+					if(stringBefore.length > 0 && stringAfter.length > 0) {
+						s = stringBefore + ",(1,2)," + stringAfter;
+					}else{
+						s = "(1,2)";
+					}
+					if(level > 1) {
+						return solutionHanoi(s, level - 1);
+					}else{
+						return s;
+					}
+				}
+			}
+			function solution(level){
+				return solutionHanoi("", level);
+			}
+			function nextStep(){
+				if(goOn){
+					select(steps[step]-1);
+					step += 1;
+					if(step == steps.length){
+						clearInterval(nIntervId);
+						nIntervId = null;
+					}
+				}
+			}
+			function animatedSolving(){
+				drawUniverse();
+				goOn = true;
+				demo = true;
+				nIntervId = setInterval(nextStep, milliseconds);
+			}
+		</script>
+
+		<br><br><br><br><select name = "howManyDisks" id = "disksNumber" onchange = "getCurrency()"></select>
+		<button type = "button" id = "refresh" onclick = "drawUniverse()">Restart</button>
+		<button type = "button" id = "refreshWholePage" onclick = "refreshPage()">Refresh Page</button>
+		<button type = "button" id = "demoSolution" onclick = "animatedSolving()">How To</button><br><br>
+		<input type = "radio" id = "Version1" name = "VersionOfPage" value = "1" onclick = "refreshPage(1)" checked = "yes"/>Version 1<br>
+		<input type = "radio" id = "Version2" name = "VersionOfPage" value = "2" onclick = "refreshPage(2)"/>Version 2
+	</body>	
+</html>

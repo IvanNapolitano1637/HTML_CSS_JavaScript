@@ -1,0 +1,242 @@
+<HTML><!--Serena-->
+	<HEAD>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	</HEAD>
+	<BODY id="body" onclick="select()">
+		<DIV id = "Fifteen">
+			<canvas id="board">
+				Upgrade Browser
+			</canvas>
+		</DIV>
+		<SCRIPT>
+			const color1 = "#a7ffa7";
+			const color2 = "#efefef";
+			const backgroundColor = "#af67df";
+			const frameColor = "#000000";
+			const borderColor = "#ff9f00";
+			const winningColor = "#00ff00"
+			const desktop = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
+			const unit = desktop ? 5 : 3;
+			const divisionWidth = unit;
+			const borderWidth = 4*unit;
+			const marginDim = 2*unit;
+			const side = 20*unit;
+			const ids = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "0"];
+			const orizontalPatch = desktop ? 95*unit : 0;
+			const orizontalConst = orizontalPatch + divisionWidth + borderWidth + marginDim;
+			const orizontalDeltas = [0, 0, 0, 0, 0, 0, 0, 0, 0, -5*unit, -4*unit, -5*unit, -5*unit, -5*unit, -5*unit, -5*unit];
+			const width = (orizontalConst + marginDim + (4*side) + (5*divisionWidth) + (2*borderWidth));
+			const height = (2*marginDim + (4*side) + (5*divisionWidth) + (2*borderWidth));
+			const buttonHeight = (10*unit) + "px";
+			//const btnColor = "ffff3f";
+			const btnColor = "ffffff";
+			//const btnTextColor = "#0000ff";
+			const btnTextColor = "#000000";
+			let cursorX;
+			let cursorY;
+			let shuffledIds = [];
+			let shuffledString = "123456789abcdef0";
+			let r1 = 3;
+			let c1 = 3;
+			let counterMoves;
+			let gameFinished;
+			let begun = false;
+			let button;
+
+			function drawBoard(){
+				document.body.style.background = backgroundColor;
+				shuffleArray();
+				for(let i = 0; i < 16; i++){
+					document.getElementById("body").innerHTML += ("<DIV id=\"" + (ids[i]) + "\" style=\"position: absolute; width: 10%; height: 10%; font-size: " + unit + "rem; left:" + (orizontalConst + orizontalDeltas[i] + side/2 + borderWidth + divisionWidth + ((side + divisionWidth)*(i%4))) + "px; top:" + ((divisionWidth + borderWidth + marginDim + 10) + ((side + divisionWidth)*(parseInt(i/4)))) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;\">" + ((ids[i] == "0") ? "" : parseInt("0x" + ids[i])) + "</DIV>");
+				}
+				let board = document.getElementById("board");
+				board.width = width;
+				board.height = height;
+				if(board && board.getContext("2d")){
+					let context = board.getContext("2d");
+					context.fillStyle = borderColor;
+					context.fillRect(orizontalConst + marginDim, marginDim, (side*4) + (divisionWidth*5) + (borderWidth*2), (side*4) + (divisionWidth*5) + (borderWidth*2));
+					context.fillStyle = frameColor;
+					context.fillRect(orizontalConst + marginDim + borderWidth, marginDim + borderWidth, (side*4) + (divisionWidth*5) + (borderWidth*0), (side*4) + (divisionWidth*5) + (borderWidth*0));
+				}
+				document.onmousemove = function(e){cursorX = e.pageX;cursorY = e.pageY;}
+				counterMoves = 0;
+				gameFinished = false;
+				setTimeout(function(){shuffleTiles();}, 500);
+
+				button = document.createElement("button");
+				button.setAttribute("id", "shuffleBtn");
+				button.setAttribute("style", "position: absolute; top: " + (desktop ? 98 : 100)*unit + "px; left:" + (desktop ? 106 : 12)*unit + "px; width:" + 45*unit + "px; height: " + 10*unit + "px;" + "font-size: " + 5*unit + "px;" + "background-color: " + btnColor + ";" + "color: " + btnTextColor + ";");
+				button.setAttribute("onclick", "shuffleTiles();");
+				button.innerHTML = "Shuffle";
+				document.querySelector("#body").appendChild(button);
+
+				button = document.createElement("button");
+				button.setAttribute("id", "restartBtn");
+				button.setAttribute("style", "position: absolute; top: " + (desktop ? 98 : 100)*unit + "px; left:" + (desktop ? 153 : 59)*unit + "px; width:" + 45*unit + "px; height: " + 10*unit + "px;" + "font-size: " + 5*unit + "px;" + "background-color: " + btnColor + ";" + "color: " + btnTextColor + ";");
+				button.setAttribute("onclick", "restart();");
+				button.innerHTML = "Restart";
+				document.querySelector("#body").appendChild(button);
+			}
+			function drawCell(row, column, color){
+				document.body.style.background = backgroundColor;
+				let board = document.getElementById("board");
+				if(board && board.getContext("2d")){
+					let context = board.getContext("2d");
+					context.fillStyle = color;
+					let x0 = orizontalConst + borderWidth + divisionWidth + marginDim + (column*side) + (column*divisionWidth);
+					let y0 = borderWidth + divisionWidth + marginDim + (row*side) + (row*divisionWidth);
+					context.fillRect(x0, y0, side, side);
+				}
+			}
+			function drawTile(row, column, tile){
+				let tileNumber = parseInt(Number("0x" + tile));
+				let targetTileId = ((row*4 + column + 1)%16).toString(16);
+				drawCell(row, column, (tile == "0") ? borderColor : (((tileNumber + parseInt((tileNumber - 1)/4))%2 == 1) ? color1 : color2));
+				document.getElementById(targetTileId).innerHTML = ((tile == "0") ? "" : tileNumber);
+				document.getElementById(targetTileId).style = ("position: absolute; width: 10%; height: 10%; font-size: " + unit + "rem; left:" + (orizontalConst + orizontalDeltas[tileNumber - 1] + side/2 + borderWidth + divisionWidth + ((side + divisionWidth)*(column))) + "px; top:" + ((divisionWidth + borderWidth + marginDim + 10) + ((side + divisionWidth)*row)) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;");
+				if(document.getElementById(tile).innerHTML == "0"){
+					document.getElementById(tile).innerHTML = "";
+				}
+			}
+			drawBoard();
+			function drawCells(){
+				for(let i = 0; i < 4; i++){
+					for(let j = 0; j < 4; j++){
+						drawCell(i, j, ((4*i + j == 15) ? borderColor : ((i + j)%2 == 0) ? color1 : color2));
+					}
+				}
+			}
+			drawCells();
+			function swapTiles(tile1, tile2){//SCAMBIA DUE TESSERE. L'ID INDICA LA POSIZIONE, NON IL CONTENUTO.
+				let tileNumber1 = ((parseInt(Number("0x" + tile1)) + 15)%16);
+				let tileNumber2 = ((parseInt(Number("0x" + tile2)) + 15)%16);
+				let number1 = document.getElementById(tile1).innerHTML == "" ? 0 : document.getElementById(tile1).innerHTML;
+				let number2 = document.getElementById(tile2).innerHTML == "" ? 0 : document.getElementById(tile2).innerHTML;
+				drawTile(parseInt(tileNumber1/4), tileNumber1%4, parseInt(number2).toString(16));
+				drawTile(parseInt(tileNumber2/4), tileNumber2%4, parseInt(number1).toString(16));
+				begun = true;
+				if(document.getElementById(tile1).innerHTML == "0"){
+					document.getElementById(tile1).innerHTML = "";
+				}
+				if(document.getElementById(tile2).innerHTML == "0"){
+					document.getElementById(tile2).innerHTML = "";
+				}
+			}
+			function select(){
+				if(!gameFinished){
+					let row = getRow();
+					let column = getColumn();
+					let k = (row - r1)*(row - r1) + (column - c1)*(column - c1);
+					if(k==1){
+						swapTiles(((4*row + column + 1)%16).toString(16), ((4*r1 + c1 + 1)%16).toString(16));
+						r1 = row;
+						c1 = column;
+					}
+					for(let i = 0; i < 16; i++){
+						if(document.getElementById(ids[i]).innerHTML == "0"){
+							document.getElementById(ids[i]).style.left = (7/2)*side + orizontalPatch + 5*divisionWidth + 2*borderWidth + 1*marginDim - 25;
+						}
+					}
+					counterMoves++;
+					if(begun&&isGameFinished()){
+						gameFinished = true;
+						document.body.style.background = winningColor;
+						setTimeout(function(){ alert("You win with " + counterMoves + " moves!"); }, 100);
+					}
+				}
+			}
+			function isGameFinished(){
+				if(shuffledIds == null){
+					return false;
+				}
+				for(let i = 0; i < 16; i++){
+					if(document.getElementById(ids[i]).innerHTML != ((i+1)%16)){
+						return false;
+					}
+				}
+				return true;
+			}
+			function shuffleString(){
+				const ALPHABET = "123456789abcdef0";
+				let inputString = ALPHABET;
+				let outputString = "";
+				let temp;
+				let randomIndex;
+				for(let i = 0; i < ALPHABET.length; i++){
+					temp = "";
+					randomIndex = parseInt(Math.random()*(inputString.length));
+					for(let j = 0; j < inputString.length; j++){
+						if(j == randomIndex){
+							outputString += inputString.charAt(randomIndex);
+						}else{
+							temp += inputString.charAt(j);
+						}
+					}
+					inputString = temp;
+				}
+				shuffledString = outputString;
+			}
+			function shuffleArray(){
+				shuffleString();
+				shuffledIds = [];
+				for(let i = 0; i < 16; i++){
+					shuffledIds.push(shuffledString.charAt(i));
+				}
+			}
+			function shuffledArrayIsOk() {
+				let counter = 0;
+				for(let i = 0; i < shuffledIds.length; i++){
+					if(shuffledIds[i] == 0){
+						counter += parseInt(i/4) + 1;
+					}
+				}
+				for(let i = 0; i < shuffledIds.length; i++) {
+					for(let j = i + 1; j < shuffledIds.length; j++) {
+						if(shuffledIds[i] == 0 || shuffledIds[j] == 0){
+							continue;
+						}
+						if (shuffledIds[i] > shuffledIds[j]) {
+							counter++;
+						}
+					}
+				}
+				return (counter%2 == 0);
+			}
+			function shuffleTiles() {
+				if(!gameFinished){
+					shuffleArray();
+					while(!shuffledArrayIsOk()){
+						setTimeout(shuffleArray(), 250);
+					}
+					for(let i = 0; i < 4; i++){
+						for(let j = 0; j < 4; j++){
+							drawTile(i, j, shuffledIds[(i * 4 + j) % 16]);
+						}
+					}
+					let index;
+					for(let i = 0; i < 16; i++) {
+						if (shuffledIds[i] == "0") {
+							index = i;
+						}
+					}
+					document.getElementById(((parseInt(index) + 1)%16).toString(16)).style.left = (7/2)*side + orizontalPatch + 5*divisionWidth + 2*borderWidth + 1*marginDim - 25;
+					r1 = parseInt(index/4);
+					c1 = parseInt(index)%4;
+					counterMoves = -1;
+				}
+			}
+			function getRow(){
+				return parseInt((cursorY - (borderWidth + divisionWidth + marginDim))/(side + divisionWidth));
+			}
+			function getColumn(){
+				return parseInt((cursorX - (orizontalConst + borderWidth + divisionWidth + marginDim))/(side + divisionWidth));
+			}
+			function restart(){
+				window.location.reload();
+			}
+		</SCRIPT>
+	</BODY>
+</HTML>

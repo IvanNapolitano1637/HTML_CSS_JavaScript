@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html><!--Brigida-->
+
+	<head>
+		<title>Eight Queens</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	</head>
+	
+	<body>
+	
+		<canvas id="chessboard" onclick="select()">
+			Upgrade Browser
+		</canvas>
+
+		<script>
+			window.onload = drawChessboard;
+			const color1 = "yellow";
+			const color2 = "brown";
+			const selected = "red";
+			const desktopSide = 80;
+			const smartphoneSide = 40;
+			let side = (/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent) ? 40 : 80;
+			const black = "black";
+			let order = 8;
+			const buttonFlag = true;
+			let semaphoreFlag = true;
+			let flag
+			const redSemaphoreColor = "red";
+			const backgroundColor = "#ffffcc";
+			//const backgroundColor = "#ffcccc";
+			const backgroundWinColor = "#00ff00";
+			let cursorX;
+			let cursorY;
+			let numberOfQueens = 0;
+			let grid = [];
+			let easy = false;
+			let wan = false;
+
+			function drawSquare(row, column){
+				if(chessboard && chessboard.getContext("2d")){
+					let context = chessboard.getContext("2d");
+					context.fillStyle = ((row + column)%2 == 0 ? color1 : color2);
+					context.fillRect(side*row, side*column, side, side);
+				}
+				if(buttonFlag){
+					document.getElementById('showButton').style.visibility = "hidden";
+				}
+			}
+			function drawCircle(row, column, radius, color){
+				if(chessboard && chessboard.getContext("2d")){
+					let context = chessboard.getContext("2d");
+					context.fillStyle = color;
+					context.beginPath();
+					context.arc(row*side + side/2, column*side + side/2, radius, 0, 2 * Math.PI, false);
+					context.fill();
+				}
+			}
+			function drawQueen(row, column){
+				drawCircle(row, column, side/3, selected);
+				drawCircle(row, column, side/6, black);
+			}
+			function drawUnderAttackCell(row, column){
+				drawCircle(row, column, side/8, black);
+			}
+			function drawCell(row, column){
+				drawSquare(row, column);
+				if(grid[row][column].occupied){
+					drawQueen(row, column);
+				}else{
+					drawSquare(row, column);
+					drawCircle(row, column, side*5/12, ((row+column)%2 == 0 ? color1 : color2));
+					if(easy && grid[row][column].underAttack){
+						drawUnderAttackCell(row, column);
+					}
+				}
+			}
+			function drawAllCells(){
+				for(let i = 0; i < order; i++){
+					for(let j = 0; j < order; j++){
+						drawCell(i,j);
+					}
+				}
+			}
+			function drawChessboard(){
+				document.body.style.background = backgroundColor;
+				for(let i = 0; i < order; i++){
+					grid[i] = [];
+					for(let j = 0; j < order; j++){
+						grid[i][j] = {occupied: false, underAttack: false};
+					}
+				}
+				document.onmousemove = function(e){
+					cursorX = e.pageX;
+					cursorY = e.pageY;
+				}
+				let chessboard = document.getElementById("chessboard");
+				chessboard.width = getWidth();
+				chessboard.height = getHeight();
+				for(let row = 0; row < order; row++){
+					for(let column = 0; column < order; column++){
+						drawSquare(row, column);
+					}
+				}
+			}
+			function select(){
+				let row = (cursorX - cursorX%side)/side;
+				let column = (cursorY - cursorY%side)/side;
+				let flag = !grid[row][column].underAttack;
+				if(!wan){
+					if(grid[row][column].occupied){
+						numberOfQueens--;
+					}else{
+						numberOfQueens++;
+						grid[row][column].underAttack = false;
+					}
+					grid[row][column].occupied = !grid[row][column].occupied;
+					setUnderAttackValues();
+					drawAllCells();
+					if(numberOfQueens == order && flag){
+						if(checkQueensPositions()){
+							document.body.style.background = backgroundWinColor;
+							wan = true;
+							setTimeout(function(){ alert("You win! :-D"); }, 100);
+						}
+					}else{
+						if(!checkQueensPositions() && semaphoreFlag){
+							document.body.style.background = redSemaphoreColor;
+						}else{
+							document.body.style.background = backgroundColor;
+						}
+					}
+				}
+			}
+			function refresh(){
+				wan = false;
+				numberOfQueens = 0;
+				drawChessboard();
+				for(let i = 0; i < order; i++){
+					for(let j = 0; j < order; j++){
+						grid[i][j].occupied = false;
+						grid[i][j].underAttack = false;
+					}
+				}
+				drawChessboard();
+				document.body.style.background = backgroundColor;
+			}
+			function setUnderAttackValues(){
+				let firstRow;
+				let firstColumn;
+				let latterRow;
+				let latterColumn;
+				let deltaBishopRow;
+				let deltaBishopColumn;
+				for(let i = 0; i < order*order; i++){
+					grid[parseInt(i/order)][parseInt(i%order)].underAttack = false;
+				}
+				for(let i = 0; i < order*order; i++){
+					firstRow = parseInt(i/order);
+					firstColumn = parseInt(i%order);
+					if(!(grid[firstRow][firstColumn].occupied)){
+						continue;
+					}
+					for(let j = 0; j < order*order; j++){
+						if(i == j){
+							continue;
+						}
+						latterRow = parseInt(j/order);
+						latterColumn = j%order;
+						deltaBishopRow = (firstRow >= latterRow) ? (firstRow - latterRow) : (latterRow - firstRow);
+						deltaBishopColumn = (firstColumn >= latterColumn) ? (firstColumn - latterColumn) : (latterColumn - firstColumn);
+						if(firstRow == latterRow){
+							grid[latterRow][latterColumn].underAttack = true;
+						}else if(firstColumn == latterColumn){
+							grid[latterRow][latterColumn].underAttack = true;
+						}else if(deltaBishopRow == deltaBishopColumn){
+							grid[latterRow][latterColumn].underAttack = true;
+						}
+					}
+				}
+			}
+			function checkQueensPositions(){
+				for(let i = 0; i < order; i++){
+					for(let j = 0; j < order; j++){
+						if(grid[i][j].occupied){
+							if(grid[i][j].underAttack){
+								return false;
+							}
+						}
+					}
+				}
+				return true;
+			}
+			function check(){
+				if(checkQueensPositions()){
+					window.alert("It's ok!");
+				}else{
+					window.alert("Be carefull!");
+				}
+			}
+			function getWidth(){
+				return side*order;
+			}
+			function getHeight(){
+				return getWidth();
+			}
+			function changeDifficulty(){
+				if(easy){
+					document.getElementById("btnDifficulty").textContent = "Difficulty: Hard";
+				}else{
+					document.getElementById("btnDifficulty").textContent = "Difficulty: Easy";
+				}
+				easy = !easy;
+				drawAllCells();
+			}
+			function changeFlagValue(){
+				if(semaphoreFlag){
+					document.getElementById("semaphore").textContent = "Semaphore: Off";
+					document.body.style.background = backgroundColor;
+				}else{
+					document.getElementById("semaphore").textContent = "Semaphore: On";
+					if(!checkQueensPositions()){
+						document.body.style.background = redSemaphoreColor;
+					}
+				}
+				drawAllCells();
+				semaphoreFlag = !semaphoreFlag;
+			}			
+			function bigger(){
+				side = side*order;
+				order++;
+				side = side/order;
+				refresh();
+			}
+			function smaller(){
+				if(order > 1){
+					side = side*order;
+					order--;
+					side = side/order;
+				}
+				refresh();
+			}			
+		</script>
+
+		<form action="#">
+
+			<br>
+			<button type="button" onclick="refresh()">Start again!</button>
+			<button type="button" id = "semaphore" onclick="changeFlagValue()">Semaphore: On</button>
+			<button type="button" id="btnDifficulty" onclick="changeDifficulty()">Difficulty: Hard</button>
+			<button type="button" id = "showButton" onclick="check(checkQueensPositions())">Check status</button><br><br>
+			<button type="button" onclick="bigger()">Bigger</button>
+			<button type="button" onclick="smaller()">Smaller</button>
+			
+		</form>
+		
+	</body>
+	
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html><!--Lucia-->
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Binary Clock and Calendar</title>
+	</head>
+
+	<body style="background-color:powderblue;">
+
+		<script>
+			const desktop = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
+			const flag = true;
+			const unit = desktop ? 5 : 3;
+			const horizontal_space = 2*unit;
+			const vertical_space = 2*unit;
+			const year_radius = 3*unit;
+			const radius = 2*year_radius + (horizontal_space/2);
+			const zero_color = 'blue';
+			const one_color = 'red';
+			const separator_color = 'yellow';
+			const panel_back_ground_color = 'black';
+			let panel, inner_panel, top_panel, bottom_panel, new_panel, new_bottom_panel, input;
+			const year_c = [], month_c = [], day_c = [], hours_c = [], minutes_c = [], seconds_c = [], ts_c = [], last_array_c = [];
+			const year_bd = [], month_bd = [], day_bd = [], hours_bd = [], minutes_bd = [], seconds_bd = [], ts_bd = [];
+			const last_array = [1,1,0,0,1,0,1,0,1,1,0,1,1,1,0,1,1,1,0,0,0,1,1,1,1,1,1,0,1,1,0,0];
+
+			let clockSetting = (function() {
+
+				let executed = false;
+
+				return function() {
+
+					if(!executed) {
+
+						executed = true;
+
+						const svg = document.querySelector("svg");
+						const svgns = "http://www.w3.org/2000/svg";
+
+						svg.setAttribute("width", 12*radius + 11*horizontal_space);
+						svg.setAttribute("height", (10 + (flag ? 1 : 0))*radius + 2*year_radius + 15*vertical_space);
+
+						panel = document.createElementNS(svgns, "rect");
+						inner_panel = document.createElementNS(svgns, "rect");
+						top_panel = document.createElementNS(svgns, "rect");
+						bottom_panel = document.createElementNS(svgns, "rect");
+						new_bottom_panel = document.createElementNS(svgns, "rect");
+
+						svg.appendChild(panel);
+						svg.appendChild(inner_panel);
+						svg.appendChild(top_panel);
+						svg.appendChild(bottom_panel);
+						if(flag)svg.appendChild(new_bottom_panel);
+
+						for(let i = 0; i < 12; i++){
+
+							year_c[i] = document.createElementNS(svgns, "circle");
+							year_c[i].setAttribute("r", year_radius);
+							year_c[i].setAttribute("cx", (i*2 + 1)*year_radius + (i + 3)*horizontal_space);
+							year_c[i].setAttribute("cy", year_radius + 3*vertical_space);
+							svg.appendChild(year_c[i]);
+
+							if(i<6){
+
+								month_c[i] = document.createElementNS(svgns, "circle");
+								day_c[i] = document.createElementNS(svgns, "circle");
+								hours_c[i] = document.createElementNS(svgns, "circle");
+								minutes_c[i] = document.createElementNS(svgns, "circle");
+								seconds_c[i] = document.createElementNS(svgns, "circle");
+
+								month_c[i].setAttribute("r", radius);
+								day_c[i].setAttribute("r", radius);
+								hours_c[i].setAttribute("r", radius);
+								minutes_c[i].setAttribute("r", radius);
+								seconds_c[i].setAttribute("r", radius);
+
+								month_c[i].setAttribute("cx", (i*2+1)*radius + (i+3)*horizontal_space);
+								day_c[i].setAttribute("cx", (i*2+1)*radius + (i+3)*horizontal_space);
+								hours_c[i].setAttribute("cx", (i*2+1)*radius + (i+3)*horizontal_space);
+								minutes_c[i].setAttribute("cx", (i*2+1)*radius + (i+3)*horizontal_space);
+								seconds_c[i].setAttribute("cx", (i*2+1)*radius + (i+3)*horizontal_space);
+
+								month_c[i].setAttribute("cy", 2*year_radius + 1*radius + 4*vertical_space);
+								day_c[i].setAttribute("cy", 2*year_radius + 3*radius + 5*vertical_space);
+								hours_c[i].setAttribute("cy", 2*year_radius + 5*radius + 8*vertical_space);
+								minutes_c[i].setAttribute("cy", 2*year_radius + 7*radius + 9*vertical_space);
+								seconds_c[i].setAttribute("cy", 2*year_radius + 9*radius + 10*vertical_space);
+
+								svg.appendChild(month_c[i]);
+								svg.appendChild(day_c[i]);
+								svg.appendChild(hours_c[i]);
+								svg.appendChild(minutes_c[i]);
+								svg.appendChild(seconds_c[i]);
+							}
+						}
+
+						for(let i = 0; i < 32; i++){
+							ts_c[i] = document.createElementNS(svgns, "circle");
+							ts_c[i].setAttribute("r", radius/5);
+							ts_c[i].setAttribute("cx", ((i*2 + 1)*(radius/5)) + (1*horizontal_space) + i + (desktop ? i : unit));
+							ts_c[i].setAttribute("cy", 2*year_radius + 11*radius + 10*vertical_space);
+							svg.appendChild(ts_c[i]);
+						}
+
+						if(flag){
+							for(let i = 0; i < 32; i++){
+								last_array_c[i] = document.createElementNS(svgns, "circle");
+								last_array_c[i].setAttribute("r", radius/5);
+								last_array_c[i].setAttribute("cx", ((i*2+1)*(radius/5)) + (1*horizontal_space) + i + (desktop ? i : unit));
+								last_array_c[i].setAttribute("cy", 2*year_radius + 12*radius + 10*vertical_space);
+								last_array_c[i].style.fill = (last_array[i] == "0") ? zero_color : one_color;
+								svg.appendChild(last_array_c[i]);
+							}
+						}
+						
+						panel.setAttribute("width", 12*radius + 11*horizontal_space);
+						inner_panel.setAttribute("width", 12*radius + 9*horizontal_space);
+						top_panel.setAttribute("width", 12*radius + 7*horizontal_space);
+						bottom_panel.setAttribute("width", 12*radius + 7*horizontal_space);
+						new_bottom_panel.setAttribute("width", 12*radius + 11*horizontal_space);
+
+						panel.setAttribute("height", (10 + (flag ? 1 : 0))*radius + 2*year_radius + 16*vertical_space);
+						inner_panel.setAttribute("height", 10*radius + 2*year_radius + 11*vertical_space);
+						top_panel.setAttribute("height", 4*radius + 2*year_radius + 4*vertical_space);
+						bottom_panel.setAttribute("height", 6*radius + 4*vertical_space);
+						new_bottom_panel.setAttribute("height", 3*vertical_space);
+
+						panel.setAttribute("x", 0);
+						inner_panel.setAttribute("x", horizontal_space);
+						top_panel.setAttribute("x", 2*horizontal_space);
+						bottom_panel.setAttribute("x", 2*horizontal_space);
+						new_bottom_panel.setAttribute("x", 0);
+
+						panel.setAttribute("y", 0);
+						inner_panel.setAttribute("y", vertical_space);
+						top_panel.setAttribute("y", 2*vertical_space);
+						bottom_panel.setAttribute("y", 7*vertical_space + 4*radius + 2*year_radius);
+						new_bottom_panel.setAttribute("y", 14*vertical_space + 10*radius + 3*year_radius);
+						
+						document.getElementById("end").hidden = flag;
+					}
+				};
+			})();
+			setInterval(clock, 200);
+			function clock(){
+
+				const d = new Date();
+
+				const year = d.getYear() + 1900;
+				const month = d.getMonth() + 1;
+				const day = d.getDate();
+				const hours = d.getHours();
+				const minutes = d.getMinutes();
+				const seconds = d.getSeconds();
+				const timestamp = Math.floor(Date.now() / 1000);
+				document.getElementById("dec_ts").value = timestamp;
+				document.getElementById("hex_ts").value = Math.floor(Date.now() / 1000).toString(16);
+				document.getElementById("lasting").value = 2147483647-timestamp;
+
+				clockSetting();
+
+				let sYear = year.toString(2);
+				let sMonth = month.toString(2);
+				let sDay = day.toString(2);
+				let sHours = hours.toString(2);
+				let sMinutes = minutes.toString(2);
+				let sSeconds = seconds.toString(2);
+				let sTimestamp = timestamp.toString(2);
+
+				while(sYear.length < 12) sYear = "0" + sYear;
+				while(sMonth.length < 6) sMonth = "0" + sMonth;
+				while(sDay.length < 6) sDay = "0" + sDay;
+				while(sHours.length < 6) sHours = "0" + sHours;
+				while(sMinutes.length < 6) sMinutes = "0" + sMinutes;
+				while(sSeconds.length < 6) sSeconds = "0" + sSeconds;
+				while(sTimestamp.length < 32) sTimestamp = "0" + sTimestamp;
+
+				panel.style.fill = panel_back_ground_color;
+				inner_panel.style.fill = separator_color;
+				top_panel.style.fill = panel_back_ground_color;
+				bottom_panel.style.fill = panel_back_ground_color;
+				new_bottom_panel.style.fill = "#00FF00";
+
+				for(let i = 0; i < 12; i++){
+
+					year_bd[i] = sYear.charAt(i) == "1" ? 1 : 0;
+					year_c[i].style.fill = (year_bd[i] == "0") ? zero_color : one_color;
+					year_c[i].style.transition = "2s";
+
+					if(i < 6){
+
+						month_bd[i] = sMonth.charAt(i) == "1" ? 1 : 0;
+						month_c[i].style.fill = (month_bd[i] == "0") ? zero_color : one_color;
+						month_c[i].style.transition = "1s";
+
+						day_bd[i] = sDay.charAt(i) == "1" ? 1 : 0;
+						day_c[i].style.fill = (day_bd[i] == "0") ? zero_color : one_color;
+						day_c[i].style.transition = "1s";
+
+						hours_bd[i] = sHours.charAt(i) == "1" ? 1 : 0;
+						hours_c[i].style.fill = (hours_bd[i] == "0") ? zero_color : one_color;
+						hours_c[i].style.transition = ".5s";
+
+						minutes_bd[i] = sMinutes.charAt(i) == "1" ? 1 : 0;
+						minutes_c[i].style.fill = (minutes_bd[i] == "0") ? zero_color : one_color;
+						minutes_c[i].style.transition = ".5s";
+
+						seconds_bd[i] = sSeconds.charAt(i) == "1" ? 1 : 0;
+						seconds_c[i].style.fill = (seconds_bd[i] == "0") ? zero_color : one_color;
+						seconds_c[i].style.transition = ".5s";
+					}
+					
+				}
+
+				for(let i = 0; i < 32; i++){
+					ts_bd[i] = sTimestamp.charAt(i) == "1" ? 1 : 0;
+					ts_c[i].style.fill = (ts_bd[i] == "0") ? zero_color : one_color;
+					ts_c[i].style.transition = "1s";
+				}
+			}
+			document.body.innerHTML += ('<svg id = "panel"></svg>' + (flag ? '' : '<br>'))
+			document.body.innerHTML += '<br><input type="text" size="7" id="dec_ts" disabled spellcheck="false">';
+			document.body.innerHTML += ('<input type="text" size="5" id="hex_ts" disabled spellcheck="false">' + (flag ? '' : '<br><br>'));
+			document.body.innerHTML += '<input type="text" size="27" id="end" value="Tuesday 19 January 2038 03:14:07" disabled spellcheck="false">';
+			document.body.innerHTML += ('<input type="text" size="6" id="lasting" disabled spellcheck="false">' + (flag ? '' : '<br><br>'));
+			document.body.innerHTML += '<input type="text" size="5" id="sign" value="caddc7ec" disabled spellcheck="false">';
+		</script>
+		
+	</body>
+
+</html>
