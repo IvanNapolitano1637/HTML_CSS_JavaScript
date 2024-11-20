@@ -48,6 +48,7 @@
 					document.getElementById('showButton').style.visibility = "hidden";
 				}
 			}
+
 			function drawCircle(row, column, radius, color){
 				if(chessboard && chessboard.getContext("2d")){
 					let context = chessboard.getContext("2d");
@@ -57,13 +58,16 @@
 					context.fill();
 				}
 			}
+
 			function drawQueen(row, column){
 				drawCircle(row, column, side/3, selected);
 				drawCircle(row, column, side/6, black);
 			}
+
 			function drawUnderAttackCell(row, column){
 				drawCircle(row, column, side/8, black);
 			}
+
 			function drawCell(row, column){
 				drawSquare(row, column);
 				if(grid[row][column].occupied){
@@ -76,6 +80,7 @@
 					}
 				}
 			}
+
 			function drawAllCells(){
 				for(let i = 0; i < order; i++){
 					for(let j = 0; j < order; j++){
@@ -83,6 +88,7 @@
 					}
 				}
 			}
+
 			function drawChessboard(){
 				document.body.style.background = backgroundColor;
 				for(let i = 0; i < order; i++){
@@ -104,6 +110,7 @@
 					}
 				}
 			}
+
 			function select(){
 				let row = (cursorX - cursorX%side)/side;
 				let column = (cursorY - cursorY%side)/side;
@@ -133,6 +140,7 @@
 					}
 				}
 			}
+
 			function refresh(){
 				wan = false;
 				numberOfQueens = 0;
@@ -146,6 +154,7 @@
 				drawChessboard();
 				document.body.style.background = backgroundColor;
 			}
+
 			function setUnderAttackValues(){
 				let firstRow;
 				let firstColumn;
@@ -180,6 +189,7 @@
 					}
 				}
 			}
+
 			function checkQueensPositions(){
 				for(let i = 0; i < order; i++){
 					for(let j = 0; j < order; j++){
@@ -192,6 +202,7 @@
 				}
 				return true;
 			}
+
 			function check(){
 				if(checkQueensPositions()){
 					window.alert("It's ok!");
@@ -199,12 +210,15 @@
 					window.alert("Be carefull!");
 				}
 			}
+
 			function getWidth(){
 				return side*order;
 			}
+
 			function getHeight(){
 				return getWidth();
 			}
+
 			function changeDifficulty(){
 				if(easy){
 					document.getElementById("btnDifficulty").textContent = "Difficulty: Hard";
@@ -214,6 +228,7 @@
 				easy = !easy;
 				drawAllCells();
 			}
+
 			function changeFlagValue(){
 				if(semaphoreFlag){
 					document.getElementById("semaphore").textContent = "Semaphore: Off";
@@ -227,12 +242,14 @@
 				drawAllCells();
 				semaphoreFlag = !semaphoreFlag;
 			}			
+
 			function bigger(){
 				side = side*order;
 				order++;
 				side = side/order;
 				refresh();
 			}
+
 			function smaller(){
 				if(order > 1){
 					side = side*order;

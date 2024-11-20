@@ -1,70 +1,70 @@
 <!DOCTYPE html>
-<HTML><!--Fabio-->
-	<HEAD>
+<html><!--Fabio-->
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Sounds</title>
-	</HEAD>
-	<BODY>
-		<INPUT type="radio" id="sine" name="oscillatorType" value="sine" checked onclick="setOscillatorType()"/>sine
-		<INPUT type="radio" id="sawtooth" name="oscillatorType" value="sawtooth" onclick="setOscillatorType()"/>sawtooth
-		<INPUT type="radio" id="square" name="oscillatorType" value="square" onclick="setOscillatorType()"/>square
-		<INPUT type="radio" id="triangle" name="oscillatorType" value="triangle" onclick="setOscillatorType()"/>triangle<BR><BR>
-		<LABEL for="frequency"></LABEL><b><output id="frequencyValue"></output></b><BR><BR>
-		<LABEL for="frequency"></LABEL><b><output id="frequencyMinValue"></output></b>
-		<INPUT type="range" id="frequencyRange" name="frequency" style="width: 1400px" oninput="setFrequency()"/>
-		<LABEL for="frequency"></LABEL><b><output id="frequencyMaxValue"></output></b><BR><BR>
-		<BUTTON id="halveMax" onclick = "halveMax()">SmallerMax</BUTTON><BR>
-		<INPUT type="radio" id="50" name="maxFrequency" value="50" disabled onclick="setMaxFrequency()"/>50<BR>
-		<INPUT type="radio" id="100" name="maxFrequency" value="100" disabled onclick="setMaxFrequency()"/>100<BR>
-		<INPUT type="radio" id="200" name="maxFrequency" value="200" disabled onclick="setMaxFrequency()"/>200<BR>
-		<INPUT type="radio" id="500" name="maxFrequency" value="500" onclick="setMaxFrequency()"/>500<BR>
-		<INPUT type="radio" id="1000" name="maxFrequency" value="1000" checked onclick="setMaxFrequency()"/>1000<BR>
-		<INPUT type="radio" id="2000" name="maxFrequency" value="2000" onclick="setMaxFrequency()"/>2000<BR>
-		<INPUT type="radio" id="4000" name="maxFrequency" value="4000" onclick="setMaxFrequency()"/>4000<BR>
-		<INPUT type="radio" id="8000" name="maxFrequency" value="8000" onclick="setMaxFrequency()"/>8000<BR>
-		<INPUT type="radio" id="16000" name="maxFrequency" value="16000" onclick="setMaxFrequency()"/>16000<BR>
-		<INPUT type="radio" id="24000" name="maxFrequency" value="24000" onclick="setMaxFrequency()"/>24000<BR>
-		<BUTTON id="doubleMax" onclick="doubleMax()">BiggerMax</BUTTON><BR><BR>
-		<BUTTON id="play" onclick="play()">Play</BUTTON>
-		<BUTTON id="stop" onclick="stop()">Stop</BUTTON><BR><BR>
-		<BUTTON id="halveFrequency" onclick="multiplyFrequencyValue('.5')">Halve frequency</BUTTON>
-		<BUTTON id="doubleFrequency" onclick="multiplyFrequencyValue(2)">Double frequency</BUTTON><BR><BR>
-		<BUTTON id="C4" type="button" value="C4" onmousedown = "playNote('261.626')" onmouseup="oscillatorNotes.stop()">C4</BUTTON>
-		<BUTTON id="C#4" type="button" value="C♯4" onmousedown = "playNote('277.183')" onmouseup="oscillatorNotes.stop()">C♯4</BUTTON>
-		<BUTTON id="D4" type="button" value="D4" onmousedown = "playNote('293.665')" onmouseup="oscillatorNotes.stop()">D4</BUTTON>
-		<BUTTON id="D#4" type="button" value="D♯4" onmousedown = "playNote('311.127')" onmouseup="oscillatorNotes.stop()">D♯4</BUTTON>
-		<BUTTON id="E4" type="button" value="E4" onmousedown = "playNote('329.628')" onmouseup="oscillatorNotes.stop()">E4</BUTTON>
-		<BUTTON id="F4" type="button" value="F4" onmousedown = "playNote('349.228')" onmouseup="oscillatorNotes.stop()">F4</BUTTON>
-		<BUTTON id="F#4" type="button" value="F♯4" onmousedown = "playNote('369.994')" onmouseup="oscillatorNotes.stop()">F♯4</BUTTON>
-		<BUTTON id="G4" type="button" value="G4" onmousedown = "playNote('391.995')" onmouseup="oscillatorNotes.stop()">G4</BUTTON>
-		<BUTTON id="G#4" type="button" value="G♯4" onmousedown = "playNote('415.305')" onmouseup="oscillatorNotes.stop()">G♯4</BUTTON>
-		<BUTTON id="A4" type="button" value="A4" onmousedown = "playNote('440.000')" onmouseup="oscillatorNotes.stop()">A4</BUTTON>
-		<BUTTON id="A#4" type="button" value="A♯4" onmousedown = "playNote('466.164')" onmouseup="oscillatorNotes.stop()">A♯4</BUTTON>
-		<BUTTON id="B4" type="button" value="B4" onmousedown = "playNote('493.883')" onmouseup="oscillatorNotes.stop()">B4</BUTTON>
-		<BUTTON id="C5" type="button" value="C5" onmousedown = "playNote('523.251')" onmouseup="oscillatorNotes.stop()">C5</BUTTON>
-	</BODY>
-	<SCRIPT>
+	</head>
+	<body>
+		<input type="radio" id="sine" name="oscillatorType" value="sine" checked onclick="setOscillatorType()"/>sine
+		<input type="radio" id="sawtooth" name="oscillatorType" value="sawtooth" onclick="setOscillatorType()"/>sawtooth
+		<input type="radio" id="square" name="oscillatorType" value="square" onclick="setOscillatorType()"/>square
+		<input type="radio" id="triangle" name="oscillatorType" value="triangle" onclick="setOscillatorType()"/>triangle<br><br>
+		<label for="frequency"></label><b><output id="frequencyValue"></output></b><br><br>
+		<label for="frequency"></label><b><output id="frequencyMinValue"></output></b>
+		<input type="range" id="frequencyRange" name="frequency" style="width: 1400px" oninput="setFrequency()"/>
+		<label for="frequency"></label><b><output id="frequencyMaxValue"></output></b><br><br>
+		<button id="halveMax" onclick = "halveMax()">SmallerMax</button><br>
+		<input type="radio" id="50" name="maxFrequency" value="50" disabled onclick="setMaxFrequency()"/>50<br>
+		<input type="radio" id="100" name="maxFrequency" value="100" disabled onclick="setMaxFrequency()"/>100<br>
+		<input type="radio" id="200" name="maxFrequency" value="200" disabled onclick="setMaxFrequency()"/>200<br>
+		<input type="radio" id="500" name="maxFrequency" value="500" onclick="setMaxFrequency()"/>500<br>
+		<input type="radio" id="1000" name="maxFrequency" value="1000" checked onclick="setMaxFrequency()"/>1000<br>
+		<input type="radio" id="2000" name="maxFrequency" value="2000" onclick="setMaxFrequency()"/>2000<br>
+		<input type="radio" id="4000" name="maxFrequency" value="4000" onclick="setMaxFrequency()"/>4000<br>
+		<input type="radio" id="8000" name="maxFrequency" value="8000" onclick="setMaxFrequency()"/>8000<br>
+		<input type="radio" id="16000" name="maxFrequency" value="16000" onclick="setMaxFrequency()"/>16000<br>
+		<input type="radio" id="24000" name="maxFrequency" value="24000" onclick="setMaxFrequency()"/>24000<br>
+		<button id="doubleMax" onclick="doubleMax()">BiggerMax</button><br><br>
+		<button id="play" onclick="play()">Play</button>
+		<button id="stop" onclick="stop()">Stop</button><br><br>
+		<button id="halveFrequency" onclick="multiplyFrequencyValue('.5')">Halve frequency</button>
+		<button id="doubleFrequency" onclick="multiplyFrequencyValue(2)">Double frequency</button><br><br>
+		<button id="C4" type="button" value="C4" onmousedown = "playNote('261.626')" onmouseup="oscillatorNotes.stop()">C4</button>
+		<button id="C#4" type="button" value="C♯4" onmousedown = "playNote('277.183')" onmouseup="oscillatorNotes.stop()">C♯4</button>
+		<button id="D4" type="button" value="D4" onmousedown = "playNote('293.665')" onmouseup="oscillatorNotes.stop()">D4</button>
+		<button id="D#4" type="button" value="D♯4" onmousedown = "playNote('311.127')" onmouseup="oscillatorNotes.stop()">D♯4</button>
+		<button id="E4" type="button" value="E4" onmousedown = "playNote('329.628')" onmouseup="oscillatorNotes.stop()">E4</button>
+		<button id="F4" type="button" value="F4" onmousedown = "playNote('349.228')" onmouseup="oscillatorNotes.stop()">F4</button>
+		<button id="F#4" type="button" value="F♯4" onmousedown = "playNote('369.994')" onmouseup="oscillatorNotes.stop()">F♯4</button>
+		<button id="G4" type="button" value="G4" onmousedown = "playNote('391.995')" onmouseup="oscillatorNotes.stop()">G4</button>
+		<button id="G#4" type="button" value="G♯4" onmousedown = "playNote('415.305')" onmouseup="oscillatorNotes.stop()">G♯4</button>
+		<button id="A4" type="button" value="A4" onmousedown = "playNote('440.000')" onmouseup="oscillatorNotes.stop()">A4</button>
+		<button id="A#4" type="button" value="A♯4" onmousedown = "playNote('466.164')" onmouseup="oscillatorNotes.stop()">A♯4</button>
+		<button id="B4" type="button" value="B4" onmousedown = "playNote('493.883')" onmouseup="oscillatorNotes.stop()">B4</button>
+		<button id="C5" type="button" value="C5" onmousedown = "playNote('523.251')" onmouseup="oscillatorNotes.stop()">C5</button>
+	</body>
+	<script>
 		//Almost useless
 		const frequencyValue = document.querySelector("#frequencyValue");
-		const frequencyInput = document.querySelector("#frequencyRange");
+		const frequencyinput = document.querySelector("#frequencyRange");
 		const frequencyMaxValue = document.querySelector("#frequencyMaxValue");
 		const frequencyMinValue = document.querySelector("#frequencyMinValue");
 		const maxFrequencyValue = [50,100,200,500,1000,2000,4000,8000,16000,24000];
 		const desktop = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
 		const maxFrequencyElement = document.getElementsByName("maxFrequency");
 		const oscillatorTypeElement = document.getElementsByName("oscillatorType");
-		const notesButtonsIds = ["C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4","C5"];
+		const notesbuttonsIds = ["C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4","C5"];
 		let indexArray = 4;
 		let audioCtx;
 		let oscillator;
 		let oscillatorNotes;
-		let oscillatorInputType = "sine";
+		let oscillatorinputType = "sine";
 		let frequencyHz = 440;
 		let on = false;
 
-		window.onload = hideOrShowSomeButtons;
+		window.onload = hideOrShowSomebuttons;
 		frequencyMinValue.textContent = "0 Hz";
 		frequencyMaxValue.textContent = maxFrequencyValue[indexArray]+" Hz";
 		document.getElementById("frequencyRange").min = 0;
@@ -72,9 +72,10 @@
 		document.getElementById("frequencyRange").value = frequencyHz;
 		document.getElementById("frequencyRange").step = 1;
 		document.getElementById("frequencyRange").style.width = desktop ? "1400px" : "250px";
-		frequencyValue.textContent = frequencyInput.value + " Hz";
+		frequencyValue.textContent = frequencyinput.value + " Hz";
+
 		function setFrequency(){
-			frequencyValue.textContent = frequencyInput.value + " Hz";
+			frequencyValue.textContent = frequencyinput.value + " Hz";
 			frequencyHz = parseInt(frequencyValue.textContent);
 			if(oscillator != null){
 				oscillator.frequency.setValueAtTime(frequencyHz, audioCtx.currentTime);
@@ -83,6 +84,7 @@
 				document.getElementById(maxFrequencyElement[i].value).disabled = (frequencyHz > parseInt(maxFrequencyElement[i].value))?true:false;
 			}
 		}
+
 		function playNote(note){
 			if(audioCtx == null){
 				audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -93,26 +95,30 @@
 			oscillatorNotes.connect(audioCtx.destination);
 			oscillatorNotes.start();
 		}
+
 		function play(){
 			if(oscillator != null){
 				oscillator.stop();
 			}
-			if(oscillatorInputType.length > 0){
-				playSound(oscillatorInputType, frequencyHz);
+			if(oscillatorinputType.length > 0){
+				playSound(oscillatorinputType, frequencyHz);
 			}
 		}
+
 		function stop(){
 			if(oscillator != null){
 				oscillator.stop();
 			}
 			on = false;
 		}
+
 		function doubleMax(){
 			indexArray = (indexArray < maxFrequencyValue.length - 1 ? (indexArray + 1) : indexArray);
 			document.getElementById("frequencyRange").max = maxFrequencyValue[indexArray];
 			frequencyMaxValue.textContent = (maxFrequencyValue[indexArray] + " Hz");
 			maxFrequencyElement[indexArray].checked = true;
 		}
+
 		function halveMax(){
 			if(indexArray > 0 && frequencyHz <= maxFrequencyValue[indexArray - 1]){
 				indexArray -= 1;
@@ -121,19 +127,21 @@
 				maxFrequencyElement[indexArray].checked = true;
 			}
 		}
+
 		function setOscillatorType(){
 			for(let i = 0; i < oscillatorTypeElement.length; i++){
 				if(oscillator != null){
 					oscillator.stop();
 				}
 				if(oscillatorTypeElement[i].checked){
-					oscillatorInputType = oscillatorTypeElement[i].value;
+					oscillatorinputType = oscillatorTypeElement[i].value;
 				}
 				if(on){
-					playSound(oscillatorInputType, frequencyHz);
+					playSound(oscillatorinputType, frequencyHz);
 				}
 			}
 		}
+
 		function setMaxFrequency(){
 			for(let i = 0; i < maxFrequencyElement.length; i++){
 				if(maxFrequencyElement[i].checked){
@@ -143,29 +151,33 @@
 				}
 			}
 		}
-		function playSound(oscillatorInputType, frequencyHz) {
+
+		function playSound(oscillatorinputType, frequencyHz) {
 			if(audioCtx == null){
 				audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 			}
 			oscillator = audioCtx.createOscillator();
-			oscillator.type = oscillatorInputType;
+			oscillator.type = oscillatorinputType;
 			oscillator.frequency.setValueAtTime(frequencyHz, audioCtx.currentTime);
 			oscillator.connect(audioCtx.destination);
 			oscillator.start();
 			on = true;
 		}
+
 		function restart(frequencyHz){
 			if(on){
 				stop();
-				playSound(oscillatorInputType, frequencyHz);
+				playSound(oscillatorinputType, frequencyHz);
 				play();
 			}
 		}
-		function enableDisableRadioButtons(frequencyHz){
+
+		function enableDisableRadiobuttons(frequencyHz){
 			for(let i = 0; i < maxFrequencyElement.length; i++){
 				maxFrequencyElement[i].disabled = !(frequencyHz < parseInt(maxFrequencyValue[i]));
 			}
 		}
+
 		function setMaxFrequencyValue(frequencyHz){
 			for(let i = maxFrequencyElement.length - 1; i >= 0; i--){
 				if(frequencyHz < parseInt(maxFrequencyValue[i])){
@@ -177,22 +189,24 @@
 			}
 			document.getElementById("frequencyRange").value = frequencyHz;
 		}
+
 		function multiplyFrequencyValue(value){
 			newFrequency = parseInt(parseFloat(frequencyValue.textContent)*parseFloat(value));
 			if(newFrequency >= 0 && newFrequency <= 24000){
 				frequencyValue.textContent = newFrequency;
 				frequencyHz = newFrequency;
-				enableDisableRadioButtons(frequencyHz);
+				enableDisableRadiobuttons(frequencyHz);
 				setMaxFrequencyValue(frequencyHz);
 				restart(frequencyHz);
 			}
 		}
-		function hideOrShowSomeButtons(){
+
+		function hideOrShowSomebuttons(){
 			if(!desktop){
-				for(let i = 0; i < notesButtonsIds.length; i++){
-					document.getElementById(notesButtonsIds[i]).style = "display: none";
+				for(let i = 0; i < notesbuttonsIds.length; i++){
+					document.getElementById(notesbuttonsIds[i]).style = "display: none";
 				}
 			}
 		}
-	</SCRIPT>
-</HTML>
+	</script>
+</html>

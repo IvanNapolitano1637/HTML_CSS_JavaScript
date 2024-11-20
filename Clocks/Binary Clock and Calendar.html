@@ -144,7 +144,9 @@
 					}
 				};
 			})();
+
 			setInterval(clock, 200);
+
 			function clock(){
 
 				const d = new Date();
@@ -221,6 +223,7 @@
 					ts_c[i].style.transition = "1s";
 				}
 			}
+
 			document.body.innerHTML += ('<svg id = "panel"></svg>' + (flag ? '' : '<br>'))
 			document.body.innerHTML += '<br><input type="text" size="7" id="dec_ts" disabled spellcheck="false">';
 			document.body.innerHTML += ('<input type="text" size="5" id="hex_ts" disabled spellcheck="false">' + (flag ? '' : '<br><br>'));

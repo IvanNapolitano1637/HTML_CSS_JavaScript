@@ -1,16 +1,16 @@
-<HTML><!--Serena-->
-	<HEAD>
+<html><!--Serena-->
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	</HEAD>
-	<BODY id="body" onclick="select()">
-		<DIV id = "Fifteen">
+	</head>
+	<body id="body" onclick="select()">
+		<div id = "Fifteen">
 			<canvas id="board">
 				Upgrade Browser
 			</canvas>
-		</DIV>
-		<SCRIPT>
+		</div>
+		<script>
 			const color1 = "#a7ffa7";
 			const color2 = "#efefef";
 			const backgroundColor = "#af67df";
@@ -49,7 +49,7 @@
 				document.body.style.background = backgroundColor;
 				shuffleArray();
 				for(let i = 0; i < 16; i++){
-					document.getElementById("body").innerHTML += ("<DIV id=\"" + (ids[i]) + "\" style=\"position: absolute; width: 10%; height: 10%; font-size: " + unit + "rem; left:" + (orizontalConst + orizontalDeltas[i] + side/2 + borderWidth + divisionWidth + ((side + divisionWidth)*(i%4))) + "px; top:" + ((divisionWidth + borderWidth + marginDim + 10) + ((side + divisionWidth)*(parseInt(i/4)))) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;\">" + ((ids[i] == "0") ? "" : parseInt("0x" + ids[i])) + "</DIV>");
+					document.getElementById("body").innerHTML += ("<div id=\"" + (ids[i]) + "\" style=\"position: absolute; width: 10%; height: 10%; font-size: " + unit + "rem; left:" + (orizontalConst + orizontalDeltas[i] + side/2 + borderWidth + divisionWidth + ((side + divisionWidth)*(i%4))) + "px; top:" + ((divisionWidth + borderWidth + marginDim + 10) + ((side + divisionWidth)*(parseInt(i/4)))) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;\">" + ((ids[i] == "0") ? "" : parseInt("0x" + ids[i])) + "</div>");
 				}
 				let board = document.getElementById("board");
 				board.width = width;
@@ -80,6 +80,7 @@
 				button.innerHTML = "Restart";
 				document.querySelector("#body").appendChild(button);
 			}
+
 			function drawCell(row, column, color){
 				document.body.style.background = backgroundColor;
 				let board = document.getElementById("board");
@@ -91,6 +92,7 @@
 					context.fillRect(x0, y0, side, side);
 				}
 			}
+
 			function drawTile(row, column, tile){
 				let tileNumber = parseInt(Number("0x" + tile));
 				let targetTileId = ((row*4 + column + 1)%16).toString(16);
@@ -101,7 +103,9 @@
 					document.getElementById(tile).innerHTML = "";
 				}
 			}
+
 			drawBoard();
+
 			function drawCells(){
 				for(let i = 0; i < 4; i++){
 					for(let j = 0; j < 4; j++){
@@ -109,7 +113,9 @@
 					}
 				}
 			}
+
 			drawCells();
+
 			function swapTiles(tile1, tile2){//SCAMBIA DUE TESSERE. L'ID INDICA LA POSIZIONE, NON IL CONTENUTO.
 				let tileNumber1 = ((parseInt(Number("0x" + tile1)) + 15)%16);
 				let tileNumber2 = ((parseInt(Number("0x" + tile2)) + 15)%16);
@@ -125,6 +131,7 @@
 					document.getElementById(tile2).innerHTML = "";
 				}
 			}
+
 			function select(){
 				if(!gameFinished){
 					let row = getRow();
@@ -148,6 +155,7 @@
 					}
 				}
 			}
+
 			function isGameFinished(){
 				if(shuffledIds == null){
 					return false;
@@ -159,6 +167,7 @@
 				}
 				return true;
 			}
+
 			function shuffleString(){
 				const ALPHABET = "123456789abcdef0";
 				let inputString = ALPHABET;
@@ -179,6 +188,7 @@
 				}
 				shuffledString = outputString;
 			}
+
 			function shuffleArray(){
 				shuffleString();
 				shuffledIds = [];
@@ -186,6 +196,7 @@
 					shuffledIds.push(shuffledString.charAt(i));
 				}
 			}
+
 			function shuffledArrayIsOk() {
 				let counter = 0;
 				for(let i = 0; i < shuffledIds.length; i++){
@@ -205,6 +216,7 @@
 				}
 				return (counter%2 == 0);
 			}
+
 			function shuffleTiles() {
 				if(!gameFinished){
 					shuffleArray();
@@ -228,15 +240,18 @@
 					counterMoves = -1;
 				}
 			}
+
 			function getRow(){
 				return parseInt((cursorY - (borderWidth + divisionWidth + marginDim))/(side + divisionWidth));
 			}
+
 			function getColumn(){
 				return parseInt((cursorX - (orizontalConst + borderWidth + divisionWidth + marginDim))/(side + divisionWidth));
 			}
+
 			function restart(){
 				window.location.reload();
 			}
-		</SCRIPT>
-	</BODY>
-</HTML>
+		</script>
+	</body>
+</html>

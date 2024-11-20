@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<HTML><!--Roberto-->
-	<HEAD>
+<html><!--Roberto-->
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Days</title>
-	</HEAD>
-	<BODY style="background-color:#ccccff;">
-		<FORM>
-			<BUTTON type="button" onclick="getTodayDate(0)"> Today </BUTTON>
-			<INPUT type="text" size="7" id="firstDate"/>
-			<BUTTON type="button" onclick="getDayOfTheWeek()"> → </BUTTON>
-			<INPUT type="text" size="10" id="dayOfTheWeek" disabled spellcheck="false"><br><br><br><br>
-			<BUTTON type="button" onclick="getFullTodayDate()"> Full Today Date: </BUTTON>
-			<INPUT type="text" size="14" id="todayDate" disabled spellcheck="false"><br><br><br><br>
-			<BUTTON type="button" onclick="getTodayDate(1)"> Today </BUTTON>
-			<INPUT type="text" size="7" id="secondDate"/>
-			<BUTTON type="button" onclick="getTodayDate(2)"> Today </BUTTON>
-			<INPUT type="text" size="7" id="thirdDate"/><br><br>
-			<BUTTON type="button" onclick="getDaysOfDifference()"> Days of difference: </BUTTON>
-			<INPUT type="text" size="7" id="daysOfDifference" disabled spellcheck="false"/><br><br><br><br>
-			<BUTTON type="button" onclick="clearFields()"> Clear </BUTTON>
-		</FORM>
-	</BODY>
-	<SCRIPT>
+	</head>
+	<body style="background-color:#ccccff;">
+		<form>
+			<button type="button" onclick="getTodayDate(0)"> Today </button>
+			<input type="text" size="7" id="firstDate"/>
+			<button type="button" onclick="getDayOfTheWeek()"> → </button>
+			<input type="text" size="10" id="dayOfTheWeek" disabled spellcheck="false"><br><br><br><br>
+			<button type="button" onclick="getFullTodayDate()"> Full Today Date: </button>
+			<input type="text" size="14" id="todayDate" disabled spellcheck="false"><br><br><br><br>
+			<button type="button" onclick="getTodayDate(1)"> Today </button>
+			<input type="text" size="7" id="secondDate"/>
+			<button type="button" onclick="getTodayDate(2)"> Today </button>
+			<input type="text" size="7" id="thirdDate"/><br><br>
+			<button type="button" onclick="getDaysOfDifference()"> Days of difference: </button>
+			<input type="text" size="7" id="daysOfDifference" disabled spellcheck="false"/><br><br><br><br>
+			<button type="button" onclick="clearFields()"> Clear </button>
+		</form>
+	</body>
+	<script>
 		const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 		const numberOfDaysOfEachMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -43,6 +43,7 @@
 			}
 			return flag;
 		}
+
 		function getYear(date){
 			if(date.split("/").length == 3){
 				let year = parseInt(date.split("/")[2]);
@@ -52,6 +53,7 @@
 			}
 			return -1;
 		}
+
 		function getMonth(date){
 			if(date.split("/").length == 3){
 				let month = parseInt(date.split("/")[1]);
@@ -61,6 +63,7 @@
 			}
 			return -1;
 		}
+
 		function getDay(date){
 			if(date.split("/").length == 3){
 				let day = parseInt(date.split("/")[0]);
@@ -70,6 +73,7 @@
 			}
 			return -1;
 		}
+
 		function isCorrectDate(date){
 			if (date.indexOf("/") > -1) {
 				if (date.split("/").length == 3) {
@@ -97,6 +101,7 @@
 			}
 			return false;
 		}
+
 		function getDays(date) {
 			if (isCorrectDate(date)) {
 				let days = getDay(date);
@@ -124,24 +129,29 @@
 			}
 			return -1;
 		}
+
 		function getDayOfTheWeek(){
-			let firstInput = document.getElementById("firstDate");
-			document.getElementById("dayOfTheWeek").value = (getDays(firstInput.value) < 0) ? "Wrong date." : daysOfTheWeek[(getDays(firstInput.value) + 1) % 7];
+			let firstinput = document.getElementById("firstDate");
+			document.getElementById("dayOfTheWeek").value = (getDays(firstinput.value) < 0) ? "Wrong date." : daysOfTheWeek[(getDays(firstinput.value) + 1) % 7];
 		}
+
 		function getFullTodayDate(){
 			const d = new Date();
 			let date = d.getDate() + "/" + (d.getMonth() + 1) + "/" + (d.getYear() + 1900);			
 			document.getElementById("todayDate").value = (daysOfTheWeek[(getDays(date) + 1) % 7]+ " " + date);
 		}
+
 		function getTodayDate(field){
 			const d = new Date();
 			document.querySelector(field == 0 ? "#firstDate" : field == 1 ? "#secondDate" : "#thirdDate").value = d.getDate() + "/" + (d.getMonth() + 1) + "/" + (d.getYear() + 1900);
 		}
+
 		function getDaysOfDifference(){
 			let days1 = getDays(document.getElementById("secondDate").value);
 			let days2 = getDays(document.getElementById("thirdDate").value);
 			document.getElementById("daysOfDifference").value = (days1 >= 0 && days2 >= 0) ? (days1 > days2 ? (days1 - days2) : (days2 - days1)) : "Wrong input.";
 		}
+
 		function clearFields(){
 			document.getElementById("firstDate").value = "";
 			document.getElementById("dayOfTheWeek").value = "";
@@ -150,5 +160,5 @@
 			document.getElementById("thirdDate").value = "";
 			document.getElementById("daysOfDifference").value = "";
 		}
-	</SCRIPT>
-</HTML>
+	</script>
+</html>

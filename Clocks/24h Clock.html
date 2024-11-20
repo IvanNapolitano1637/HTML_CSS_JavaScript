@@ -114,6 +114,7 @@
 				document.getElementById("clockDial").innerHTML += "<div class=\"hand minute\" data-minute-hand></div>";
 				document.getElementById("clockDial").innerHTML += "<div class=\"hand second\" data-second-hand></div>";
 			}
+
 			function setClock() {
 				const currentDate = new Date();
 				const secondsRatio = currentDate.getSeconds() / 60;
@@ -150,13 +151,16 @@
 					document.getElementById("clockDial").onclick = changeClockDirection;
 				}
 			}
+
 			function setRotation(element, rotationRatio) {
 				element.style.setProperty('--rotation', clockwise ? (rotationRatio * 360) : (360 - rotationRatio * 360))
 			}
+
 			function changeColorsRules() {
 				choice = choice == 1 ? 2 : choice == 2 ? 3 : 1;
 				document.getElementById("btnColors").textContent = "Colors' rule: "+(choice == 1 ? "First" : choice == 2 ? "Second" : "Third");
 			}
+
 			function changeClockDirection() {
 				begin();
 				done = false;
@@ -165,6 +169,7 @@
 				clockwise = !clockwise;
 				setClock();
 			}
+
 			function changeMidnightNumber() {
 				done = false;
 				document.getElementById("clockDial").innerHTML = "";
@@ -172,6 +177,7 @@
 				fromZero = !fromZero;
 				setClock();
 			}
+
 			setClock()
 		</script>
 		<br>

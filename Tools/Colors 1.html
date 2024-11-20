@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<HTML><!--Irene-->
-	<HEAD>
+<html><!--Irene-->
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<TITLE>Colors and their codes</TITLE>
+		<title>Colors and their codes</title>
 		<style>
 			.slider {
 				-webkit-appearance: none;
@@ -64,29 +64,29 @@
 				background: #FFFFFF;
 			}
 		</style>
-	</HEAD>
-	<BODY>
-		<DIV id="optionZone" style="background-color:#ffffff text-align:center">
+	</head>
+	<body>
+		<div id="optionZone" style="background-color:#ffffff text-align:center">
 			Background color: <b><output id="valueHexCode" style="background: #FFFF00"></output></b>.<button type="button" onclick="revert()">Revert</button><br><br><br>
-			<DIV>
-				<INPUT type="range" id="red" class="slider red" name="red" oninput="setAndPatch(0)"/>
+			<div>
+				<input type="range" id="red" class="slider red" name="red" oninput="setAndPatch(0)"/>
 				<b><output id="valueR" style="background: #FFFF00"></output></b><br><br><br>
 
-				<INPUT type="range" id="green" class="slider green" name="green" oninput="setAndPatch(1)"/>
+				<input type="range" id="green" class="slider green" name="green" oninput="setAndPatch(1)"/>
 				<b><output id="valueG" style="background: #FFFF00"></output></b><br><br><br>
 				
-				<INPUT type="range" id="blue" class="slider blue" name="blue" oninput="setAndPatch(2)"/>
+				<input type="range" id="blue" class="slider blue" name="blue" oninput="setAndPatch(2)"/>
 				<b><output id="valueB" style="background: #FFFF00"></output></b><br><br><br>
 				
-				<INPUT type="range" id="gray" class="slider gray" name="gray" oninput="setGray()"/>
+				<input type="range" id="gray" class="slider gray" name="gray" oninput="setGray()"/>
 				<b><output id="valueGray" style="background: #FFFF00"></output></b><br><br><br>
 				
-				<INPUT type="range" id="light" class="slider light" name="light" style="background: gray" oninput="setBrightness()"/>
+				<input type="range" id="light" class="slider light" name="light" style="background: gray" oninput="setBrightness()"/>
 				<b><output id="valueLight" style="background: #FFFF00"></output></b><br><br><br>
-			</DIV>
-		</DIV>
-	</BODY>
-	<SCRIPT>
+			</div>
+		</div>
+	</body>
+	<script>
 		const values = [document.querySelector("#valueR"), document.querySelector("#valueG"), document.querySelector("#valueB"), document.querySelector("#valueGray"), document.querySelector("#valueLight"), document.querySelector("#valueHexCode")];
 		const inputs = [document.querySelector("#red"), document.querySelector("#green"), document.querySelector("#blue"), document.querySelector("#gray"), document.querySelector("#light")];
 		const ranges = ["red", "green", "blue", "gray", "light"];
@@ -97,10 +97,13 @@
 			document.getElementById(ranges[i]).value = 255;
 			document.getElementById(ranges[i]).step = 1;
 		}
+
 		for(let i = 0; i < 5; i++){
 			values[i].textContent = inputs[i].value;
 		}
+
 		values[5].textContent = '"' + getColor() + '"';
+
 		function setAndPatch(component){
 			values[component].textContent = inputs[component].value;
 			patchGrayValues();
@@ -109,6 +112,7 @@
 			values[5].textContent = '"' + getColor() + '"';
 			patchLightValues();
 		}
+
 		function setGray(){
 			values[3].textContent = inputs[3].value;
 			document.body.style.backgroundColor = getGray();
@@ -120,6 +124,7 @@
 			values[5].textContent = '"' + getColor() + '"';
 			patchLightValues();
 		}
+
 		function setBrightness(){
 			if(isPossibleToModifyLight()){
 				if(parseInt(inputs[4].value) != parseInt(values[4].textContent)){
@@ -137,39 +142,47 @@
 			}
 			inputs[4].value = parseInt(values[4].textContent);
 		}
+
 		function getColor(){
 			sRed = patchString(parseInt(values[0].textContent).toString(16));
 			sGreen = patchString(parseInt(values[1].textContent).toString(16));
 			sBlue = patchString(parseInt(values[2].textContent).toString(16));
 			return ("#" + sRed + sGreen + sBlue);
 		}
+
 		function getGray(){
 			sRed = patchString(parseInt(values[3].textContent).toString(16));
 			sGreen = patchString(parseInt(values[3].textContent).toString(16));
 			sBlue = patchString(parseInt(values[3].textContent).toString(16));
 			return ("#" + sRed + sGreen + sBlue);
 		}
+
 		function patchString(string){
 			return string.length == 1 ? ("0" + string) : string;
 		}
+
 		function patchGrayValues(){
 			inputs[3].value = parseInt((parseInt(values[0].value) + parseInt(values[1].value) + parseInt(values[2].value))/3);
 			values[3].textContent = parseInt((parseInt(values[0].value) + parseInt(values[1].value) + parseInt(values[2].value))/3);
 		}
+
 		function getMin(){
 			let min = (parseInt(inputs[0].value) <= parseInt(inputs[1].value)) ? parseInt(inputs[0].value) : parseInt(inputs[1].value);
 			min = ((min <= parseInt(inputs[2].value)) ? min : parseInt(inputs[2].value));
 			return min
 		}
+
 		function getMax(){
 			let max = (parseInt(inputs[0].value) >= parseInt(inputs[1].value)) ? parseInt(inputs[0].value) : parseInt(inputs[1].value);
 			max = ((max >= parseInt(inputs[2].value)) ? max : parseInt(inputs[2].value));
 			return max
 		}
+
 		function patchLightValues(){
 			inputs[4].value = parseInt((getMax() + getMin())/2);
 			values[4].textContent = inputs[4].value;
 		}
+
 		function isPossibleToModifyLight(){
 			ok = true;
 			if(parseInt(inputs[4].value) > parseInt(values[4].textContent)){
@@ -184,6 +197,7 @@
 			}
 			return ok;
 		}
+
 		function revert(){
 			for(let i = 0; i < 3; i++){
 				values[i].textContent = inputs[i].value = 255 - inputs[i].value;
@@ -194,5 +208,5 @@
 			patchLightValues();
 			patchGrayValues();
 		}
-	</SCRIPT>
-</HTML>
+	</script>
+</html>

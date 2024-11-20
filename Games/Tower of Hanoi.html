@@ -100,6 +100,7 @@
 				wan = false;
 				demo = false;
 			}
+
 			function selectTower(){
 				tower = -1;
 				if(cursorY >= vSpace && cursorY <= totalHeight){
@@ -113,6 +114,7 @@
 				}
 				return tower;
 			}
+
 			function oldSelect(choice){
 				if(choice == null){
 					tower = selectTower();
@@ -155,11 +157,13 @@
 					}
 				}
 			}
+
 			function select(choice){
 				if(!wan){
 					oldSelect(choice);
 				}
 			}
+
 			function colorTower(tower){
 				let x0, y0, w, h;
 
@@ -188,11 +192,13 @@
 					}
 				}
 			}
+
 			function colorAllTower(){
 				for(let i = 0; i < 3; i++){
 					colorTower(i);
 				}
 			}
+
 			function drawDisk(tower, level, disk){
 				let x0, y0, w, h;
 				context.fillStyle = colors[disk];
@@ -215,6 +221,7 @@
 				context.ellipse(desktop ? x0 : y0, desktop ? y0 : x0, disksHeight/2, disksHeight/2, Math.PI*0, Math.PI*(desktop?1.5:2), Math.PI*(desktop?0.5:1), false);
 				context.fill();
 			}
+
 			function getLast(tower){
 				let index = numberOfDisks - 1;
 				while(index > -1 && towers[tower][index] == -1){
@@ -222,12 +229,14 @@
 				}
 				return index;
 			}
+
 			function getCurrency(){
 				selectElement = document.querySelector('#disksNumber');
 				numberOfDisks = selectElement.value;
 				goOn = false;
 				drawUniverse();
 			}
+
 			function refreshPage(versionToSet){
 				version = versionToSet;
 				numberOfDisks = defaultLevel;
@@ -236,12 +245,15 @@
 				goOn = false;
 				drawUniverse();
 			}
+
 			function getWidth(){
 				return desktop?totalWidth:totalHeight;
 			}
+
 			function getHeight(){
 				return desktop?totalHeight:totalWidth;
 			}
+
 			function solutionHanoi(s, level){
 				let stringBefore;
 				let stringAfter;
@@ -264,9 +276,11 @@
 					}
 				}
 			}
+
 			function solution(level){
 				return solutionHanoi("", level);
 			}
+
 			function nextStep(){
 				if(goOn){
 					select(steps[step]-1);
@@ -277,6 +291,7 @@
 					}
 				}
 			}
+
 			function animatedSolving(){
 				drawUniverse();
 				goOn = true;

@@ -70,6 +70,7 @@
 					}
 					return -1;
 				}
+
 				for (let i = 1; i < p; i++) {
 					let inverse = modInverse(i, p);
 					if (inverse !== -1 && !numbers.includes(i) && !numbers.includes(inverse)) {
@@ -98,6 +99,7 @@
 					});
 					grid.appendChild(cell);
 				});
+
 				function checkMatch() {
 					const [cell1, cell2] = selectedCells;
 					const num1 = parseInt(cell1.dataset.number);
@@ -126,6 +128,7 @@
 					}
 					selectedCells = [];
 				}
+
 				function resetGame() {
 					grid.innerHTML = '';
 					currentErrors = 0;

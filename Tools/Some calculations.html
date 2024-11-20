@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<HTML><!--Claudia-->
-	<HEAD>
+<html><!--Claudia-->
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Some computations</title>
-	</HEAD>
-	<BODY style="background-color:#ccffcc;"><!--"background-color:#ff9999;"-->
-		<FORM>
+	</head>
+	<body style="background-color:#ccffcc;"><!--"background-color:#ff9999;"-->
+		<form>
 			Is this a composite number?<br>
 			<button type="button" id="primalityTestButton" onclick="checkNumber()">Number:</button>
 			<input type="number" id="firstNumber"/><br>
@@ -47,9 +47,9 @@
 			<button type="button" id="sumOfSquares" onclick="writeAsSumOfSquares()">Number:</button>
 			<input type="number" id="ninthNumber"/><br>
 			<div id="squares"></div>
-		</FORM>
-	</BODY>
-	<SCRIPT>
+		</form>
+	</body>
+	<script>
 		let inputString;
 		let outputString;
 
@@ -79,12 +79,14 @@
 				document.getElementById("isPrime").value = "The number " + number + outputString;
 			}
 		}
+
 		document.getElementById("firstNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("primalityTestButton").click();
 			}
 		});
+
 		function squareRoot(){
 			inputString = document.getElementById("secondNumber").value;
 			clearAll();
@@ -106,12 +108,14 @@
 				document.getElementById("sqrt").value = outputString;
 			}
 		}
+
 		document.getElementById("secondNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("squareRootButton").click();
 			}
 		});
+
 		function factorize(){
 			inputString = document.getElementById("thirdNumber").value;
 			clearAll();
@@ -199,12 +203,14 @@
 				}
 			}
 		}
+
 		document.getElementById("thirdNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("factorization").click();
 			}
 		});
+
 		function computeBezoutRelation(){
 			let input1 = document.getElementById("fourthNumber").value;
 			let input2 = document.getElementById("fifthNumber").value;
@@ -255,24 +261,28 @@
 			}
 			document.getElementById("BezoutsRelation").value = (correctinput ? document.getElementById("BezoutsRelation").value : "Invalid input. Be carefull, please.");
 		}
+
 		document.getElementById("fourthNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("Bezout").click();
 			}
 		});
+
 		document.getElementById("fifthNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("Bezout").click();
 			}
 		});
+
 		document.getElementById("sixthNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("primalityTestOfFermatButton").click();
 			}
 		});
+
 		function applyFermatsPrimalityTest() {
 			let inputString = document.getElementById("sixthNumber").value.trim();
 			clearAll();
@@ -314,6 +324,7 @@
 				document.getElementById("mayBePrime").value = "The number " + inputString + " is composite.";
 			}
 		}
+
 		function calculatePolygonArea() {
 			let numSidesInput = document.getElementById("seventhNumber").value.trim();
 			let sideLengthInput = document.getElementById("eighthNumber").value.trim();
@@ -339,18 +350,21 @@
 			//resultElement.value = "The area is: " + area.toFixed(2) + " squared unity.";
 			resultElement.value = "The area is: " + area;
 		}
+
 		document.getElementById("seventhNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("calculateAreaButton").click();
 			}
 		});
+
 		document.getElementById("eighthNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("calculateAreaButton").click();
 			}
 		});
+
 		function writeAsSumOfSquares(){
 			inputString = document.getElementById("ninthNumber").value;
 			clearAll();
@@ -374,12 +388,14 @@
 			}
 			squaresDivElement.innerHTML = (outputString == "" ? "No way, sorry." : outputString);
 		}
+
 		document.getElementById("ninthNumber").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
 				document.getElementById("sumOfSquares").click();
 			}
 		});
+
 		function clearAll(){//TO UPDATE EVERY TIME A NEW METHOD APPEARS
 			document.getElementById("isPrime").value = "";
 			document.getElementById("sqrt").value = "";
@@ -400,5 +416,5 @@
 			document.getElementById("eighthNumber").value = "";
 			document.getElementById("ninthNumber").value = "";
 		}
-	</SCRIPT>
-</HTML>
+	</script>
+</html>

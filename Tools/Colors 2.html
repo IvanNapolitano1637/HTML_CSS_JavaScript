@@ -1,52 +1,52 @@
 <!DOCTYPE html>
-<HTML><!--Paloma-->
-	<HEAD>
+<html><!--Paloma-->
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<TITLE>Colors</TITLE>
-	</HEAD>
-	<BODY>
-		<DIV id="optionZone" style="background-color:#ffffff text-align:center">
+		<title>Colors</title>
+	</head>
+	<body>
+		<div id="optionZone" style="background-color:#ffffff text-align:center">
 			Background page components color: <output id="valueHexCode"></output><br><br>
 			R:
-			<INPUT type="radio" id="R00" name="Red" value="00"/>00
-			<INPUT type="radio" id="R33" name="Red" value="33"/>33
-			<INPUT type="radio" id="R66" name="Red" value="66"/>66
-			<INPUT type="radio" id="R99" name="Red" value="99"/>99
-			<INPUT type="radio" id="RCC" name="Red" value="CC"/>CC
-			<INPUT type="radio" id="RFF" name="Red" value="FF" checked="yes"/>FF<BR>
+			<input type="radio" id="R00" name="Red" value="00"/>00
+			<input type="radio" id="R33" name="Red" value="33"/>33
+			<input type="radio" id="R66" name="Red" value="66"/>66
+			<input type="radio" id="R99" name="Red" value="99"/>99
+			<input type="radio" id="RCC" name="Red" value="CC"/>CC
+			<input type="radio" id="RFF" name="Red" value="FF" checked="yes"/>FF<br>
 			G:
-			<INPUT type="radio" id="G00" name="Green" value="00"/>00
-			<INPUT type="radio" id="G33" name="Green" value="33"/>33
-			<INPUT type="radio" id="G66" name="Green" value="66"/>66
-			<INPUT type="radio" id="G99" name="Green" value="99"/>99
-			<INPUT type="radio" id="GCC" name="Green" value="CC"/>CC
-			<INPUT type="radio" id="GFF" name="Green" value="FF" checked="yes"/>FF<BR>
+			<input type="radio" id="G00" name="Green" value="00"/>00
+			<input type="radio" id="G33" name="Green" value="33"/>33
+			<input type="radio" id="G66" name="Green" value="66"/>66
+			<input type="radio" id="G99" name="Green" value="99"/>99
+			<input type="radio" id="GCC" name="Green" value="CC"/>CC
+			<input type="radio" id="GFF" name="Green" value="FF" checked="yes"/>FF<br>
 			B:
-			<INPUT type="radio" id="B00" name="Blue" value="00"/>00
-			<INPUT type="radio" id="B33" name="Blue" value="33"/>33
-			<INPUT type="radio" id="B66" name="Blue" value="66"/>66
-			<INPUT type="radio" id="B99" name="Blue" value="99"/>99
-			<INPUT type="radio" id="BCC" name="Blue" value="CC"/>CC
-			<INPUT type="radio" id="BFF" name="Blue" value="FF" checked="yes"/>FF<BR>
-		</DIV>
-		<BR>
-		<BUTTON type="button" onclick="color(0,0,0)">Black</BUTTON>
-		<BUTTON type="button" onclick="color(5,5,5)">White</BUTTON>
-		<BR><BR>
-		<BUTTON type="button" onclick="color(5,0,0)">Red</BUTTON>
-		<BUTTON type="button" onclick="color(0,5,0)">Green</BUTTON>
-		<BUTTON type="button" onclick="color(0,0,5)">Blue</BUTTON>
-		<BR><BR>
-		<BUTTON type="button" onclick="color(0,5,5)">Cyan</BUTTON>
-		<BUTTON type="button" onclick="color(5,0,5)">Magenta</BUTTON>
-		<BUTTON type="button" onclick="color(5,5,0)">Yellow</BUTTON>
-		<BR><BR>
-		<BUTTON type="button" onclick="darker()">Darker</BUTTON>
-		<BUTTON type="button" onclick="lighter()">Lighter</BUTTON>
-	</BODY>
-	<SCRIPT>
+			<input type="radio" id="B00" name="Blue" value="00"/>00
+			<input type="radio" id="B33" name="Blue" value="33"/>33
+			<input type="radio" id="B66" name="Blue" value="66"/>66
+			<input type="radio" id="B99" name="Blue" value="99"/>99
+			<input type="radio" id="BCC" name="Blue" value="CC"/>CC
+			<input type="radio" id="BFF" name="Blue" value="FF" checked="yes"/>FF<br>
+		</div>
+		<br>
+		<button type="button" onclick="color(0,0,0)">Black</button>
+		<button type="button" onclick="color(5,5,5)">White</button>
+		<br><br>
+		<button type="button" onclick="color(5,0,0)">Red</button>
+		<button type="button" onclick="color(0,5,0)">Green</button>
+		<button type="button" onclick="color(0,0,5)">Blue</button>
+		<br><br>
+		<button type="button" onclick="color(0,5,5)">Cyan</button>
+		<button type="button" onclick="color(5,0,5)">Magenta</button>
+		<button type="button" onclick="color(5,5,0)">Yellow</button>
+		<br><br>
+		<button type="button" onclick="darker()">Darker</button>
+		<button type="button" onclick="lighter()">Lighter</button>
+	</body>
+	<script>
 		const choice = !true;
 		const basicColors = ['Red', 'Green', 'Blue'];
 
@@ -62,9 +62,11 @@
 			}
 			return backgroundColor;
 		}
+
 		function changeBackgroundColor(){
 			document.body.style.backgroundColor = getColor();
 		}
+
 		document.querySelectorAll('input[name=\'Red\']').forEach((radio) => {
 			radio.addEventListener('click', (event) => {
 				if (event.target.checked) {
@@ -72,6 +74,7 @@
 				}
 			});
 		});
+
 		document.querySelectorAll('input[name=\'Green\']').forEach((radio) => {
 			radio.addEventListener('click', (event) => {
 				if (event.target.checked) {
@@ -79,6 +82,7 @@
 				}
 			});
 		});
+
 		document.querySelectorAll('input[name=\'Blue\']').forEach((radio) => {
 			radio.addEventListener('click', (event) => {
 				if (event.target.checked) {
@@ -86,6 +90,7 @@
 				}
 			});
 		});
+
 		function isWhite(){//NOT USED
 			if(document.getElementsByName('Red')[5].checked){
 				if(document.getElementsByName('Red')[5].checked){
@@ -96,6 +101,7 @@
 			}
 			return false;
 		}
+
 		function isBlack(){//NOT USED
 			if(document.getElementsByName('Red')[0].checked){
 				if(document.getElementsByName('Red')[0].checked){
@@ -106,6 +112,7 @@
 			}
 			return false;
 		}
+
 		function lighter(){
 			let flag = true;
 			for(let i = 0; i < basicColors.length; i++){
@@ -127,6 +134,7 @@
 				changeBackgroundColor();
 			}
 		}
+
 		function darker(){
 			let flag = true;
 			for(let i = 0; i < basicColors.length; i++){
@@ -148,11 +156,12 @@
 				changeBackgroundColor();
 			}
 		}
+
 		function color(var1, var2, var3){
 			document.getElementsByName("Red")[var1].checked = true;
 			document.getElementsByName("Green")[var2].checked = true;
 			document.getElementsByName("Blue")[var3].checked = true;
 			changeBackgroundColor();
 		}
-	</SCRIPT>
-</HTML>
+	</script>
+</html>

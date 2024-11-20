@@ -62,6 +62,7 @@
 					context.fill();
 				}
 			}
+
 			function drawUniverse(){
 				document.body.style.background = BACK_GROUND_COLOR;
 				for(let i = 0; i < ROW_NUMBER; i++){
@@ -97,12 +98,14 @@
 				moveYellow = document.getElementById("Yellow").checked;
 				goOn = true;
 			}
+
 			function getColumn(){
 				let column = (cursorX - GRID_THICKNESS - (cursorX - GRID_THICKNESS)%(GRID_THICKNESS + DIAMETER))/(GRID_THICKNESS + DIAMETER);
 				column = column >= 0 ? column : 0;
 				column = column < COLUMN_NUMBER ? column : COLUMN_NUMBER - 1;
 				return column;
 			}
+
 			function select(){
 				if(goOn){
 					let column = getColumn();
@@ -125,6 +128,7 @@
 					}
 				}
 			}
+
 			function check(){
 				let counter;
 				//CHECK ROWS
@@ -185,15 +189,19 @@
 				}
 				return false;
 			}
+
 			function getWidth(){
 				return COLUMN_NUMBER*DIAMETER + GRID_THICKNESS*(COLUMN_NUMBER + 1);
 			}
+
 			function getHeight(){
 				return ROW_NUMBER*DIAMETER + GRID_THICKNESS*(ROW_NUMBER + 1);
 			}
+
 			function refresh(){
 				drawUniverse();
 			}
+
 			function changeLanguage(){
 				languageIndex = (languageIndex + 1)%LANGUAGES.length;
 				document.getElementById("title").textContent = TITLES[languageIndex];
@@ -204,6 +212,7 @@
 				document.getElementById("YellowLabel").textContent = YELLOW_LABEL[languageIndex];
 				document.getElementById("RedLabel").textContent = RED_LABEL[languageIndex];
 			}
+
 			function undoLastMove(){
 				if(goOn){
 					if(numberOfMoves > 0){

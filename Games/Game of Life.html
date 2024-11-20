@@ -40,6 +40,7 @@
 					context.fillRect((side*row)+((row + 1)*gridThickness), (side*column)+((column + 1)*gridThickness), side, side);
 				}
 			}
+
 			function drawUniverse(){
 				document.body.style.background = "#9999ff";
 				for(let i = 0; i < rowNumber + 2; i++){
@@ -68,12 +69,14 @@
 					}
 				}
 			}
+
 			function select(){
 				let row = parseInt((cursorX-gridThickness)/(side+gridThickness));
 				let column = parseInt((cursorY-gridThickness)/(side+gridThickness));
 				grid[row + 1][column + 1].alive = !grid[row + 1][column + 1].alive;
 				drawSquare(row, column, (grid[row + 1][column + 1].alive ? aliveColor : deadColor));
 			}
+
 			function refreshPage(){
 				drawUniverse();
 				document.getElementById("life").innerHTML = "Start";
@@ -81,12 +84,15 @@
 				nIntervId = null;				
 				goOnAlone = false;
 			}
+
 			function getWidth(){
 				return ((side*rowNumber) + ((rowNumber+1)*gridThickness));
 			}
+
 			function getHeight(){
 				return ((side*columnNumber) + ((columnNumber+1)*gridThickness));
 			}
+
 			function nextGeneration(){
 				for(let i = 1; i <= rowNumber; i++){
 					for(let j = 1; j <= columnNumber; j++){
@@ -132,6 +138,7 @@
 					}
 				}
 			}
+
 			function live(){
 				if(!goOnAlone){
 					goOnAlone = true;
