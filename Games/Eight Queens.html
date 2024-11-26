@@ -16,21 +16,19 @@
 
 		<script>
 			window.onload = drawChessboard;
-			const color1 = "yellow";
-			const color2 = "brown";
-			const selected = "red";
-			const desktopSide = 80;
-			const smartphoneSide = 40;
-			let side = (/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent) ? 40 : 80;
-			const black = "black";
+			const COLOR_1 = "yellow";
+			const COLOR_2 = "brown";
+			const SELECTED = "red";
+			let side = (/Mobi|Android|webOS|iPhone|iPad|iPod|BLACKBerry|IEMobile|Opera Mini/i).test(navigator.userAgent) ? 40 : 80;
+			const BLACK = "BLACK";
 			let order = 8;
-			const buttonFlag = true;
+			const BUTTON_FLAG = true;
 			let semaphoreFlag = true;
 			let flag
-			const redSemaphoreColor = "red";
-			const backgroundColor = "#ffffcc";
-			//const backgroundColor = "#ffcccc";
-			const backgroundWinColor = "#00ff00";
+			const RED_SEMAPHORE_COLOR = "red";
+			const BACKGROUND_COLOR = "#ffffcc";
+			//const BACKGROUND_COLOR = "#ffcccc";
+			const BACKGROUND_WIN_COLOR = "#00ff00";
 			let cursorX;
 			let cursorY;
 			let numberOfQueens = 0;
@@ -41,10 +39,10 @@
 			function drawSquare(row, column){
 				if(chessboard && chessboard.getContext("2d")){
 					let context = chessboard.getContext("2d");
-					context.fillStyle = ((row + column)%2 == 0 ? color1 : color2);
+					context.fillStyle = ((row + column)%2 == 0 ? COLOR_1 : COLOR_2);
 					context.fillRect(side*row, side*column, side, side);
 				}
-				if(buttonFlag){
+				if(BUTTON_FLAG){
 					document.getElementById('showButton').style.visibility = "hidden";
 				}
 			}
@@ -60,12 +58,12 @@
 			}
 
 			function drawQueen(row, column){
-				drawCircle(row, column, side/3, selected);
-				drawCircle(row, column, side/6, black);
+				drawCircle(row, column, side/3, SELECTED);
+				drawCircle(row, column, side/6, BLACK);
 			}
 
 			function drawUnderAttackCell(row, column){
-				drawCircle(row, column, side/8, black);
+				drawCircle(row, column, side/8, BLACK);
 			}
 
 			function drawCell(row, column){
@@ -74,7 +72,7 @@
 					drawQueen(row, column);
 				}else{
 					drawSquare(row, column);
-					drawCircle(row, column, side*5/12, ((row+column)%2 == 0 ? color1 : color2));
+					drawCircle(row, column, side*5/12, ((row+column)%2 == 0 ? COLOR_1 : COLOR_2));
 					if(easy && grid[row][column].underAttack){
 						drawUnderAttackCell(row, column);
 					}
@@ -90,7 +88,7 @@
 			}
 
 			function drawChessboard(){
-				document.body.style.background = backgroundColor;
+				document.body.style.background = BACKGROUND_COLOR;
 				for(let i = 0; i < order; i++){
 					grid[i] = [];
 					for(let j = 0; j < order; j++){
@@ -127,15 +125,15 @@
 					drawAllCells();
 					if(numberOfQueens == order && flag){
 						if(checkQueensPositions()){
-							document.body.style.background = backgroundWinColor;
+							document.body.style.background = BACKGROUND_WIN_COLOR;
 							wan = true;
 							setTimeout(function(){ alert("You win! :-D"); }, 100);
 						}
 					}else{
 						if(!checkQueensPositions() && semaphoreFlag){
-							document.body.style.background = redSemaphoreColor;
+							document.body.style.background = RED_SEMAPHORE_COLOR;
 						}else{
-							document.body.style.background = backgroundColor;
+							document.body.style.background = BACKGROUND_COLOR;
 						}
 					}
 				}
@@ -152,7 +150,7 @@
 					}
 				}
 				drawChessboard();
-				document.body.style.background = backgroundColor;
+				document.body.style.background = BACKGROUND_COLOR;
 			}
 
 			function setUnderAttackValues(){
@@ -232,11 +230,11 @@
 			function changeFlagValue(){
 				if(semaphoreFlag){
 					document.getElementById("semaphore").textContent = "Semaphore: Off";
-					document.body.style.background = backgroundColor;
+					document.body.style.background = BACKGROUND_COLOR;
 				}else{
 					document.getElementById("semaphore").textContent = "Semaphore: On";
 					if(!checkQueensPositions()){
-						document.body.style.background = redSemaphoreColor;
+						document.body.style.background = RED_SEMAPHORE_COLOR;
 					}
 				}
 				drawAllCells();

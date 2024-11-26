@@ -47,13 +47,13 @@
 		<button type="button" onclick="lighter()">Lighter</button>
 	</body>
 	<script>
-		const choice = !true;
-		const basicColors = ['Red', 'Green', 'Blue'];
+		const CHOICE = !true;
+		const BASIC_COLORS = ['Red', 'Green', 'Blue'];
 
 		function getColor(){
 			let backgroundColor = "#";
-			for(let i = 0; i < basicColors.length; i++){
-				let ele = document.getElementsByName(basicColors[i]);
+			for(let i = 0; i < BASIC_COLORS.length; i++){
+				let ele = document.getElementsByName(BASIC_COLORS[i]);
 				for(let j = 0; j < ele.length; j++){
 					if(ele[j].checked){
 						backgroundColor += ele[j].value;
@@ -115,15 +115,15 @@
 
 		function lighter(){
 			let flag = true;
-			for(let i = 0; i < basicColors.length; i++){
-				flag = flag && (document.getElementsByName(basicColors[i])[document.getElementsByName(basicColors[i]).length-1].checked == false);
+			for(let i = 0; i < BASIC_COLORS.length; i++){
+				flag = flag && (document.getElementsByName(BASIC_COLORS[i])[document.getElementsByName(BASIC_COLORS[i]).length-1].checked == false);
 			}
-			if(choice){
+			if(CHOICE){
 				flag = true;
 			}
 			if(flag){
-				for(let i = 0; i < basicColors.length; i++){
-					let ele = document.getElementsByName(basicColors[i]);
+				for(let i = 0; i < BASIC_COLORS.length; i++){
+					let ele = document.getElementsByName(BASIC_COLORS[i]);
 					for(let j = ele.length - 2; j >= 0; j--){
 						if(ele[j].checked){
 							ele[j].checked = false;
@@ -137,15 +137,15 @@
 
 		function darker(){
 			let flag = true;
-			for(let i = 0; i < basicColors.length; i++){
-				flag = flag && (document.getElementsByName(basicColors[i])[0].checked == false);
+			for(let i = 0; i < BASIC_COLORS.length; i++){
+				flag = flag && (document.getElementsByName(BASIC_COLORS[i])[0].checked == false);
 			}
-			if(choice){
+			if(CHOICE){
 				flag = true;
 			}
 			if(flag){
-				for(let i = 0; i < basicColors.length; i++){
-					let ele = document.getElementsByName(basicColors[i]);
+				for(let i = 0; i < BASIC_COLORS.length; i++){
+					let ele = document.getElementsByName(BASIC_COLORS[i]);
 					for(let j = 1; j < ele.length; j++){
 						if(ele[j].checked){
 							ele[j].checked = false;

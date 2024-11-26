@@ -105,7 +105,8 @@
 			let fromZero = true;
 			let done = false;
 			let color;
-			const flag = true;
+			const FLAG = true;
+			const ANALOG = true;
 
 			function begin(){
 				document.getElementById("clockDial").innerHTML = "";
@@ -118,8 +119,8 @@
 			function setClock() {
 				const currentDate = new Date();
 				const secondsRatio = currentDate.getSeconds() / 60;
-				const minutesRatio = (secondsRatio + currentDate.getMinutes()) / 60;
-				const hoursRatio = (minutesRatio + currentDate.getHours()) / 24;
+				const minutesRatio = (secondsRatio*(ANALOG ? 1 : 0) + currentDate.getMinutes()) / 60;
+				const hoursRatio = (minutesRatio*(ANALOG ? 1 : 0) + currentDate.getHours()) / 24;
 				const colors_1 = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f'];
 				const colors_2 = ['#f00', '#f30', '#f60', '#f90', '#fc0', '#ff0', '#cf0', '#9f0', '#6f0', '#3f0', '#0f0', '#0f3', '#0f6', '#0f9', '#0fc', '#0ff', '#0cf', '#09f', '#06f', '#03f', '#00f', '#30f', '#60f', '#90f', '#c0f', '#f0f', '#f0c', '#f09', '#f06', '#f03'];
 				setRotation(document.querySelector('[data-second-hand]'), secondsRatio);
@@ -129,9 +130,9 @@
 					for(let i = 0 + (fromZero? 0 : 1); i < 24 + (fromZero ? 0 : 1); i++){
 						let degrees = clockwise ? (15*i) : (360-15*i);
 						if(i%2==0){
-							document.getElementById("clockDial").innerHTML += ("<div id=\"number"+i+"\" class=\"number\"style = \"--rotation: "+degrees+"deg;\">"+i+"<br>"+((i/2*5)%60)+"</div>");
+							document.getElementById("clockDial").innerHTML += ("<div id=\"number" + i + "\" class=\"number\"style = \"--rotation: " + degrees + "deg;\">" + i + "<br>" + ((i/2*5)%60) + "</div>");
 						}else{
-							document.getElementById("clockDial").innerHTML += ("<div id=\"number"+i+"\" class=\"number\"style = \"--rotation: "+degrees+"deg;\">"+i+"</div>");
+							document.getElementById("clockDial").innerHTML += ("<div id=\"number" + i + "\" class=\"number\"style = \"--rotation: " + degrees + "deg;\">" + i + "</div>");
 						}
 					}
 					document.getElementById("title").innerHTML = clockwise ? "24h clock" : "Reversed 24h clock";
@@ -144,7 +145,7 @@
 				}else if(choice == 3){
 					document.body.style.backgroundColor = colors_2[(currentDate.getSeconds())%30];
 				}
-				if(flag){
+				if(FLAG){
 					document.getElementById("btnClockDirection").hidden += "hidden";
 					document.getElementById("btnColors").hidden += "hidden";
 					document.getElementById("btnMidnightNumber").hidden += "hidden";

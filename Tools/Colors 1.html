@@ -87,73 +87,73 @@
 		</div>
 	</body>
 	<script>
-		const values = [document.querySelector("#valueR"), document.querySelector("#valueG"), document.querySelector("#valueB"), document.querySelector("#valueGray"), document.querySelector("#valueLight"), document.querySelector("#valueHexCode")];
-		const inputs = [document.querySelector("#red"), document.querySelector("#green"), document.querySelector("#blue"), document.querySelector("#gray"), document.querySelector("#light")];
-		const ranges = ["red", "green", "blue", "gray", "light"];
+		const VALUES = [document.querySelector("#valueR"), document.querySelector("#valueG"), document.querySelector("#valueB"), document.querySelector("#valueGray"), document.querySelector("#valueLight"), document.querySelector("#valueHexCode")];
+		const INPUTS = [document.querySelector("#red"), document.querySelector("#green"), document.querySelector("#blue"), document.querySelector("#gray"), document.querySelector("#light")];
+		const RANGES = ["red", "green", "blue", "gray", "light"];
 
-		for(let i = 0; i < ranges.length; i++){
-			document.getElementById(ranges[i]).min = 0;
-			document.getElementById(ranges[i]).max = 255;
-			document.getElementById(ranges[i]).value = 255;
-			document.getElementById(ranges[i]).step = 1;
+		for(let i = 0; i < RANGES.length; i++){
+			document.getElementById(RANGES[i]).min = 0;
+			document.getElementById(RANGES[i]).max = 255;
+			document.getElementById(RANGES[i]).value = 255;
+			document.getElementById(RANGES[i]).step = 1;
 		}
 
 		for(let i = 0; i < 5; i++){
-			values[i].textContent = inputs[i].value;
+			VALUES[i].textContent = INPUTS[i].value;
 		}
 
-		values[5].textContent = '"' + getColor() + '"';
+		VALUES[5].textContent = '"' + getColor() + '"';
 
 		function setAndPatch(component){
-			values[component].textContent = inputs[component].value;
-			patchGrayValues();
+			VALUES[component].textContent = INPUTS[component].value;
+			patchGrayVALUES();
 			document.body.style.backgroundColor = getColor();
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			values[5].textContent = '"' + getColor() + '"';
-			patchLightValues();
+			VALUES[5].textContent = '"' + getColor() + '"';
+			patchLightVALUES();
 		}
 
 		function setGray(){
-			values[3].textContent = inputs[3].value;
+			VALUES[3].textContent = INPUTS[3].value;
 			document.body.style.backgroundColor = getGray();
 			for(let i = 0; i < 3; i++){
-				inputs[i].value = inputs[3].value;
-				values[i].textContent = inputs[3].value;
+				INPUTS[i].value = INPUTS[3].value;
+				VALUES[i].textContent = INPUTS[3].value;
 			}
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			values[5].textContent = '"' + getColor() + '"';
-			patchLightValues();
+			VALUES[5].textContent = '"' + getColor() + '"';
+			patchLightVALUES();
 		}
 
 		function setBrightness(){
 			if(isPossibleToModifyLight()){
-				if(parseInt(inputs[4].value) != parseInt(values[4].textContent)){
+				if(parseInt(INPUTS[4].value) != parseInt(VALUES[4].textContent)){
 					for(let i = 0; i < 3; i++){
-						inputs[i].value = (parseInt(inputs[i].value) + parseInt(inputs[4].value) - parseInt(values[4].textContent));
-						values[i].textContent = inputs[i].value;
+						INPUTS[i].value = (parseInt(INPUTS[i].value) + parseInt(INPUTS[4].value) - parseInt(VALUES[4].textContent));
+						VALUES[i].textContent = INPUTS[i].value;
 					}
 				}
-				values[4].textContent = inputs[4].value;
-				patchGrayValues();
+				VALUES[4].textContent = INPUTS[4].value;
+				patchGrayVALUES();
 				document.querySelector("#optionZone").style.backgroundColor = getColor();
 				document.body.style.backgroundColor = getColor();
-				values[5].textContent = '"' + getColor() + '"';
-				patchLightValues();
+				VALUES[5].textContent = '"' + getColor() + '"';
+				patchLightVALUES();
 			}
-			inputs[4].value = parseInt(values[4].textContent);
+			INPUTS[4].value = parseInt(VALUES[4].textContent);
 		}
 
 		function getColor(){
-			sRed = patchString(parseInt(values[0].textContent).toString(16));
-			sGreen = patchString(parseInt(values[1].textContent).toString(16));
-			sBlue = patchString(parseInt(values[2].textContent).toString(16));
+			sRed = patchString(parseInt(VALUES[0].textContent).toString(16));
+			sGreen = patchString(parseInt(VALUES[1].textContent).toString(16));
+			sBlue = patchString(parseInt(VALUES[2].textContent).toString(16));
 			return ("#" + sRed + sGreen + sBlue);
 		}
 
 		function getGray(){
-			sRed = patchString(parseInt(values[3].textContent).toString(16));
-			sGreen = patchString(parseInt(values[3].textContent).toString(16));
-			sBlue = patchString(parseInt(values[3].textContent).toString(16));
+			sRed = patchString(parseInt(VALUES[3].textContent).toString(16));
+			sGreen = patchString(parseInt(VALUES[3].textContent).toString(16));
+			sBlue = patchString(parseInt(VALUES[3].textContent).toString(16));
 			return ("#" + sRed + sGreen + sBlue);
 		}
 
@@ -161,36 +161,36 @@
 			return string.length == 1 ? ("0" + string) : string;
 		}
 
-		function patchGrayValues(){
-			inputs[3].value = parseInt((parseInt(values[0].value) + parseInt(values[1].value) + parseInt(values[2].value))/3);
-			values[3].textContent = parseInt((parseInt(values[0].value) + parseInt(values[1].value) + parseInt(values[2].value))/3);
+		function patchGrayVALUES(){
+			INPUTS[3].value = parseInt((parseInt(VALUES[0].value) + parseInt(VALUES[1].value) + parseInt(VALUES[2].value))/3);
+			VALUES[3].textContent = parseInt((parseInt(VALUES[0].value) + parseInt(VALUES[1].value) + parseInt(VALUES[2].value))/3);
 		}
 
 		function getMin(){
-			let min = (parseInt(inputs[0].value) <= parseInt(inputs[1].value)) ? parseInt(inputs[0].value) : parseInt(inputs[1].value);
-			min = ((min <= parseInt(inputs[2].value)) ? min : parseInt(inputs[2].value));
+			let min = (parseInt(INPUTS[0].value) <= parseInt(INPUTS[1].value)) ? parseInt(INPUTS[0].value) : parseInt(INPUTS[1].value);
+			min = ((min <= parseInt(INPUTS[2].value)) ? min : parseInt(INPUTS[2].value));
 			return min
 		}
 
 		function getMax(){
-			let max = (parseInt(inputs[0].value) >= parseInt(inputs[1].value)) ? parseInt(inputs[0].value) : parseInt(inputs[1].value);
-			max = ((max >= parseInt(inputs[2].value)) ? max : parseInt(inputs[2].value));
+			let max = (parseInt(INPUTS[0].value) >= parseInt(INPUTS[1].value)) ? parseInt(INPUTS[0].value) : parseInt(INPUTS[1].value);
+			max = ((max >= parseInt(INPUTS[2].value)) ? max : parseInt(INPUTS[2].value));
 			return max
 		}
 
-		function patchLightValues(){
-			inputs[4].value = parseInt((getMax() + getMin())/2);
-			values[4].textContent = inputs[4].value;
+		function patchLightVALUES(){
+			INPUTS[4].value = parseInt((getMax() + getMin())/2);
+			VALUES[4].textContent = INPUTS[4].value;
 		}
 
 		function isPossibleToModifyLight(){
 			ok = true;
-			if(parseInt(inputs[4].value) > parseInt(values[4].textContent)){
+			if(parseInt(INPUTS[4].value) > parseInt(VALUES[4].textContent)){
 				if(getMax() == 255){
 					ok = false;
 				}
 			}
-			if(parseInt(inputs[4].value) < parseInt(values[4].textContent)){
+			if(parseInt(INPUTS[4].value) < parseInt(VALUES[4].textContent)){
 				if(getMin() == 0){
 					ok = false;
 				}
@@ -200,13 +200,13 @@
 
 		function revert(){
 			for(let i = 0; i < 3; i++){
-				values[i].textContent = inputs[i].value = 255 - inputs[i].value;
+				VALUES[i].textContent = INPUTS[i].value = 255 - INPUTS[i].value;
 			}
 			document.body.style.backgroundColor = getColor();
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			values[5].textContent = '"' + getColor() + '"';
-			patchLightValues();
-			patchGrayValues();
+			VALUES[5].textContent = '"' + getColor() + '"';
+			patchLightVALUES();
+			patchGrayVALUES();
 		}
 	</script>
 </html>

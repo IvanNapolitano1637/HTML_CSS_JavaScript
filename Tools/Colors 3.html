@@ -96,7 +96,7 @@
 		</div>
 	</body>
 	<script>
-		const choice = !true;
+		const CHOICE = !true;
 		const basicColors = ['Red', 'Green', 'Blue'];
 
 		function getColor(){
@@ -130,7 +130,7 @@
 
 		function brighterBasic(basicColor){
 			let flag = (document.getElementsByName(basicColors[basicColor])[document.getElementsByName(basicColors[basicColor]).length-1].checked == false);
-			if(choice){
+			if(CHOICE){
 				flag = true;
 			}
 			if(flag){
@@ -150,7 +150,7 @@
 			for(let i = 0; i < basicColors.length; i++){
 				flag = flag && (document.getElementsByName(basicColors[i])[document.getElementsByName(basicColors[i]).length-1].checked == false);
 			}
-			if(choice){
+			if(CHOICE){
 				flag = true;
 			}
 			if(flag){
@@ -162,7 +162,7 @@
 
 		function darkerBasic(basicColor){
 			let flag = (document.getElementsByName(basicColors[basicColor])[0].checked == false);
-			if(choice){
+			if(CHOICE){
 				flag = true;
 			}
 			if(flag){
@@ -182,7 +182,7 @@
 			for(let i = 0; i < basicColors.length; i++){
 				flag = flag && (document.getElementsByName(basicColors[i])[0].checked == false);
 			}
-			if(choice){
+			if(CHOICE){
 				flag = true;
 			}
 			if(flag){

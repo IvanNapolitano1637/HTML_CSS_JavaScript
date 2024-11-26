@@ -1,7 +1,7 @@
 <html><!--Serena-->
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="WIDTH=device-WIDTH, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	</head>
 	<body id="body" onclick="select()">
@@ -11,32 +11,32 @@
 			</canvas>
 		</div>
 		<script>
-			const color1 = "#a7ffa7";
-			const color2 = "#efefef";
-			const backgroundColor = "#af67df";
-			const frameColor = "#000000";
-			const borderColor = "#ff9f00";
-			const winningColor = "#00ff00"
-			const desktop = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
-			const unit = desktop ? 5 : 3;
-			const divisionWidth = unit;
-			const borderWidth = 4*unit;
-			const marginDim = 2*unit;
-			const side = 20*unit;
-			const ids = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "0"];
-			const orizontalPatch = desktop ? 95*unit : 0;
-			const orizontalConst = orizontalPatch + divisionWidth + borderWidth + marginDim;
-			const orizontalDeltas = [0, 0, 0, 0, 0, 0, 0, 0, 0, -5*unit, -4*unit, -5*unit, -5*unit, -5*unit, -5*unit, -5*unit];
-			const width = (orizontalConst + marginDim + (4*side) + (5*divisionWidth) + (2*borderWidth));
-			const height = (2*marginDim + (4*side) + (5*divisionWidth) + (2*borderWidth));
-			const buttonHeight = (10*unit) + "px";
-			//const btnColor = "ffff3f";
-			const btnColor = "ffffff";
-			//const btnTextColor = "#0000ff";
-			const btnTextColor = "#000000";
+			const COLOR_1 = "#a7ffa7";
+			const COLOR_2 = "#efefef";
+			const BACKGROUND_COLOR = "#af67df";
+			const FRAME_COLOR = "#000000";
+			const BORDER_COLOR = "#ff9f00";
+			const WINNING_COLOR = "#00ff00"
+			const DESKTOP = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
+			const UNIT = DESKTOP ? 5 : 3;
+			const DIVISION_WIDTH = UNIT;
+			const BORDER_WIDTH = 4*UNIT;
+			const MARGIN_DIM = 2*UNIT;
+			const SIDE = 20*UNIT;
+			const IDS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "0"];
+			const ORIZONTAL_PATCH = DESKTOP ? 95*UNIT : 0;
+			const ORIZONTAL_CONST = ORIZONTAL_PATCH + DIVISION_WIDTH + BORDER_WIDTH + MARGIN_DIM;
+			const ORIZONTAL_DELTAS = [0, 0, 0, 0, 0, 0, 0, 0, 0, -5*UNIT, -4*UNIT, -5*UNIT, -5*UNIT, -5*UNIT, -5*UNIT, -5*UNIT];
+			const WIDTH = (ORIZONTAL_CONST + MARGIN_DIM + (4*SIDE) + (5*DIVISION_WIDTH) + (2*BORDER_WIDTH));
+			const HEIGHT = (2*MARGIN_DIM + (4*SIDE) + (5*DIVISION_WIDTH) + (2*BORDER_WIDTH));
+			const BUTTON_HEIGHT = (10*UNIT) + "px";
+			//const BTN_COLOR = "ffff3f";
+			const BTN_COLOR = "ffffff";
+			//const BTN_TEXT_COLOR = "#0000ff";
+			const BTN_TEXT_COLOR = "#000000";
 			let cursorX;
 			let cursorY;
-			let shuffledIds = [];
+			let shuffledIDS = [];
 			let shuffledString = "123456789abcdef0";
 			let r1 = 3;
 			let c1 = 3;
@@ -46,20 +46,20 @@
 			let button;
 
 			function drawBoard(){
-				document.body.style.background = backgroundColor;
+				document.body.style.background = BACKGROUND_COLOR;
 				shuffleArray();
 				for(let i = 0; i < 16; i++){
-					document.getElementById("body").innerHTML += ("<div id=\"" + (ids[i]) + "\" style=\"position: absolute; width: 10%; height: 10%; font-size: " + unit + "rem; left:" + (orizontalConst + orizontalDeltas[i] + side/2 + borderWidth + divisionWidth + ((side + divisionWidth)*(i%4))) + "px; top:" + ((divisionWidth + borderWidth + marginDim + 10) + ((side + divisionWidth)*(parseInt(i/4)))) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;\">" + ((ids[i] == "0") ? "" : parseInt("0x" + ids[i])) + "</div>");
+					document.getElementById("body").innerHTML += ("<div id=\"" + (IDS[i]) + "\" style=\"position: absolute; WIDTH: 10%; HEIGHT: 10%; font-size: " + UNIT + "rem; left:" + (ORIZONTAL_CONST + ORIZONTAL_DELTAS[i] + SIDE/2 + BORDER_WIDTH + DIVISION_WIDTH + ((SIDE + DIVISION_WIDTH)*(i%4))) + "px; top:" + ((DIVISION_WIDTH + BORDER_WIDTH + MARGIN_DIM + 10) + ((SIDE + DIVISION_WIDTH)*(parseInt(i/4)))) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;\">" + ((IDS[i] == "0") ? "" : parseInt("0x" + IDS[i])) + "</div>");
 				}
 				let board = document.getElementById("board");
-				board.width = width;
-				board.height = height;
+				board.width = WIDTH;
+				board.height = HEIGHT;
 				if(board && board.getContext("2d")){
 					let context = board.getContext("2d");
-					context.fillStyle = borderColor;
-					context.fillRect(orizontalConst + marginDim, marginDim, (side*4) + (divisionWidth*5) + (borderWidth*2), (side*4) + (divisionWidth*5) + (borderWidth*2));
-					context.fillStyle = frameColor;
-					context.fillRect(orizontalConst + marginDim + borderWidth, marginDim + borderWidth, (side*4) + (divisionWidth*5) + (borderWidth*0), (side*4) + (divisionWidth*5) + (borderWidth*0));
+					context.fillStyle = BORDER_COLOR;
+					context.fillRect(ORIZONTAL_CONST + MARGIN_DIM, MARGIN_DIM, (SIDE*4) + (DIVISION_WIDTH*5) + (BORDER_WIDTH*2), (SIDE*4) + (DIVISION_WIDTH*5) + (BORDER_WIDTH*2));
+					context.fillStyle = FRAME_COLOR;
+					context.fillRect(ORIZONTAL_CONST + MARGIN_DIM + BORDER_WIDTH, MARGIN_DIM + BORDER_WIDTH, (SIDE*4) + (DIVISION_WIDTH*5) + (BORDER_WIDTH*0), (SIDE*4) + (DIVISION_WIDTH*5) + (BORDER_WIDTH*0));
 				}
 				document.onmousemove = function(e){cursorX = e.pageX;cursorY = e.pageY;}
 				counterMoves = 0;
@@ -68,37 +68,37 @@
 
 				button = document.createElement("button");
 				button.setAttribute("id", "shuffleBtn");
-				button.setAttribute("style", "position: absolute; top: " + (desktop ? 98 : 100)*unit + "px; left:" + (desktop ? 106 : 12)*unit + "px; width:" + 45*unit + "px; height: " + 10*unit + "px;" + "font-size: " + 5*unit + "px;" + "background-color: " + btnColor + ";" + "color: " + btnTextColor + ";");
+				button.setAttribute("style", "position: absolute; top: " + (DESKTOP ? 98 : 100)*UNIT + "px; left:" + (DESKTOP ? 106 : 12)*UNIT + "px; WIDTH:" + 45*UNIT + "px; HEIGHT: " + 10*UNIT + "px;" + "font-size: " + 5*UNIT + "px;" + "background-color: " + BTN_COLOR + ";" + "color: " + BTN_TEXT_COLOR + ";");
 				button.setAttribute("onclick", "shuffleTiles();");
 				button.innerHTML = "Shuffle";
 				document.querySelector("#body").appendChild(button);
 
 				button = document.createElement("button");
 				button.setAttribute("id", "restartBtn");
-				button.setAttribute("style", "position: absolute; top: " + (desktop ? 98 : 100)*unit + "px; left:" + (desktop ? 153 : 59)*unit + "px; width:" + 45*unit + "px; height: " + 10*unit + "px;" + "font-size: " + 5*unit + "px;" + "background-color: " + btnColor + ";" + "color: " + btnTextColor + ";");
+				button.setAttribute("style", "position: absolute; top: " + (DESKTOP ? 98 : 100)*UNIT + "px; left:" + (DESKTOP ? 153 : 59)*UNIT + "px; WIDTH:" + 45*UNIT + "px; HEIGHT: " + 10*UNIT + "px;" + "font-size: " + 5*UNIT + "px;" + "background-color: " + BTN_COLOR + ";" + "color: " + BTN_TEXT_COLOR + ";");
 				button.setAttribute("onclick", "restart();");
 				button.innerHTML = "Restart";
 				document.querySelector("#body").appendChild(button);
 			}
 
 			function drawCell(row, column, color){
-				document.body.style.background = backgroundColor;
+				document.body.style.background = BACKGROUND_COLOR;
 				let board = document.getElementById("board");
 				if(board && board.getContext("2d")){
 					let context = board.getContext("2d");
 					context.fillStyle = color;
-					let x0 = orizontalConst + borderWidth + divisionWidth + marginDim + (column*side) + (column*divisionWidth);
-					let y0 = borderWidth + divisionWidth + marginDim + (row*side) + (row*divisionWidth);
-					context.fillRect(x0, y0, side, side);
+					let x0 = ORIZONTAL_CONST + BORDER_WIDTH + DIVISION_WIDTH + MARGIN_DIM + (column*SIDE) + (column*DIVISION_WIDTH);
+					let y0 = BORDER_WIDTH + DIVISION_WIDTH + MARGIN_DIM + (row*SIDE) + (row*DIVISION_WIDTH);
+					context.fillRect(x0, y0, SIDE, SIDE);
 				}
 			}
 
 			function drawTile(row, column, tile){
 				let tileNumber = parseInt(Number("0x" + tile));
 				let targetTileId = ((row*4 + column + 1)%16).toString(16);
-				drawCell(row, column, (tile == "0") ? borderColor : (((tileNumber + parseInt((tileNumber - 1)/4))%2 == 1) ? color1 : color2));
+				drawCell(row, column, (tile == "0") ? BORDER_COLOR : (((tileNumber + parseInt((tileNumber - 1)/4))%2 == 1) ? COLOR_1 : COLOR_2));
 				document.getElementById(targetTileId).innerHTML = ((tile == "0") ? "" : tileNumber);
-				document.getElementById(targetTileId).style = ("position: absolute; width: 10%; height: 10%; font-size: " + unit + "rem; left:" + (orizontalConst + orizontalDeltas[tileNumber - 1] + side/2 + borderWidth + divisionWidth + ((side + divisionWidth)*(column))) + "px; top:" + ((divisionWidth + borderWidth + marginDim + 10) + ((side + divisionWidth)*row)) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;");
+				document.getElementById(targetTileId).style = ("position: absolute; WIDTH: 10%; HEIGHT: 10%; font-size: " + UNIT + "rem; left:" + (ORIZONTAL_CONST + ORIZONTAL_DELTAS[tileNumber - 1] + SIDE/2 + BORDER_WIDTH + DIVISION_WIDTH + ((SIDE + DIVISION_WIDTH)*(column))) + "px; top:" + ((DIVISION_WIDTH + BORDER_WIDTH + MARGIN_DIM + 10) + ((SIDE + DIVISION_WIDTH)*row)) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;");
 				if(document.getElementById(tile).innerHTML == "0"){
 					document.getElementById(tile).innerHTML = "";
 				}
@@ -109,7 +109,7 @@
 			function drawCells(){
 				for(let i = 0; i < 4; i++){
 					for(let j = 0; j < 4; j++){
-						drawCell(i, j, ((4*i + j == 15) ? borderColor : ((i + j)%2 == 0) ? color1 : color2));
+						drawCell(i, j, ((4*i + j == 15) ? BORDER_COLOR : ((i + j)%2 == 0) ? COLOR_1 : COLOR_2));
 					}
 				}
 			}
@@ -143,25 +143,25 @@
 						c1 = column;
 					}
 					for(let i = 0; i < 16; i++){
-						if(document.getElementById(ids[i]).innerHTML == "0"){
-							document.getElementById(ids[i]).style.left = (7/2)*side + orizontalPatch + 5*divisionWidth + 2*borderWidth + 1*marginDim - 25;
+						if(document.getElementById(IDS[i]).innerHTML == "0"){
+							document.getElementById(IDS[i]).style.left = (7/2)*SIDE + ORIZONTAL_PATCH + 5*DIVISION_WIDTH + 2*BORDER_WIDTH + 1*MARGIN_DIM - 25;
 						}
 					}
 					counterMoves++;
 					if(begun&&isGameFinished()){
 						gameFinished = true;
-						document.body.style.background = winningColor;
+						document.body.style.background = WINNING_COLOR;
 						setTimeout(function(){ alert("You win with " + counterMoves + " moves!"); }, 100);
 					}
 				}
 			}
 
 			function isGameFinished(){
-				if(shuffledIds == null){
+				if(shuffledIDS == null){
 					return false;
 				}
 				for(let i = 0; i < 16; i++){
-					if(document.getElementById(ids[i]).innerHTML != ((i+1)%16)){
+					if(document.getElementById(IDS[i]).innerHTML != ((i+1)%16)){
 						return false;
 					}
 				}
@@ -191,25 +191,25 @@
 
 			function shuffleArray(){
 				shuffleString();
-				shuffledIds = [];
+				shuffledIDS = [];
 				for(let i = 0; i < 16; i++){
-					shuffledIds.push(shuffledString.charAt(i));
+					shuffledIDS.push(shuffledString.charAt(i));
 				}
 			}
 
 			function shuffledArrayIsOk() {
 				let counter = 0;
-				for(let i = 0; i < shuffledIds.length; i++){
-					if(shuffledIds[i] == 0){
+				for(let i = 0; i < shuffledIDS.length; i++){
+					if(shuffledIDS[i] == 0){
 						counter += parseInt(i/4) + 1;
 					}
 				}
-				for(let i = 0; i < shuffledIds.length; i++) {
-					for(let j = i + 1; j < shuffledIds.length; j++) {
-						if(shuffledIds[i] == 0 || shuffledIds[j] == 0){
+				for(let i = 0; i < shuffledIDS.length; i++) {
+					for(let j = i + 1; j < shuffledIDS.length; j++) {
+						if(shuffledIDS[i] == 0 || shuffledIDS[j] == 0){
 							continue;
 						}
-						if (shuffledIds[i] > shuffledIds[j]) {
+						if (shuffledIDS[i] > shuffledIDS[j]) {
 							counter++;
 						}
 					}
@@ -225,16 +225,16 @@
 					}
 					for(let i = 0; i < 4; i++){
 						for(let j = 0; j < 4; j++){
-							drawTile(i, j, shuffledIds[(i * 4 + j) % 16]);
+							drawTile(i, j, shuffledIDS[(i * 4 + j) % 16]);
 						}
 					}
 					let index;
 					for(let i = 0; i < 16; i++) {
-						if (shuffledIds[i] == "0") {
+						if (shuffledIDS[i] == "0") {
 							index = i;
 						}
 					}
-					document.getElementById(((parseInt(index) + 1)%16).toString(16)).style.left = (7/2)*side + orizontalPatch + 5*divisionWidth + 2*borderWidth + 1*marginDim - 25;
+					document.getElementById(((parseInt(index) + 1)%16).toString(16)).style.left = (7/2)*SIDE + ORIZONTAL_PATCH + 5*DIVISION_WIDTH + 2*BORDER_WIDTH + 1*MARGIN_DIM - 25;
 					r1 = parseInt(index/4);
 					c1 = parseInt(index)%4;
 					counterMoves = -1;
@@ -242,11 +242,11 @@
 			}
 
 			function getRow(){
-				return parseInt((cursorY - (borderWidth + divisionWidth + marginDim))/(side + divisionWidth));
+				return parseInt((cursorY - (BORDER_WIDTH + DIVISION_WIDTH + MARGIN_DIM))/(SIDE + DIVISION_WIDTH));
 			}
 
 			function getColumn(){
-				return parseInt((cursorX - (orizontalConst + borderWidth + divisionWidth + marginDim))/(side + divisionWidth));
+				return parseInt((cursorX - (ORIZONTAL_CONST + BORDER_WIDTH + DIVISION_WIDTH + MARGIN_DIM))/(SIDE + DIVISION_WIDTH));
 			}
 
 			function restart(){
