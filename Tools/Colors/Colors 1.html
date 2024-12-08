@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html><!--Irene-->
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Colors and their codes</title>
+		<style>
+			.slider {
+				-webkit-appearance: none;
+				width: 90%
+			}
+
+			.slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				width: 25px;
+				background: #0075FF;
+				height: 15px;
+			}
+
+			.slider::-moz-range-thumb {
+				width: 25px;
+				height: 15px;
+				background: #0075FF;
+			}
+
+			.slider.red::-webkit-slider-thumb {
+				background: #FF0000;
+			}
+
+			.slider.red::-moz-range-thumb {
+				background: #FF0000;
+			}
+			
+			.slider.green::-webkit-slider-thumb {
+				background: #00FF00;
+			}
+
+			.slider.green::-moz-range-thumb {
+				background: #00FF00;
+			}
+
+			.slider.blue::-webkit-slider-thumb {
+				background: #0000FF;
+			}
+
+			.slider.blue::-moz-range-thumb {
+				background: #0000FF;
+			}
+
+			.slider.gray::-webkit-slider-thumb {
+				background: #888888;
+			}
+
+			.slider.gray::-moz-range-thumb {
+				background: #888888;
+			}
+
+			.slider.light::-webkit-slider-thumb {
+				background: #FFFFFF;
+			}
+
+			.slider.light::-moz-range-thumb {
+				background: #FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="optionZone" style="background-color:#ffffff text-align:center">
+			Background color: <b><output id="valueHexCode" style="background: #FFFF00"></output></b>.<button type="button" onclick="revert()">Revert</button><br><br><br>
+			<div>
+				<input type="range" id="red" class="slider red" name="red" oninput="setAndPatch(0)"/>
+				<b><output id="valueR" style="background: #FFFF00"></output></b><br><br><br>
+
+				<input type="range" id="green" class="slider green" name="green" oninput="setAndPatch(1)"/>
+				<b><output id="valueG" style="background: #FFFF00"></output></b><br><br><br>
+				
+				<input type="range" id="blue" class="slider blue" name="blue" oninput="setAndPatch(2)"/>
+				<b><output id="valueB" style="background: #FFFF00"></output></b><br><br><br>
+				
+				<input type="range" id="gray" class="slider gray" name="gray" oninput="setGray()"/>
+				<b><output id="valueGray" style="background: #FFFF00"></output></b><br><br><br>
+				
+				<input type="range" id="light" class="slider light" name="light" style="background: gray" oninput="setBrightness()"/>
+				<b><output id="valueLight" style="background: #FFFF00"></output></b><br><br><br>
+			</div>
+		</div>
+	</body>
+	<script>
+		const VALUES = [document.querySelector("#valueR"), document.querySelector("#valueG"), document.querySelector("#valueB"), document.querySelector("#valueGray"), document.querySelector("#valueLight"), document.querySelector("#valueHexCode")];
+		const INPUTS = [document.querySelector("#red"), document.querySelector("#green"), document.querySelector("#blue"), document.querySelector("#gray"), document.querySelector("#light")];
+		const RANGES = ["red", "green", "blue", "gray", "light"];
+
+		for(let i = 0; i < RANGES.length; i++){
+			document.getElementById(RANGES[i]).min = 0;
+			document.getElementById(RANGES[i]).max = 255;
+			document.getElementById(RANGES[i]).value = 255;
+			document.getElementById(RANGES[i]).step = 1;
+		}
+
+		for(let i = 0; i < 5; i++){
+			VALUES[i].textContent = INPUTS[i].value;
+		}
+
+		VALUES[5].textContent = '"' + getColor() + '"';
+
+		function setAndPatch(component){
+			VALUES[component].textContent = INPUTS[component].value;
+			patchGrayVALUES();
+			document.body.style.backgroundColor = getColor();
+			document.querySelector("#optionZone").style.backgroundColor = getColor();
+			VALUES[5].textContent = '"' + getColor() + '"';
+			patchLightVALUES();
+		}
+
+		function setGray(){
+			VALUES[3].textContent = INPUTS[3].value;
+			document.body.style.backgroundColor = getGray();
+			for(let i = 0; i < 3; i++){
+				INPUTS[i].value = INPUTS[3].value;
+				VALUES[i].textContent = INPUTS[3].value;
+			}
+			document.querySelector("#optionZone").style.backgroundColor = getColor();
+			VALUES[5].textContent = '"' + getColor() + '"';
+			patchLightVALUES();
+		}
+
+		function setBrightness(){
+			if(isPossibleToModifyLight()){
+				if(parseInt(INPUTS[4].value) != parseInt(VALUES[4].textContent)){
+					for(let i = 0; i < 3; i++){
+						INPUTS[i].value = (parseInt(INPUTS[i].value) + parseInt(INPUTS[4].value) - parseInt(VALUES[4].textContent));
+						VALUES[i].textContent = INPUTS[i].value;
+					}
+				}
+				VALUES[4].textContent = INPUTS[4].value;
+				patchGrayVALUES();
+				document.querySelector("#optionZone").style.backgroundColor = getColor();
+				document.body.style.backgroundColor = getColor();
+				VALUES[5].textContent = '"' + getColor() + '"';
+				patchLightVALUES();
+			}
+			INPUTS[4].value = parseInt(VALUES[4].textContent);
+		}
+
+		function getColor(){
+			sRed = patchString(parseInt(VALUES[0].textContent).toString(16));
+			sGreen = patchString(parseInt(VALUES[1].textContent).toString(16));
+			sBlue = patchString(parseInt(VALUES[2].textContent).toString(16));
+			return ("#" + sRed + sGreen + sBlue);
+		}
+
+		function getGray(){
+			sRed = patchString(parseInt(VALUES[3].textContent).toString(16));
+			sGreen = patchString(parseInt(VALUES[3].textContent).toString(16));
+			sBlue = patchString(parseInt(VALUES[3].textContent).toString(16));
+			return ("#" + sRed + sGreen + sBlue);
+		}
+
+		function patchString(string){
+			return string.length == 1 ? ("0" + string) : string;
+		}
+
+		function patchGrayVALUES(){
+			INPUTS[3].value = parseInt((parseInt(VALUES[0].value) + parseInt(VALUES[1].value) + parseInt(VALUES[2].value))/3);
+			VALUES[3].textContent = parseInt((parseInt(VALUES[0].value) + parseInt(VALUES[1].value) + parseInt(VALUES[2].value))/3);
+		}
+
+		function getMin(){
+			let min = (parseInt(INPUTS[0].value) <= parseInt(INPUTS[1].value)) ? parseInt(INPUTS[0].value) : parseInt(INPUTS[1].value);
+			min = ((min <= parseInt(INPUTS[2].value)) ? min : parseInt(INPUTS[2].value));
+			return min
+		}
+
+		function getMax(){
+			let max = (parseInt(INPUTS[0].value) >= parseInt(INPUTS[1].value)) ? parseInt(INPUTS[0].value) : parseInt(INPUTS[1].value);
+			max = ((max >= parseInt(INPUTS[2].value)) ? max : parseInt(INPUTS[2].value));
+			return max
+		}
+
+		function patchLightVALUES(){
+			INPUTS[4].value = parseInt((getMax() + getMin())/2);
+			VALUES[4].textContent = INPUTS[4].value;
+		}
+
+		function isPossibleToModifyLight(){
+			ok = true;
+			if(parseInt(INPUTS[4].value) > parseInt(VALUES[4].textContent)){
+				if(getMax() == 255){
+					ok = false;
+				}
+			}
+			if(parseInt(INPUTS[4].value) < parseInt(VALUES[4].textContent)){
+				if(getMin() == 0){
+					ok = false;
+				}
+			}
+			return ok;
+		}
+
+		function revert(){
+			for(let i = 0; i < 3; i++){
+				VALUES[i].textContent = INPUTS[i].value = 255 - INPUTS[i].value;
+			}
+			document.body.style.backgroundColor = getColor();
+			document.querySelector("#optionZone").style.backgroundColor = getColor();
+			VALUES[5].textContent = '"' + getColor() + '"';
+			patchLightVALUES();
+			patchGrayVALUES();
+		}
+	</script>
+</html>

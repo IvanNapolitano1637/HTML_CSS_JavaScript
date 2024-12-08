@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><!--Mario-->
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Colors</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		const COMPONENTS = ['00', '3F', '7F', 'BF', 'FF'];
+		//const LABLES = ['0', '1', '2', '3', '4'];
+		const BUTTONS_COLORS = ['#FF0000', '#00FF00', '#0000FF'];
+        const BUTTON_WIDTH_1 = 70;
+        const BUTTON_WIDTH_2 = 175;
+        const BUTTON_WIDTH_3 = 350;
+		let actualComponents = ['FF', 'FF', 'FF'];
+
+		function addSomeBr(howMuch){
+			for(let i = 0; i < howMuch; i++){
+				document.body.appendChild(document.createElement("br"));
+			}
+		}
+
+		function addButton(style, onClickFunction, title){
+			let element = document.createElement("button");
+			element.style = style;
+			element.addEventListener("click", onClickFunction);
+			element.innerHTML = title;
+			document.body.appendChild(element);
+		}
+
+		function fillBody(){
+			let element;
+			let innerElement;
+			document.body.innerHTML += "<b><output id=\"valueHexCode\" style=\"background: #FFFF00\">#FFFFFF</output></b>";
+			addSomeBr(3);
+			for(let i = 0; i < 3; i++){
+				for(let j = 0; j < 5; j++){
+					element = document.createElement("button");
+					element.id = i + "" + j;
+					element.style = "width:" + BUTTON_WIDTH_1 + "px; background-color:" + BUTTONS_COLORS[i] + ";";
+					innerElement = document.createElement("output");
+					innerElement.style = "background: #FFFF00";
+					//innerElement.innerHTML = "<b>" + LABLES[j] + "</b>"
+					innerElement.innerHTML = "<b>" + j + "</b>"
+					element.appendChild(innerElement);
+					document.body.appendChild(element);
+				}
+				addSomeBr(2);
+			}
+			addSomeBr(1);
+			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {setBackgroundColor(0, 0);setBackgroundColor(1, 0);setBackgroundColor(2, 0);}, "BLACK");
+			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {setBackgroundColor(0, 4);setBackgroundColor(1, 4);setBackgroundColor(2, 4);}, "WHITE");
+			addSomeBr(2);
+			addButton("width:" + BUTTON_WIDTH_3 + "px;", function() {setRandomBackgroundColor();}, "RANDOM");
+			document.getElementById("04").style.background = "#FFFF00";
+			document.getElementById("14").style.background = "#FFFF00";
+			document.getElementById("24").style.background = "#FFFF00";
+		}
+
+		fillBody();
+
+		function setBackgroundColor(var1, var2){
+			let backgroundColor = "#";
+			actualComponents[parseInt(var1)] = COMPONENTS[var2];
+			let buttonColor;
+			for(let i = 0; i < actualComponents.length; i++){
+				backgroundColor += actualComponents[i];
+			}
+			document.body.style.backgroundColor = backgroundColor;
+			document.getElementById("valueHexCode").value = backgroundColor;
+			for(let i = 0; i < 5; i++){
+				document.getElementById(var1 + "" + i).style.background = BUTTONS_COLORS[var1];
+			}
+			document.getElementById(var1 + "" + var2).style.background = "#FFFF00";
+		}
+
+		function addFunctionsToTheButtons(){
+			for(let i = 0; i < 3; i++){
+				for(let j = 0; j < 5; j++){
+					document.getElementById(i + "" + j).addEventListener("click", function() {
+						setBackgroundColor(i, j);
+					});
+				}
+			}
+		}
+
+		addFunctionsToTheButtons();
+
+		function setRandomBackgroundColor(){
+			let value;
+			for(let i = 0; i < 3; i++){
+				value = parseInt(Math.random()*5);
+				setBackgroundColor(i, value);
+			}
+		}
+	</script>
+</html>
