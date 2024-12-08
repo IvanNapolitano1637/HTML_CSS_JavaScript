@@ -44,7 +44,7 @@
 		<button type="button" onclick="color(5,5,0)">Yellow</button>
 		<br><br>
 		<button type="button" onclick="darker()">Darker</button>
-		<button type="button" onclick="lighter()">Lighter</button>
+		<button type="button" onclick="brighter()">Brighter</button>
 	</body>
 	<script>
 		const CHOICE = !true;
@@ -113,7 +113,7 @@
 			return false;
 		}
 
-		function lighter(){
+		function brighter(){
 			let flag = true;
 			for(let i = 0; i < BASIC_COLORS.length; i++){
 				flag = flag && (document.getElementsByName(BASIC_COLORS[i])[document.getElementsByName(BASIC_COLORS[i]).length-1].checked == false);
