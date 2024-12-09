@@ -53,8 +53,8 @@
 				addSomeBr(2);
 			}
 			addSomeBr(1);
-			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {setBackgroundColor(0, 0);setBackgroundColor(1, 0);setBackgroundColor(2, 0);}, "BLACK");
-			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {setBackgroundColor(0, 4);setBackgroundColor(1, 4);setBackgroundColor(2, 4);}, "WHITE");
+			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {setBlack();}, "BLACK");
+			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {setWhite();}, "WHITE");
 			addSomeBr(2);
 			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {darker();}, "DARKER");
 			addButton("width:" + BUTTON_WIDTH_2 + "px;", function() {brighter();}, "BRIGHTER");
@@ -129,5 +129,19 @@
 				}
 			}
 		}
+
+		function setBlack(){
+			for(let i = 0; i < actualComponents.length; i++){
+				setBackgroundColor(i, 0);
+			}
+		}
+
+		function setWhite(){
+			for(let i = 0; i < actualComponents.length; i++){
+				setBackgroundColor(i, COMPONENTS.length - 1);
+			}
+		}
+
+		setWhite();
 	</script>
 </html>
