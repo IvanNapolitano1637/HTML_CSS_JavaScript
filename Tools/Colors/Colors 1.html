@@ -66,8 +66,12 @@
 		</style>
 	</head>
 	<body>
-		<div id="optionZone" style="background-color:#ffffff text-align:center">
-			Background color: <b><output id="valueHexCode" style="background: #FFFF00"></output></b>.<button type="button" onclick="revert()">Revert</button><br><br><br>
+		<div id="optionZone" style="background-color:#ffffff; text-align:center;">
+			<b><output id="valueHexCode" style="background: #FFFF00; width: 75px; height: 20px; display: inline-block; text-align: center;"></output></b>
+			<button type="button" onclick="revert()">Revert</button>
+			<button type="button" onclick="random()">Random</button>
+			<button type="button" onclick="setColor(255, 255, 255)">White</button>
+			<button type="button" onclick="setColor(0, 0, 0)">Black</button><br><br><br>
 			<div>
 				<input type="range" id="red" class="slider red" name="red" oninput="setAndPatch(0)"/>
 				<b><output id="valueR" style="background: #FFFF00"></output></b><br><br><br>
@@ -84,6 +88,49 @@
 				<input type="range" id="light" class="slider light" name="light" style="background: gray" oninput="setBrightness()"/>
 				<b><output id="valueLight" style="background: #FFFF00"></output></b><br><br><br>
 			</div>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0,-20);"><b>-20</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0,-10);"><b>-10</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0, -5);"><b> -5</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0, -2);"><b> -2</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0, -1);"><b> -1</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0,  1);"><b> +1</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0,  2);"><b> +2</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0,  5);"><b> +5</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0, 10);"><b>+10</b></button>
+			<button type="button" style="background-color:#FF0000; color:#FFD580;" onclick="changeColor(0, 20);"><b>+20</b></button>
+			<br><br>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1,-20);"><b>-20</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1,-10);"><b>-10</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1, -5);"><b> -5</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1, -2);"><b> -2</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1, -1);"><b> -1</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1,  1);"><b> +1</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1,  2);"><b> +2</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1,  5);"><b> +5</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1, 10);"><b>+10</b></button>
+			<button type="button" style="background-color:#00FF00; color:#0000FF;" onclick="changeColor(1, 20);"><b>+20</b></button>
+			<br><br>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2,-20);"><b>-20</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2,-10);"><b>-10</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2, -5);"><b> -5</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2, -2);"><b> -2</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2, -1);"><b> -1</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2,  1);"><b> +1</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2,  2);"><b> +2</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2,  5);"><b> +5</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2, 10);"><b>+10</b></button>
+			<button type="button" style="background-color:#0000FF; color:#FFFF00;" onclick="changeColor(2, 20);"><b>+20</b></button>
+			<br><br>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray(-20);"><b>-20</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray(-10);"><b>-10</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray( -5);"><b> -5</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray( -2);"><b> -2</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray( -1);"><b> -1</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray(  1);"><b> +1</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray(  2);"><b> +2</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray(  5);"><b> +5</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray( 10);"><b>+10</b></button>
+			<button type="button" style="background-color:#7F7F7F; color:#000000;" onclick="changeGray( 20);"><b>+20</b></button>
 		</div>
 	</body>
 	<script>
@@ -102,14 +149,18 @@
 			VALUES[i].textContent = INPUTS[i].value;
 		}
 
-		VALUES[5].textContent = '"' + getColor() + '"';
+		function setOptionZoneContent(){
+			VALUES[5].textContent = getColor();
+		}
+
+		setOptionZoneContent();
 
 		function setAndPatch(component){
 			VALUES[component].textContent = INPUTS[component].value;
 			patchGrayVALUES();
 			document.body.style.backgroundColor = getColor();
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			VALUES[5].textContent = '"' + getColor() + '"';
+			setOptionZoneContent();
 			patchLightVALUES();
 		}
 
@@ -121,7 +172,7 @@
 				VALUES[i].textContent = INPUTS[3].value;
 			}
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			VALUES[5].textContent = '"' + getColor() + '"';
+			setOptionZoneContent();
 			patchLightVALUES();
 		}
 
@@ -137,7 +188,7 @@
 				patchGrayVALUES();
 				document.querySelector("#optionZone").style.backgroundColor = getColor();
 				document.body.style.backgroundColor = getColor();
-				VALUES[5].textContent = '"' + getColor() + '"';
+				setOptionZoneContent();
 				patchLightVALUES();
 			}
 			INPUTS[4].value = parseInt(VALUES[4].textContent);
@@ -198,15 +249,46 @@
 			return ok;
 		}
 
-		function revert(){
-			for(let i = 0; i < 3; i++){
-				VALUES[i].textContent = INPUTS[i].value = 255 - INPUTS[i].value;
-			}
+		function setColor(red, green, blue){
+			VALUES[0].textContent = INPUTS[0].value = red;
+			VALUES[1].textContent = INPUTS[1].value = green;
+			VALUES[2].textContent = INPUTS[2].value = blue;
 			document.body.style.backgroundColor = getColor();
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			VALUES[5].textContent = '"' + getColor() + '"';
+			setOptionZoneContent();
 			patchLightVALUES();
 			patchGrayVALUES();
+		}
+
+		function revert(){
+			setColor(INPUTS[0].value = 255 - INPUTS[0].value, INPUTS[1].value = 255 - INPUTS[1].value, INPUTS[2].value = 255 - INPUTS[2].value);
+		}
+
+		function random(){
+			setColor(INPUTS[0].value = parseInt(Math.random()*256), INPUTS[1].value = parseInt(Math.random()*256), INPUTS[2].value = parseInt(Math.random()*256));
+		}
+
+		function changeColor(color, delta){
+			let input = parseInt(INPUTS[color].value) + parseInt(delta);
+			let red, green, blue;
+			if(input >= 0 && input <= 255){
+				red = ((color == 0) ? (input) : (INPUTS[0].value));
+				green = ((color == 1) ? (input) : (INPUTS[1].value));
+				blue = ((color == 2) ? (input) : (INPUTS[2].value));
+				setColor(red, green, blue);
+			}
+		}
+
+		function changeGray(delta){
+			let i0 = parseInt(INPUTS[0].value);
+			let i1 = parseInt(INPUTS[1].value);
+			let i2 = parseInt(INPUTS[2].value);
+			let minInput = (i0 < i1) ? ((i0 < i2) ? i0 : i2) : ((i1 < i2) ? i1 : i2);
+			let maxInput = (i0 > i1) ? ((i0 > i2) ? i0 : i2) : ((i1 > i2) ? i1 : i2);
+			let red, green, blue;
+			if((minInput + parseInt(delta) >= 0) && (maxInput + parseInt(delta) <= 255)){
+				setColor(parseInt(INPUTS[0].value) + parseInt(delta), parseInt(INPUTS[1].value) + parseInt(delta), parseInt(INPUTS[2].value) + parseInt(delta));
+			}
 		}
 	</script>
 </html>
