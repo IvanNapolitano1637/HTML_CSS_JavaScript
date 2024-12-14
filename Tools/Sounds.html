@@ -43,7 +43,9 @@
 		<button id="A4" type="button" value="A4" onmousedown = "playNote('440.000')" onmouseup="oscillatorNotes.stop()">A4</button>
 		<button id="A#4" type="button" value="A♯4" onmousedown = "playNote('466.164')" onmouseup="oscillatorNotes.stop()">A♯4</button>
 		<button id="B4" type="button" value="B4" onmousedown = "playNote('493.883')" onmouseup="oscillatorNotes.stop()">B4</button>
-		<button id="C5" type="button" value="C5" onmousedown = "playNote('523.251')" onmouseup="oscillatorNotes.stop()">C5</button>
+		<button id="C5" type="button" value="C5" onmousedown = "playNote('523.251')" onmouseup="oscillatorNotes.stop()">C5</button><br><br>
+		<button id="sirenOn" onclick = "sirenOn()">Siren On</button>
+		<button id="sirenOff" onclick = "sirenOff()">Siren Off</button><br>
 	</body>
 	<script>
 		//Almost useless
@@ -56,13 +58,19 @@
 		const MAX_FREQUENCY_ELEMENT = document.getElementsByName("maxFrequency");
 		const OSCILLATOR_TYPE_ELEMENT = document.getElementsByName("oscillatorType");
 		const NOTES_BUTTONS_IDS = ["C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4","C5"];
+		const SIREN_FREQUENCIES = [800, 1200];//DA VALUTARE
+		const DURATION = 200;//DA VALUTARE
+		
 		let indexArray = 4;
-		let audioCtx;
+		let audioContext;
 		let oscillator;
 		let oscillatorNotes;
+		let oscillatorSiren;
 		let oscillatorinputType = "sine";
 		let frequencyHz = 440;
 		let on = false;
+		let gain;
+		let interval;
 
 		window.onload = hideOrShowSomebuttons;
 		FREQUENCY_MIN_VALUE.textContent = "0 Hz";
@@ -78,7 +86,7 @@
 			FREQUENCY_VALUE.textContent = FREQUENCY_INPUT.value + " Hz";
 			frequencyHz = parseInt(FREQUENCY_VALUE.textContent);
 			if(oscillator != null){
-				oscillator.frequency.setValueAtTime(frequencyHz, audioCtx.currentTime);
+				oscillator.frequency.setValueAtTime(frequencyHz, audioContext.currentTime);
 			}
 			for(let i = 0; i < MAX_FREQUENCY_ELEMENT.length; i++){
 				document.getElementById(MAX_FREQUENCY_ELEMENT[i].value).disabled = (frequencyHz > parseInt(MAX_FREQUENCY_ELEMENT[i].value)) ? true : false;
@@ -86,13 +94,13 @@
 		}
 
 		function playNote(note){
-			if(audioCtx == null){
-				audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+			if(audioContext == null){
+				audioContext = new (window.AudioContext || window.webkitAudioContext)();
 			}
-			oscillatorNotes = audioCtx.createOscillator();
+			oscillatorNotes = audioContext.createOscillator();
 			oscillatorNotes.type = "sine";
-			oscillatorNotes.frequency.setValueAtTime(parseFloat(note), audioCtx.currentTime);
-			oscillatorNotes.connect(audioCtx.destination);
+			oscillatorNotes.frequency.setValueAtTime(parseFloat(note), audioContext.currentTime);
+			oscillatorNotes.connect(audioContext.destination);
 			oscillatorNotes.start();
 		}
 
@@ -153,13 +161,13 @@
 		}
 
 		function playSound(oscillatorinputType, frequencyHz) {
-			if(audioCtx == null){
-				audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+			if(audioContext == null){
+				audioContext = new (window.AudioContext || window.webkitAudioContext)();
 			}
-			oscillator = audioCtx.createOscillator();
+			oscillator = audioContext.createOscillator();
 			oscillator.type = oscillatorinputType;
-			oscillator.frequency.setValueAtTime(frequencyHz, audioCtx.currentTime);
-			oscillator.connect(audioCtx.destination);
+			oscillator.frequency.setValueAtTime(frequencyHz, audioContext.currentTime);
+			oscillator.connect(audioContext.destination);
 			oscillator.start();
 			on = true;
 		}
@@ -208,5 +216,33 @@
 				}
 			}
 		}
+
+        function sirenOn() {
+			if(audioContext == null){
+				audioContext = new (window.AudioContext || window.webkitAudioContext)();
+			}
+            oscillatorSiren = audioContext.createOscillator();
+            gain = audioContext.createGain();
+            oscillatorSiren.type = "sine";
+            oscillatorSiren.frequency.setValueAtTime(SIREN_FREQUENCIES[0], audioContext.currentTime);
+            oscillatorSiren.connect(gain);
+            gain.connect(audioContext.destination);
+            gain.gain.setValueAtTime(0.5, audioContext.currentTime);
+            oscillatorSiren.start();
+            interval = setInterval(function() {
+				oscillatorSiren.frequency.setValueAtTime((oscillatorSiren.frequency.value === SIREN_FREQUENCIES[0]) ? SIREN_FREQUENCIES[1] : SIREN_FREQUENCIES[0], audioContext.currentTime);
+            }, DURATION);
+			on = true;
+        }
+
+        function sirenOff() {
+			if(oscillatorSiren != null){
+				oscillatorSiren.stop();
+			}
+            clearInterval(interval);
+            oscillatorSiren.stop();
+            gain.gain.setValueAtTime(0, audioContext.currentTime);
+			on = false;
+        }
 	</script>
 </html>
