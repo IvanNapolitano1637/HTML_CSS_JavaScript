@@ -71,8 +71,8 @@
 			}
 
 			function select(){
-				let row = parseInt((cursorX-GRID_THICKNESS)/(SIDE+GRID_THICKNESS));
-				let column = parseInt((cursorY-GRID_THICKNESS)/(SIDE+GRID_THICKNESS));
+				let row = parseInt((cursorX - GRID_THICKNESS)/(SIDE + GRID_THICKNESS));
+				let column = parseInt((cursorY - GRID_THICKNESS)/(SIDE + GRID_THICKNESS));
 				grid[row + 1][column + 1].alive = !grid[row + 1][column + 1].alive;
 				drawSquare(row, column, (grid[row + 1][column + 1].alive ? ALIVE_COLOR : DEAD_COLOR));
 			}
@@ -86,11 +86,11 @@
 			}
 
 			function getWidth(){
-				return ((SIDE*ROW_NUMBER) + ((ROW_NUMBER+1)*GRID_THICKNESS));
+				return ((SIDE*ROW_NUMBER) + ((ROW_NUMBER + 1)*GRID_THICKNESS));
 			}
 
 			function getHeight(){
-				return ((SIDE*COLUMN_NUMBER) + ((COLUMN_NUMBER+1)*GRID_THICKNESS));
+				return ((SIDE*COLUMN_NUMBER) + ((COLUMN_NUMBER + 1)*GRID_THICKNESS));
 			}
 
 			function nextGeneration(){
