@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en"><!--Serena-->
+<html lang="en"><!--G06#016 - Serena - Fifteen-->
 
 	<head>
 		<title>Fifteen</title>
@@ -8,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	</head>
 
-	<body id="body" onclick="select()" onkeypress="select()">
+	<body id="body">
 		<div id = "Fifteen">
 			<canvas id="board">
 				Upgrade Browser
@@ -58,6 +58,8 @@
 				let board = document.getElementById("board");
 				board.width = WIDTH;
 				board.height = HEIGHT;
+				board.setAttribute("onclick", "select()");
+				board.setAttribute("onkeypress", "select()");
 				if(board && board.getContext("2d")){
 					let context = board.getContext("2d");
 					context.fillStyle = BORDER_COLOR;
@@ -103,6 +105,8 @@
 				drawCell(row, column, (tile == "0") ? BORDER_COLOR : (((tileNumber + parseInt((tileNumber - 1)/4))%2 == 1) ? COLOR_1 : COLOR_2));
 				document.getElementById(targetTileId).innerHTML = ((tile == "0") ? "" : tileNumber);
 				document.getElementById(targetTileId).style = ("position: absolute; WIDTH: 10%; HEIGHT: 10%; font-size: " + UNIT + "rem; left:" + (ORIZONTAL_CONST + ORIZONTAL_DELTAS[tileNumber - 1] + SIDE/2 + BORDER_WIDTH + DIVISION_WIDTH + ((SIDE + DIVISION_WIDTH)*(column))) + "px; top:" + ((DIVISION_WIDTH + BORDER_WIDTH + MARGIN_DIM + 10) + ((SIDE + DIVISION_WIDTH)*row)) + "px; z-index:1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;");
+				document.getElementById(targetTileId).setAttribute("onclick", "select()");
+				document.getElementById(targetTileId).setAttribute("onkeypress", "select()");
 				if(document.getElementById(tile).innerHTML == "0"){
 					document.getElementById(tile).innerHTML = "";
 				}

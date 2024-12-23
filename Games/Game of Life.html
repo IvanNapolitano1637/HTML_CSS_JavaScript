@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en"><!--Marco-->
+<html lang="en"><!--G02#003 - Marco - Game of Life-->
 
 	<head>
 		<meta charset="UTF-8">
@@ -71,8 +71,9 @@
 			}
 
 			function select(){
-				let row = parseInt((cursorX - GRID_THICKNESS)/(SIDE + GRID_THICKNESS));
-				let column = parseInt((cursorY - GRID_THICKNESS)/(SIDE + GRID_THICKNESS));
+				//I ADDED A PATCH TO FIX A POINTING ERROR. I DON'T KNOW WHY IT WAS THERE AND WHY "7" IS THE RIGHT VALUE.
+				let row = parseInt((cursorX - GRID_THICKNESS - 7)/(SIDE + GRID_THICKNESS));
+				let column = parseInt((cursorY - GRID_THICKNESS - 7)/(SIDE + GRID_THICKNESS));
 				grid[row + 1][column + 1].alive = !grid[row + 1][column + 1].alive;
 				drawSquare(row, column, (grid[row + 1][column + 1].alive ? ALIVE_COLOR : DEAD_COLOR));
 			}
