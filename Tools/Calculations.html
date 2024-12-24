@@ -7,49 +7,102 @@
 		<title>Some computations</title>
 	</head>
 	<body style="background-color:#ccffcc;"><!--"background-color:#ff9999;"-->
-		<form>
-			Is this a composite number?<br>
-			<button type="button" id="primalityTestButton" onclick="checkNumber()">Number:</button>
-			<input type="number" id="firstNumber"/><br>
-			<output id="isPrime"></output><br><br><br>
-			
-			What is its square root?<br>
-			<button type="button" id="squareRootButton" onclick="squareRoot()">Number:</button>
-			<input type="number" id="secondNumber"/><br>
-			<output id="sqrt"></output><br><br><br>
-			
-			What is its factorization?<br>
-			<button type="button" id="factorization" onclick="factorize()">Number:</button>
-			<input type="number" id="thirdNumber"/><br>
-			<output id="scomposition"></output><br><br><br>
-			
-			First number<br>
-			<input type="number" id="fourthNumber"/><br>
-			Latter number<br>
-			<input type="number" id="fifthNumber"/><br>
-			<button type="button" id="Bezout" onclick="computeBezoutRelation()">Compute</button>
-			<output id="BezoutsRelation"></output><br><br><br><br>
-			
-			Apply Fermat's primality test<br>
-			<button type="button" id="primalityTestOfFermatButton" onclick="applyFermatsPrimalityTest()">Number:</button>
-			<input type="number" id="sixthNumber"/><br>
-			<output id="mayBePrime"></output><br><br><br>
-			<div id="bigNumber"></div>
-			
-			<label for="seventhNumber">Number of sides:</label>
-			<input type="number" id="seventhNumber"><br>
-			<label for="eighthNumber">Length of each side:</label>
-			<input type="number" id="eighthNumber"><br>
-			<button type="button" id="calculateAreaButton" onclick="calculatePolygonArea()">Compute polygon area</button>
-			<output id="polygonArea"></output><br><br><br>
-			
-			Is it a sum of two squares?<br>
-			<button type="button" id="sumOfSquares" onclick="writeAsSumOfSquares()">Number:</button>
-			<input type="number" id="ninthNumber"/><br>
-			<div id="squares"></div>
-		</form>
+		<div class="container" style="display: flex; gap: 0px;">
+			<form style="border: 1px solid #cfc; padding: 20px;">
+				Is this a composite number?<br>
+				<button type="button" id="primalityTestButton" onclick="checkNumber()">Number:</button>
+				<input type="number" id="firstNumber"/><br>
+				<output id="isPrime"></output><br><br><br>
+				
+				What is its square root?<br>
+				<button type="button" id="squareRootButton" onclick="squareRoot()">Number:</button>
+				<input type="number" id="secondNumber"/><br>
+				<output id="sqrt"></output><br><br><br>
+				
+				What is its factorization?<br>
+				<button type="button" id="factorization" onclick="factorize()">Number:</button>
+				<input type="number" id="thirdNumber"/><br>
+				<output id="scomposition"></output><br><br><br>
+				
+				First number<br>
+				<input type="number" id="fourthNumber"/><br>
+				Latter number<br>
+				<input type="number" id="fifthNumber"/><br>
+				<button type="button" id="Bezout" onclick="computeBezoutRelation()">Compute</button>
+				<output id="BezoutsRelation"></output><br><br><br><br>
+				
+				Apply Fermat's primality test<br>
+				<button type="button" id="primalityTestOfFermatButton" onclick="applyFermatsPrimalityTest()">Number:</button>
+				<input type="number" id="sixthNumber"/><br>
+				<output id="mayBePrime"></output><br><br><br>
+				<div id="bigNumber"></div>
+				
+				<label for="seventhNumber">Number of sides:</label>
+				<input type="number" id="seventhNumber"><br>
+				<label for="eighthNumber">Length of each side:</label>
+				<input type="number" id="eighthNumber"><br>
+				<button type="button" id="calculateAreaButton" onclick="calculatePolygonArea()">Compute polygon area</button>
+				<output id="polygonArea"></output><br><br><br>
+				
+				Is it a sum of two squares?<br>
+				<button type="button" id="sumOfSquares" onclick="writeAsSumOfSquares()">Number:</button>
+				<input type="number" id="ninthNumber"/><br>
+				<div id="squares"></div>
+			</form>
+			<form style="border: 1px solid #cfc; padding: 20px;">
+				<label for="numberOfSides">Number of sides: </label>
+				<select id="numberOfSides"></select>
+				<input id="diagonals" type="checkbox" onclick="flag = !flag; drawPolygon();">With diagonals</input>
+				<canvas id="canvas" width="800" height="800"></canvas>
+			</form>
+		</div>
 	</body>
 	<script>
+		let flag = false;
+		function fillSelectOption(){
+			for(let i = 3; i <= 60; i++){
+				document.getElementById("numberOfSides").innerHTML += "<option value=\"" + i + "\"> " + i + " </option>";
+			}
+		}
+		function drawPolygon() {
+			const numberOfSides = parseInt(document.getElementById('numberOfSides').value);
+			const canvas = document.getElementById('canvas');
+			const ctx = canvas.getContext('2d');
+			const centerX = canvas.width / 2;
+			const centerY = canvas.height / 2;
+			const radius = 300;
+			const angleStep = (2 * Math.PI) / numberOfSides;
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			let vertices = [];
+			for (let i = 0; i < numberOfSides; i++) {
+				const angle = (-0.5 * Math.PI) + (i * angleStep);
+				const x = centerX + radius * Math.cos(angle);
+				const y = centerY + radius * Math.sin(angle);
+				vertices.push({ x, y });
+			}
+			ctx.beginPath();
+			ctx.moveTo(vertices[0].x, vertices[0].y);
+			for (let i = 1; i < numberOfSides; i++) {
+				ctx.lineTo(vertices[i].x, vertices[i].y);
+			}
+			ctx.closePath();
+			ctx.stroke();
+			if(flag){
+				for (let i = 0; i < vertices.length; i++) {
+					for (let j = i + 2; j < vertices.length; j++) {
+						if (i === 0 && j === vertices.length - 1) continue;
+						ctx.beginPath();
+						ctx.moveTo(vertices[i].x, vertices[i].y);
+						ctx.lineTo(vertices[j].x, vertices[j].y);
+						ctx.stroke();
+					}
+				}
+			}
+		}
+		document.getElementById('numberOfSides').addEventListener('change', drawPolygon);
+		fillSelectOption();
+		drawPolygon();
+
 		let inputString;
 		let outputString;
 

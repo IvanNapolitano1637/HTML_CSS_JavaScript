@@ -83,14 +83,11 @@
 					document.getElementById("disksNumber").style.transform = "rotate(270deg)";
 					document.getElementById("refreshWholePage").style.transform = "rotate(270deg)";
 					document.getElementById("demoSolution").style.transform = "rotate(270deg)";
+					document.getElementById("versions").style = "transform: rotate(270deg); position: relative; display: inline-block; margin-top: 70px;";
 				}
 				document.getElementById("disksNumber").innerHTML = null;
 				for(let i = 0; i < maximumNumberOfDisks; i++){
-					if(DESKTOP){
-						document.getElementById("disksNumber").innerHTML += ("<option id=\"d" + (i + 1) + "\" value=\"" + (i + 1) + "\" style=\"--rotation: 270deg;\" " + ((i + 1) == numberOfDisks ? "selected" : "") +"> Level " + (i + 1) + "</option>");
-					}else{
-						document.getElementById("disksNumber").innerHTML += ("<option id=\"d" + (i + 1) + "\" value=\"" + (i + 1) + "\" "+((i + 1) == numberOfDisks ? "selected" : "") + "> Level " + (i + 1) + "</option>");
-					}
+					document.getElementById("disksNumber").innerHTML += ("<option id=\"d" + (i + 1) + "\" value=\"" + (i + 1) + "\" " + ((i + 1) == numberOfDisks ? "selected" : "") + "> Level " + (i + 1) + " </option>");
 				}
 				steps = solution(numberOfDisks).replaceAll("(","").replaceAll(")","").replaceAll(",","");
 				steps = DESKTOP ? steps : steps.replaceAll("1","A").replaceAll("3","1").replaceAll("A","3");
@@ -304,7 +301,9 @@
 		<button type = "button" id = "refresh" onclick = "drawUniverse()">Restart</button>
 		<button type = "button" id = "refreshWholePage" onclick = "refreshPage()">Refresh Page</button>
 		<button type = "button" id = "demoSolution" onclick = "animatedSolving()">How To</button><br><br>
-		<input type = "radio" id = "Version1" name = "VersionOfPage" value = "1" onclick = "refreshPage(1)" onkeypress = "refreshPage(1)" checked = "yes"/>Version 1<br>
-		<input type = "radio" id = "Version2" name = "VersionOfPage" value = "2" onclick = "refreshPage(2)" onkeypress = "refreshPage(2)"/>Version 2
-	</body>	
+		<div id = "versions">
+			<input type = "radio" id = "Version1" name = "VersionOfPage" value = "1" onclick = "refreshPage(1)" onkeypress = "refreshPage(1)" checked = "yes"/>Version 1<br>
+			<input type = "radio" id = "Version2" name = "VersionOfPage" value = "2" onclick = "refreshPage(2)" onkeypress = "refreshPage(2)"/>Version 2
+		</div>
+	</body>
 </html>
