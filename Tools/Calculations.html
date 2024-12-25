@@ -58,6 +58,11 @@
 		</div>
 	</body>
 	<script>
+		const DESKTOP = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
+		if(!DESKTOP){
+			document.getElementById("canvas").width = 400;
+			document.getElementById("canvas").height = 400;
+		}
 		let flag = false;
 		function fillSelectOption(){
 			for(let i = 3; i <= 60; i++){
@@ -70,7 +75,7 @@
 			const ctx = canvas.getContext('2d');
 			const centerX = canvas.width / 2;
 			const centerY = canvas.height / 2;
-			const radius = 300;
+			const radius = DESKTOP ? 300 : 150;
 			const angleStep = (2 * Math.PI) / numberOfSides;
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			let vertices = [];
