@@ -74,7 +74,8 @@
 		let oscillatorSiren;
 		let oscillatorinputType = "sine";
 		let frequencyHz = 440;
-		let on = false;
+		let soundOn = false;
+		let sirenSoundOn = false;
 		let gain;
 		let interval;
 		let sirenMinFrequency = 800;
@@ -130,7 +131,7 @@
 			if(oscillator != null){
 				oscillator.stop();
 			}
-			on = false;
+			soundOn = false;
 		}
 
 		function doubleMax(){
@@ -182,7 +183,7 @@
 			oscillator.frequency.setValueAtTime(frequencyHz, audioContext.currentTime);
 			oscillator.connect(audioContext.destination);
 			oscillator.start();
-			on = true;
+			soundOn = true;
 		}
 
 		function restart(frequencyHz){
@@ -237,7 +238,7 @@
             interval = setInterval(function() {
 				oscillatorSiren.frequency.setValueAtTime((oscillatorSiren.frequency.value === sirenMinFrequency) ? sirenMaxFrequency : sirenMinFrequency, audioContext.currentTime);
             }, duration);
-			on = true;
+			sirenSoundOn = true;
         }
 
         function sirenOff() {
@@ -247,11 +248,11 @@
             clearInterval(interval);
             oscillatorSiren.stop();
             gain.gain.setValueAtTime(0, audioContext.currentTime);
-			on = false;
+			sirenSoundOn = false;
         }
 
         function changeSirenType(var1, var2, var3){
-			let flag = on;
+			let flag = sirenSoundOn;
 			if(flag){
 				sirenOff();
 			}
