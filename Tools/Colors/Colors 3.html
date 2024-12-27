@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div id="optionZone" style="background-color:#FFFFFF; text-align:center;">
-			<br><b><h1 id="valueHexCode" style="background: #FFFF00; text-align:center;">Background page color hex code: #FFFFFF</h1></b><br><br><br>
+			<br><b><h1 id="valueHexCode" style="background: #FFFF00; text-align:center;">Background page color hex code: #FFFFFF</h1></b><br>
 			<div style="background-color: #FF0000; text-align: center;">
 				<button type="button" onclick="changeColor(0,-1)">(-)</button>
 				<input type="radio" id="R00" name="Red" value="00"/><output style="background: #FDCE98; margin-right: 8px;"><b>00</b></output>
@@ -94,6 +94,10 @@
 			<button type="button" onclick="darkerAll()" style="width: 100px; height: 30px; font-size:120%;">Darker</button>
 			<button type="button" onclick="brighterAll()" style="width: 100px; height: 30px; font-size:120%;">Brighter</button>
 		</div>
+		<br>
+		<div style="text-align: center">
+			<button type="button" onclick="random()" style="width: 100px; height: 30px; font-size:120%;">Random</button>
+		</div>
 	</body>
 	<script>
 		const CHOICE = !true;
@@ -119,7 +123,7 @@
 		}
 
 		for(let i = 0; i < basicColors.length; i++){
-			document.querySelectorAll('input[name=\''+basicColors[i]+'\']').forEach((radio) => {
+			document.querySelectorAll('input[name=\'' + basicColors[i] + '\']').forEach((radio) => {
 				radio.addEventListener('click', (event) => {
 					if (event.target.checked) {
 						changeBackgroundColor();
@@ -128,8 +132,8 @@
 			});
 		}
 
-		function brighterBasic(basicColor){
-			let flag = (document.getElementsByName(basicColors[basicColor])[document.getElementsByName(basicColors[basicColor]).length-1].checked == false);
+		function brighterBasic(basicColor){//MUTANDA
+			let flag = (document.getElementsByName(basicColors[basicColor])[document.getElementsByName(basicColors[basicColor]).length - 1].checked == false);
 			if(CHOICE){
 				flag = true;
 			}
@@ -138,7 +142,7 @@
 				for(let j = ele.length - 2; j >= 0; j--){
 					if(ele[j].checked){
 						ele[j].checked = false;
-						ele[j+1].checked = true;
+						ele[j + 1].checked = true;
 					}
 				}
 				changeBackgroundColor();
@@ -148,7 +152,7 @@
 		function brighterAll(){
 			let flag = true;
 			for(let i = 0; i < basicColors.length; i++){
-				flag = flag && (document.getElementsByName(basicColors[i])[document.getElementsByName(basicColors[i]).length-1].checked == false);
+				flag = flag && (document.getElementsByName(basicColors[i])[document.getElementsByName(basicColors[i]).length - 1].checked == false);
 			}
 			if(CHOICE){
 				flag = true;
@@ -160,7 +164,7 @@
 			}
 		}
 
-		function darkerBasic(basicColor){
+		function darkerBasic(basicColor){//MUTANDA
 			let flag = (document.getElementsByName(basicColors[basicColor])[0].checked == false);
 			if(CHOICE){
 				flag = true;
@@ -170,7 +174,7 @@
 				for(let j = 1; j < ele.length; j++){
 					if(ele[j].checked){
 						ele[j].checked = false;
-						ele[j-1].checked = true;
+						ele[j - 1].checked = true;
 					}
 				}
 				changeBackgroundColor();
@@ -208,6 +212,17 @@
 				darkerBasic(basicColor);
 			}
 			changeBackgroundColor();
+		}
+
+		function random(){
+			for(let i = 0; i < basicColors.length; i++){
+				ele = document.getElementsByName(basicColors[i]);
+				value = parseInt(Math.random()*ele.length);
+				for(let j = 0; j < ele.length; j++){
+					ele[j].checked = (j == value);
+				}
+				changeBackgroundColor();
+			}
 		}
 	</script>
 </html>

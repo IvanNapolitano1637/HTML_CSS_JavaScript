@@ -7,23 +7,23 @@
 		<title>Sounds</title>
 	</head>
 	<body style="background: #BFBFFF">
-		<input type="radio" id="sine" name="oscillatorType" value="sine" checked onclick="setOscillatorType()" onkeypress="setOscillatorType()"/><output style="background: #FFFF7F">sine</output>
-		<input type="radio" id="sawtooth" name="oscillatorType" value="sawtooth" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/><output style="background: #FFFF7F">sawtooth</output>
-		<input type="radio" id="square" name="oscillatorType" value="square" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/><output style="background: #FFFF7F">square</output>
-		<input type="radio" id="triangle" name="oscillatorType" value="triangle" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/><output style="background: #FFFF7F">triangle</output><br><br>
+		<input type="radio" id="sine"     name="oscillatorType" value="sine"     onclick="setOscillatorType()" onkeypress="setOscillatorType()" checked /><output style="background: #FFFF7F">sine</output>
+		<input type="radio" id="sawtooth" name="oscillatorType" value="sawtooth" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/>         <output style="background: #FFFF7F">sawtooth</output>
+		<input type="radio" id="square"   name="oscillatorType" value="square"   onclick="setOscillatorType()" onkeypress="setOscillatorType()"/>         <output style="background: #FFFF7F">square</output>
+		<input type="radio" id="triangle" name="oscillatorType" value="triangle" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/>         <output style="background: #FFFF7F">triangle</output><br><br>
 		<b><output id="FREQUENCY_VALUE"></output></b><br><br>
 		<b><output id="FREQUENCY_MIN_VALUE"></output></b>
 		<input type="range" id="frequencyRange" name="frequency" style="width: 1400px" oninput="setFrequency()"/>
 		<b><output id="FREQUENCY_MAX_VALUE"></output></b><br><br>
 		<button id="halveMax" style="background-color:#FFBFBF;" onclick = "halveMax()">SmallerMax</button><br>
-		<input type="radio" id="50" name="maxFrequency" value="50" disabled onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>50<br>
-		<input type="radio" id="100" name="maxFrequency" value="100" disabled onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>100<br>
-		<input type="radio" id="200" name="maxFrequency" value="200" disabled onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>200<br>
-		<input type="radio" id="500" name="maxFrequency" value="500" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>500<br>
-		<input type="radio" id="1000" name="maxFrequency" value="1000" checked onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>1000<br>
-		<input type="radio" id="2000" name="maxFrequency" value="2000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>2000<br>
-		<input type="radio" id="4000" name="maxFrequency" value="4000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>4000<br>
-		<input type="radio" id="8000" name="maxFrequency" value="8000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>8000<br>
+		<input type="radio" id="50"    name="maxFrequency" value="50"    onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" disabled />50<br>
+		<input type="radio" id="100"   name="maxFrequency" value="100"   onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" disabled />100<br>
+		<input type="radio" id="200"   name="maxFrequency" value="200"   onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" disabled />200<br>
+		<input type="radio" id="500"   name="maxFrequency" value="500"   onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>500<br>
+		<input type="radio" id="1000"  name="maxFrequency" value="1000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" checked />1000<br>
+		<input type="radio" id="2000"  name="maxFrequency" value="2000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>2000<br>
+		<input type="radio" id="4000"  name="maxFrequency" value="4000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>4000<br>
+		<input type="radio" id="8000"  name="maxFrequency" value="8000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>8000<br>
 		<input type="radio" id="16000" name="maxFrequency" value="16000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>16000<br>
 		<input type="radio" id="24000" name="maxFrequency" value="24000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>24000<br>
 		<button id="doubleMax" style="background-color:#FFBFBF;" onclick="doubleMax()">BiggerMax</button><br><br>
@@ -31,37 +31,41 @@
 		<button id="stop" style="background-color:#FFBFBF;" onclick="stop()">Stop</button>
 		<button id="halveFrequency" style="background-color:#FFBFBF;" onclick="multiplyFREQUENCY_VALUE('.5')">Halve frequency</button>
 		<button id="doubleFrequency" style="background-color:#FFBFBF;" onclick="multiplyFREQUENCY_VALUE(2)">Double frequency</button><br><br>
+		<input type="radio" id="s0" name="sirenType" onchange="changeSirenType( 800, 1200, 300);" checked /><output>I</output>
+		<input type="radio" id="s1" name="sirenType" onchange="changeSirenType( 300,  600, 500);"/>         <output>II</output>
+		<input type="radio" id="s2" name="sirenType" onchange="changeSirenType(1900, 2300,  50);"/>         <output>III</output>
+		<input type="radio" id="s3" name="sirenType" onchange="changeSirenType( 466,  622, 750);"/>         <output>IV</output>
+		<input type="radio" id="s4" name="sirenType" onchange="changeSirenType( 466,  622, 550);"/>         <output>V</output>
+		<input type="radio" id="s4" name="sirenType" onchange="changeSirenType(1400, 1600, 300);"/>         <output>VI</output><br>
 		<button id="sirenOn" style="background-color:#FFBFBF;" onclick = "sirenOn()">Siren On</button>
 		<button id="sirenOff" style="background-color:#FFBFBF;" onclick = "sirenOff()">Siren Off</button><br><br>
 		<div id = "keyboard" style = "display:flex; justify-content: flex-start; gap:2px;">
-			<button id="C4"  type="button" value="C4"  onmousedown="playNote('261.626')" ontouchstart="playNote('261.626')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">C4 </button>
-			<button id="C#4" type="button" value="C♯4" onmousedown="playNote('277.183')" ontouchstart="playNote('277.183')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">C♯4</button>
-			<button id="D4"  type="button" value="D4"  onmousedown="playNote('293.665')" ontouchstart="playNote('293.665')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">D4 </button>
-			<button id="D#4" type="button" value="D♯4" onmousedown="playNote('311.127')" ontouchstart="playNote('311.127')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">D♯4</button>
-			<button id="E4"  type="button" value="E4"  onmousedown="playNote('329.628')" ontouchstart="playNote('329.628')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">E4 </button>
-			<button id="F4"  type="button" value="F4"  onmousedown="playNote('349.228')" ontouchstart="playNote('349.228')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">F4 </button>
-			<button id="F#4" type="button" value="F♯4" onmousedown="playNote('369.994')" ontouchstart="playNote('369.994')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">F♯4</button>
-			<button id="G4"  type="button" value="G4"  onmousedown="playNote('391.995')" ontouchstart="playNote('391.995')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">G4 </button>
-			<button id="G#4" type="button" value="G♯4" onmousedown="playNote('415.305')" ontouchstart="playNote('415.305')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">G♯4</button>
-			<button id="A4"  type="button" value="A4"  onmousedown="playNote('440.000')" ontouchstart="playNote('440.000')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">A4 </button>
-			<button id="A#4" type="button" value="A♯4" onmousedown="playNote('466.164')" ontouchstart="playNote('466.164')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">A♯4</button>
-			<button id="B4"  type="button" value="B4"  onmousedown="playNote('493.883')" ontouchstart="playNote('493.883')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">B4 </button>
-			<button id="C5"  type="button" value="C5"  onmousedown="playNote('523.251')" ontouchstart="playNote('523.251')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 250px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">C5 </button>
+			<button id="C4"  type="button" value="C4"  onmousedown="playNote('261.626')" ontouchstart="playNote('261.626')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">C4 </button>
+			<button id="C#4" type="button" value="C♯4" onmousedown="playNote('277.183')" ontouchstart="playNote('277.183')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">C♯4</button>
+			<button id="D4"  type="button" value="D4"  onmousedown="playNote('293.665')" ontouchstart="playNote('293.665')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">D4 </button>
+			<button id="D#4" type="button" value="D♯4" onmousedown="playNote('311.127')" ontouchstart="playNote('311.127')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">D♯4</button>
+			<button id="E4"  type="button" value="E4"  onmousedown="playNote('329.628')" ontouchstart="playNote('329.628')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">E4 </button>
+			<button id="F4"  type="button" value="F4"  onmousedown="playNote('349.228')" ontouchstart="playNote('349.228')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">F4 </button>
+			<button id="F#4" type="button" value="F♯4" onmousedown="playNote('369.994')" ontouchstart="playNote('369.994')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">F♯4</button>
+			<button id="G4"  type="button" value="G4"  onmousedown="playNote('391.995')" ontouchstart="playNote('391.995')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">G4 </button>
+			<button id="G#4" type="button" value="G♯4" onmousedown="playNote('415.305')" ontouchstart="playNote('415.305')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">G♯4</button>
+			<button id="A4"  type="button" value="A4"  onmousedown="playNote('440.000')" ontouchstart="playNote('440.000')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">A4 </button>
+			<button id="A#4" type="button" value="A♯4" onmousedown="playNote('466.164')" ontouchstart="playNote('466.164')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#BFBFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">A♯4</button>
+			<button id="B4"  type="button" value="B4"  onmousedown="playNote('493.883')" ontouchstart="playNote('493.883')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">B4 </button>
+			<button id="C5"  type="button" value="C5"  onmousedown="playNote('523.251')" ontouchstart="playNote('523.251')" onmouseup="oscillatorNotes.stop()" ontouchend="oscillatorNotes.stop()" style="flex: 0 0 50px; height: 200px; background-color:#FFFFBF; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; user-select: none;">C5 </button>
 		</div>
 	</body>
 	<script>
-		//Almost useless
+		//SULLE SIRENE HO ANCORA DA RAGIONARE
 		const FREQUENCY_VALUE = document.querySelector("#FREQUENCY_VALUE");
 		const FREQUENCY_INPUT = document.querySelector("#frequencyRange");
 		const FREQUENCY_MAX_VALUE = document.querySelector("#FREQUENCY_MAX_VALUE");
 		const FREQUENCY_MIN_VALUE = document.querySelector("#FREQUENCY_MIN_VALUE");
-		const MAX_FREQUENCY_VALUE = [50,100,200,500,1000,2000,4000,8000,16000,24000];
+		const MAX_FREQUENCY_VALUE = [50, 100, 200, 500, 1000, 2000, 4000, 8000, 16000, 24000];
 		const DESKTOP = !(/Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i).test(navigator.userAgent);
 		const MAX_FREQUENCY_ELEMENT = document.getElementsByName("maxFrequency");
 		const OSCILLATOR_TYPE_ELEMENT = document.getElementsByName("oscillatorType");
-		const NOTES_BUTTONS_IDS = ["C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4","C5"];
-		const SIREN_FREQUENCIES = [800, 1200];//DA VALUTARE
-		const DURATION = 200;//DA VALUTARE
+		const NOTES_BUTTONS_IDS = ["C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5"];
 		
 		let indexArray = 4;
 		let audioContext;
@@ -73,6 +77,9 @@
 		let on = false;
 		let gain;
 		let interval;
+		let sirenMinFrequency = 800;
+		let sirenMaxFrequency = 1200;
+		let duration = 200;
 
 		FREQUENCY_MIN_VALUE.textContent = "0 Hz";
 		FREQUENCY_MAX_VALUE.textContent = MAX_FREQUENCY_VALUE[indexArray]+" Hz";
@@ -84,7 +91,7 @@
 		FREQUENCY_VALUE.textContent = FREQUENCY_INPUT.value + " Hz";
 
 		if(!DESKTOP){
-			let keyboardStyle = "display:flex; justify-content: flex-start; gap:2px; position:absolute; top: 350px; left: 300px; transform:rotate(270deg);";
+			let keyboardStyle = "display:flex; justify-content: flex-start; gap:2px; position:absolute; top: 350px; left: 250px; transform:rotate(270deg);";
 			document.getElementById("keyboard").style = keyboardStyle;
 		}
 
@@ -222,14 +229,14 @@
             oscillatorSiren = audioContext.createOscillator();
             gain = audioContext.createGain();
             oscillatorSiren.type = "sine";
-            oscillatorSiren.frequency.setValueAtTime(SIREN_FREQUENCIES[0], audioContext.currentTime);
+            oscillatorSiren.frequency.setValueAtTime(sirenMinFrequency, audioContext.currentTime);
             oscillatorSiren.connect(gain);
             gain.connect(audioContext.destination);
             gain.gain.setValueAtTime(0.5, audioContext.currentTime);
             oscillatorSiren.start();
             interval = setInterval(function() {
-				oscillatorSiren.frequency.setValueAtTime((oscillatorSiren.frequency.value === SIREN_FREQUENCIES[0]) ? SIREN_FREQUENCIES[1] : SIREN_FREQUENCIES[0], audioContext.currentTime);
-            }, DURATION);
+				oscillatorSiren.frequency.setValueAtTime((oscillatorSiren.frequency.value === sirenMinFrequency) ? sirenMaxFrequency : sirenMinFrequency, audioContext.currentTime);
+            }, duration);
 			on = true;
         }
 
@@ -241,6 +248,19 @@
             oscillatorSiren.stop();
             gain.gain.setValueAtTime(0, audioContext.currentTime);
 			on = false;
+        }
+
+        function changeSirenType(var1, var2, var3){
+			let flag = on;
+			if(flag){
+				sirenOff();
+			}
+			sirenMinFrequency = var1;
+			sirenMaxFrequency = var2;
+			duration = var3;
+			if(flag){
+				sirenOn();
+			}
         }
 	</script>
 </html>
