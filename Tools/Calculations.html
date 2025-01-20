@@ -52,7 +52,7 @@
 			<form style="border: 1px solid #cfc; padding: 20px;">
 				<label for="numberOfSides">Number of sides: </label>
 				<select id="numberOfSides"></select>
-				<input id="diagonals" type="checkbox" onclick="flag = !flag; drawPolygon();">With diagonals</input>
+				<input id="diagonals" type="checkbox" onclick="flag = !flag; drawPolygon();" onKeyPress="flag = !flag; drawPolygon();">With diagonals</input>
 				<canvas id="canvas" width="800" height="800"></canvas>
 			</form>
 		</div>
