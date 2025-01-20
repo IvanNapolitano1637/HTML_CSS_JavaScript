@@ -7,25 +7,25 @@
 		<title>Sounds</title>
 	</head>
 	<body style="background: #BFBFFF">
-		<input type="radio" id="sine"     name="oscillatorType" value="sine"     onclick="setOscillatorType()" onkeypress="setOscillatorType()" checked /><output style="background: #FFFF7F">sine</output>
-		<input type="radio" id="sawtooth" name="oscillatorType" value="sawtooth" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/>         <output style="background: #FFFF7F">sawtooth</output>
-		<input type="radio" id="square"   name="oscillatorType" value="square"   onclick="setOscillatorType()" onkeypress="setOscillatorType()"/>         <output style="background: #FFFF7F">square</output>
-		<input type="radio" id="triangle" name="oscillatorType" value="triangle" onclick="setOscillatorType()" onkeypress="setOscillatorType()"/>         <output style="background: #FFFF7F">triangle</output><br><br>
+		<input type="radio" id="sine"     name="oscillatorType" value="sine"     onchange="setOscillatorType()" checked /><output style="background: #FFFF7F">sine</output>
+		<input type="radio" id="sawtooth" name="oscillatorType" value="sawtooth" onchange="setOscillatorType()"/>         <output style="background: #FFFF7F">sawtooth</output>
+		<input type="radio" id="square"   name="oscillatorType" value="square"   onchange="setOscillatorType()"/>         <output style="background: #FFFF7F">square</output>
+		<input type="radio" id="triangle" name="oscillatorType" value="triangle" onchange="setOscillatorType()"/>         <output style="background: #FFFF7F">triangle</output><br><br>
 		<b><output id="FREQUENCY_VALUE"></output></b><br><br>
 		<b><output id="FREQUENCY_MIN_VALUE"></output></b>
 		<input type="range" id="frequencyRange" name="frequency" style="width: 1400px" oninput="setFrequency()"/>
 		<b><output id="FREQUENCY_MAX_VALUE"></output></b><br><br>
 		<button id="halveMax" style="background-color:#FFBFBF;" onclick = "halveMax()">SmallerMax</button><br>
-		<input type="radio" id="50"    name="maxFrequency" value="50"    onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" disabled />50<br>
-		<input type="radio" id="100"   name="maxFrequency" value="100"   onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" disabled />100<br>
-		<input type="radio" id="200"   name="maxFrequency" value="200"   onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" disabled />200<br>
-		<input type="radio" id="500"   name="maxFrequency" value="500"   onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>500<br>
-		<input type="radio" id="1000"  name="maxFrequency" value="1000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()" checked />1000<br>
-		<input type="radio" id="2000"  name="maxFrequency" value="2000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>2000<br>
-		<input type="radio" id="4000"  name="maxFrequency" value="4000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>4000<br>
-		<input type="radio" id="8000"  name="maxFrequency" value="8000"  onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>8000<br>
-		<input type="radio" id="16000" name="maxFrequency" value="16000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>16000<br>
-		<input type="radio" id="24000" name="maxFrequency" value="24000" onclick="setMaxFrequency()" onkeypress="setMaxFrequency()"/>24000<br>
+		<input type="radio" id="50"    name="maxFrequency" value="50"    onchange="setMaxFrequency()" disabled />50<br>
+		<input type="radio" id="100"   name="maxFrequency" value="100"   onchange="setMaxFrequency()" disabled />100<br>
+		<input type="radio" id="200"   name="maxFrequency" value="200"   onchange="setMaxFrequency()" disabled />200<br>
+		<input type="radio" id="500"   name="maxFrequency" value="500"   onchange="setMaxFrequency()"/>500<br>
+		<input type="radio" id="1000"  name="maxFrequency" value="1000"  onchange="setMaxFrequency()" checked />1000<br>
+		<input type="radio" id="2000"  name="maxFrequency" value="2000"  onchange="setMaxFrequency()"/>2000<br>
+		<input type="radio" id="4000"  name="maxFrequency" value="4000"  onchange="setMaxFrequency()"/>4000<br>
+		<input type="radio" id="8000"  name="maxFrequency" value="8000"  onchange="setMaxFrequency()"/>8000<br>
+		<input type="radio" id="16000" name="maxFrequency" value="16000" onchange="setMaxFrequency()"/>16000<br>
+		<input type="radio" id="24000" name="maxFrequency" value="24000" onchange="setMaxFrequency()"/>24000<br>
 		<button id="doubleMax" style="background-color:#FFBFBF;" onclick="doubleMax()">BiggerMax</button><br><br>
 		<button id="play" style="background-color:#FFBFBF;" onclick="play()">Play</button>
 		<button id="stop" style="background-color:#FFBFBF;" onclick="stop()">Stop</button>
