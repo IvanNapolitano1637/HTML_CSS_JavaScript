@@ -272,7 +272,11 @@
 			VALUES[i].textContent = INPUTS[i].value;
 		}
 
-		VALUES[9].textContent = getColor();
+		function setOptionZoneContent(){
+			VALUES[9].textContent = getColor();
+		}
+
+		setOptionZoneContent();
 
 		function setAndPatch(component){//DA AGGIUSTARE
 			if(component == 3){
@@ -294,7 +298,7 @@
 			document.body.style.backgroundColor = getColor();
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
 			patchLightVALUES();
-			VALUES[9].textContent = getColor();
+			setOptionZoneContent();
 		}
 
 		function setGray(){
@@ -306,7 +310,7 @@
 			}
 			setColor(INPUTS[3].value, INPUTS[3].value, INPUTS[3].value);
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
-			VALUES[9].textContent = getColor();
+			setOptionZoneContent();
 			patchLightVALUES();
 		}
 
@@ -323,7 +327,7 @@
 				patchGrayVALUES();
 				document.querySelector("#optionZone").style.backgroundColor = getColor();
 				document.body.style.backgroundColor = getColor();
-				VALUES[9].textContent = getColor();
+				setOptionZoneContent();
 				patchLightVALUES();
 			}
 			INPUTS[4].value = parseInt(VALUES[4].textContent);
@@ -399,7 +403,7 @@
 			VALUES[7].textContent = INPUTS[7].value = yellow;
 			VALUES[8].textContent = INPUTS[8].value = black;
 
-			VALUES[9].textContent = getColor();
+			setOptionZoneContent();
 
 			document.body.style.backgroundColor = getColor();
 			document.querySelector("#optionZone").style.backgroundColor = getColor();
