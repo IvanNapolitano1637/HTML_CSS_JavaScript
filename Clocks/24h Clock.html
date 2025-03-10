@@ -105,7 +105,7 @@
 			let fromZero = true;
 			let done = false;
 			let color;
-			let newColor = "";
+			let settledColor = false;
  			const FLAG = true;
 			const ANALOG = true;
 
@@ -155,12 +155,9 @@
 				}else if(choice == 7){
 					document.body.style.backgroundColor = colors_3[parseInt(((currentDate.getHours()*3600) + (currentDate.getMinutes()*60) + (currentDate.getSeconds()))/8640)];
 				}else if(choice == 8){
-					if(newColor == ""){
-					newColor = "#";
-						for(let i = 0; i < 6; i++){
-							newColor += Math.floor(Math.random() * 16).toString(16);
-						}
-						document.body.style.backgroundColor = newColor;
+					if(!settledColor){
+						settledColor = true;
+						document.body.style.backgroundColor = "#" + [...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 					}
 				}
 				if(FLAG){
