@@ -44,7 +44,7 @@
 			}
 
 			function setQueensLimitButtonLabel(){
-				document.getElementById("queensNumber").textContent = (("Queen" + ((order != 1) ? "s" : "")) + ": " + maxNumberOfTheQueens);
+				document.getElementById("queensNumber").textContent = (("Queen" + ((order != 1) ? "s" : "")) + ": " + numberOfQueens + "/" + maxNumberOfTheQueens);
 			}
 
 			function drawSquare(row, column){
@@ -136,6 +136,7 @@
 							wan = true;
 							setTimeout(function(){ alert("You win! :-D"); }, 100);
 						}
+						setQueensLimitButtonLabel();
 					}
 				}
 			}
