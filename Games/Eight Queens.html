@@ -36,7 +36,8 @@
 			let grid = [];
 			let easy = false;
 			let wan = false;
-			let maxNumberOfTheQueens = order*order;
+			let limited = false;
+			let maxNumberOfTheQueens = limited ? order : order*order;
 
 			function drawSquare(row, column){
 				if(chessboard && chessboard.getContext("2d")){
@@ -235,7 +236,8 @@
 
 			function changeTheMaxNumberOfTheQueens(){
 				if(numberOfQueens <= order){
-					maxNumberOfTheQueens = (maxNumberOfTheQueens == order) ? order*order : order;
+					limited = !limited;
+					maxNumberOfTheQueens = limited ? order : order*order;
 					document.getElementById("queensNumber").textContent = ("Queens: " + maxNumberOfTheQueens);
 				}
 			}
@@ -244,6 +246,7 @@
 				side = side*order;
 				order++;
 				side = side/order;
+				maxNumberOfTheQueens = limited ? order : order*order;
 				refresh();
 			}
 
@@ -252,6 +255,7 @@
 					side = side*order;
 					order--;
 					side = side/order;
+					maxNumberOfTheQueens = limited ? order : order*order;
 				}
 				refresh();
 			}			
