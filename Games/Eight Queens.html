@@ -26,7 +26,6 @@
 			let order = 8;
 			const BUTTON_FLAG = true;
 			let semaphoreFlag = true;
-			let flag
 			const RED_SEMAPHORE_COLOR = "red";
 			const BACKGROUND_COLOR = "#ffffcc";
 			//const BACKGROUND_COLOR = "#ffcccc";
@@ -37,6 +36,7 @@
 			let grid = [];
 			let easy = false;
 			let wan = false;
+			let maxNumberOfTheQueens = order*order;
 
 			function drawSquare(row, column){
 				if(chessboard && chessboard.getContext("2d")){
@@ -109,21 +109,24 @@
 						drawSquare(row, column);
 					}
 				}
+				document.getElementById("queensNumber").textContent = ("Queens: " + maxNumberOfTheQueens);
 			}
 
 			function select(){
 				let row = (cursorX - cursorX%side)/side;
 				let column = (cursorY - cursorY%side)/side;
 				if(!wan){
-					numberOfQueens += ((grid[row][column].occupied) ? (-1) : 1);
-					grid[row][column].occupied = !grid[row][column].occupied;
-					setUnderAttackValues();
-					drawAllCells();
-					document.body.style.background = ((!checkQueensPositions() && semaphoreFlag) ? RED_SEMAPHORE_COLOR : BACKGROUND_COLOR);
-					if((numberOfQueens == order)&&checkQueensPositions()){
-						document.body.style.background = BACKGROUND_WIN_COLOR;
-						wan = true;
-						setTimeout(function(){ alert("You win! :-D"); }, 100);
+					if((numberOfQueens < maxNumberOfTheQueens) || ((numberOfQueens == maxNumberOfTheQueens)&&(grid[row][column].occupied))){
+						numberOfQueens += ((grid[row][column].occupied) ? (-1) : 1);
+						grid[row][column].occupied = !grid[row][column].occupied;
+						setUnderAttackValues();
+						drawAllCells();
+						document.body.style.background = ((!checkQueensPositions() && semaphoreFlag) ? RED_SEMAPHORE_COLOR : BACKGROUND_COLOR);
+						if((numberOfQueens == order)&&checkQueensPositions()){
+							document.body.style.background = BACKGROUND_WIN_COLOR;
+							wan = true;
+							setTimeout(function(){ alert("You win! :-D"); }, 100);
+						}
 					}
 				}
 			}
@@ -228,7 +231,14 @@
 				}
 				drawAllCells();
 				semaphoreFlag = !semaphoreFlag;
-			}			
+			}
+
+			function changeTheMaxNumberOfTheQueens(){
+				if(numberOfQueens <= order){
+					maxNumberOfTheQueens = (maxNumberOfTheQueens == order) ? order*order : order;
+					document.getElementById("queensNumber").textContent = ("Queens: " + maxNumberOfTheQueens);
+				}
+			}
 
 			function bigger(){
 				side = side*order;
@@ -250,12 +260,13 @@
 		<form action="#">
 
 			<br>
-			<button type="button" onclick="refresh()">Start again!</button>
-			<button type="button" id = "semaphore" onclick="changeFlagValue()">Semaphore: On</button>
-			<button type="button" id="btnDifficulty" onclick="changeDifficulty()">Difficulty: Hard</button>
-			<button type="button" id = "showButton" onclick="check(checkQueensPositions())">Check status</button><br><br>
-			<button type="button" onclick="bigger()">Bigger</button>
-			<button type="button" onclick="smaller()">Smaller</button>
+			<button type="button" onclick = "refresh()">Start again!</button>
+			<button type="button" id = "semaphore" onclick = "changeFlagValue()">Semaphore: On</button>
+			<button type="button" id = "btnDifficulty" onclick = "changeDifficulty()">Difficulty: Hard</button>
+			<button type="button" id = "queensNumber" onclick = "changeTheMaxNumberOfTheQueens()">You shoud never read this label</button>
+			<button type="button" id = "showButton" onclick = "check(checkQueensPositions())">Check status</button><br><br>
+			<button type="button" onclick = "bigger()">Bigger</button>
+			<button type="button" onclick = "smaller()">Smaller</button>
 			
 		</form>
 		
