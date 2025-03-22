@@ -114,29 +114,16 @@
 			function select(){
 				let row = (cursorX - cursorX%side)/side;
 				let column = (cursorY - cursorY%side)/side;
-				let flag = !grid[row][column].underAttack;
 				if(!wan){
-					if(grid[row][column].occupied){
-						numberOfQueens--;
-					}else{
-						numberOfQueens++;
-						grid[row][column].underAttack = false;
-					}
+					numberOfQueens += ((grid[row][column].occupied) ? (-1) : 1);
 					grid[row][column].occupied = !grid[row][column].occupied;
 					setUnderAttackValues();
 					drawAllCells();
-					if(numberOfQueens == order && flag){
-						if(checkQueensPositions()){
-							document.body.style.background = BACKGROUND_WIN_COLOR;
-							wan = true;
-							setTimeout(function(){ alert("You win! :-D"); }, 100);
-						}
-					}else{
-						if(!checkQueensPositions() && semaphoreFlag){
-							document.body.style.background = RED_SEMAPHORE_COLOR;
-						}else{
-							document.body.style.background = BACKGROUND_COLOR;
-						}
+					document.body.style.background = ((!checkQueensPositions() && semaphoreFlag) ? RED_SEMAPHORE_COLOR : BACKGROUND_COLOR);
+					if((numberOfQueens == order)&&checkQueensPositions()){
+						document.body.style.background = BACKGROUND_WIN_COLOR;
+						wan = true;
+						setTimeout(function(){ alert("You win! :-D"); }, 100);
 					}
 				}
 			}
