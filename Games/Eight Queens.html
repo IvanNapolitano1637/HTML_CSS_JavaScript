@@ -39,6 +39,14 @@
 			let limited = false;
 			let maxNumberOfTheQueens = limited ? order : order*order;
 
+			function setMaxNumberOfTheQueens(){
+				maxNumberOfTheQueens = limited ? order : order*order;
+			}
+
+			function setQueensLimitButtonLabel(){
+				document.getElementById("queensNumber").textContent = (("Queen" + ((order != 1) ? "s" : "")) + ": " + maxNumberOfTheQueens);
+			}
+
 			function drawSquare(row, column){
 				if(chessboard && chessboard.getContext("2d")){
 					let context = chessboard.getContext("2d");
@@ -110,7 +118,7 @@
 						drawSquare(row, column);
 					}
 				}
-				document.getElementById("queensNumber").textContent = ("Queens: " + maxNumberOfTheQueens);
+				setQueensLimitButtonLabel();
 			}
 
 			function select(){
@@ -237,8 +245,8 @@
 			function changeTheMaxNumberOfTheQueens(){
 				if(numberOfQueens <= order){
 					limited = !limited;
-					maxNumberOfTheQueens = limited ? order : order*order;
-					document.getElementById("queensNumber").textContent = ("Queens: " + maxNumberOfTheQueens);
+					setMaxNumberOfTheQueens();
+					setQueensLimitButtonLabel();
 				}
 			}
 
@@ -246,7 +254,7 @@
 				side = side*order;
 				order++;
 				side = side/order;
-				maxNumberOfTheQueens = limited ? order : order*order;
+				setMaxNumberOfTheQueens();
 				refresh();
 			}
 
@@ -255,7 +263,7 @@
 					side = side*order;
 					order--;
 					side = side/order;
-					maxNumberOfTheQueens = limited ? order : order*order;
+					setMaxNumberOfTheQueens();
 				}
 				refresh();
 			}			
