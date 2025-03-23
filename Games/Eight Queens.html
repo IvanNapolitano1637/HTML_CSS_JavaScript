@@ -216,25 +216,14 @@
 			}
 
 			function changeDifficulty(){
-				if(easy){
-					document.getElementById("btnDifficulty").textContent = "Difficulty: Hard";
-				}else{
-					document.getElementById("btnDifficulty").textContent = "Difficulty: Easy";
-				}
+				document.getElementById("btnDifficulty").textContent = "Difficulty: " + (easy ? "Hard" : "Easy");
 				easy = !easy;
 				drawAllCells();
 			}
 
 			function changeFlagValue(){
-				if(semaphoreFlag){
-					document.getElementById("semaphore").textContent = "Semaphore: Off";
-					document.body.style.background = BACKGROUND_COLOR;
-				}else{
-					document.getElementById("semaphore").textContent = "Semaphore: On";
-					if(!checkQueensPositions()){
-						document.body.style.background = RED_SEMAPHORE_COLOR;
-					}
-				}
+				document.getElementById("semaphore").textContent = "Semaphore: " + (semaphoreFlag ? "Off" : "On");
+				document.body.style.background = semaphoreFlag ? BACKGROUND_COLOR : (checkQueensPositions() ? document.body.style.background : RED_SEMAPHORE_COLOR);
 				drawAllCells();
 				semaphoreFlag = !semaphoreFlag;
 			}
