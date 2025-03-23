@@ -24,7 +24,6 @@
 			let side = (/Mobi|Android|webOS|iPhone|iPad|iPod|BLACKBerry|IEMobile|Opera Mini/i).test(navigator.userAgent) ? 40 : 80;
 			const BLACK = "BLACK";
 			let order = 8;
-			const BUTTON_FLAG = true;
 			let semaphoreFlag = true;
 			const RED_SEMAPHORE_COLOR = "red";
 			const BACKGROUND_COLOR = "#ffffcc";
@@ -52,9 +51,6 @@
 					let context = chessboard.getContext("2d");
 					context.fillStyle = ((row + column)%2 == 0 ? COLOR_1 : COLOR_2);
 					context.fillRect(side*row, side*column, side, side);
-				}
-				if(BUTTON_FLAG){
-					document.getElementById('showButton').style.visibility = "hidden";
 				}
 			}
 
@@ -275,8 +271,7 @@
 			<br>
 			<button type="button" id = "semaphore" onclick = "changeFlagValue()">Semaphore: On</button>
 			<button type="button" id = "btnDifficulty" onclick = "changeDifficulty()">Difficulty: Hard</button>
-			<button type="button" id = "queensNumber" onclick = "changeTheMaxNumberOfTheQueens()">You shoud never read this label</button>
-			<button type="button" id = "showButton" onclick = "check(checkQueensPositions())">Check status</button><br><br>
+			<button type="button" id = "queensNumber" onclick = "changeTheMaxNumberOfTheQueens()">You shoud never read this label</button><br><br>
 			<button type="button" onclick = "bigger()">Bigger</button>
 			<button type="button" onclick = "smaller()">Smaller</button><br><br>
 			<button type="button" onclick = "refresh()">Start again!</button>
